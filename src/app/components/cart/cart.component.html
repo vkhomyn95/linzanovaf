@@ -1,0 +1,249 @@
+<section class="text-gray-700 body-font">
+  <div class="container px-5 py-20 mx-auto flex flex-wrap flex-col">
+    <div class="flex mx-auto flex-wrap mb-20">
+      <a
+        class="sm:px-6 py-3 w-1/2 sm:w-auto justify-center sm:justify-start border-b-2 title-font font-medium inline-flex items-center leading-none border-gray-200 tracking-wider rounded-t"
+        [ngClass]="{'bg-gray-100 border-indigo-500 text-indigo-500': orderStep === 0}">
+        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+             class="w-5 h-5 mr-3" viewBox="0 0 24 24">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        </svg>
+        КОШИК
+      </a>
+      <a
+        class="sm:px-6 py-3 w-1/2 sm:w-auto justify-center sm:justify-start border-b-2 title-font font-medium inline-flex items-center leading-none border-gray-200 hover:text-gray-900 tracking-wider"
+        [ngClass]="{'bg-gray-100 border-indigo-500 text-indigo-500': orderStep === 1}">
+        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+             class="w-5 h-5 mr-3" viewBox="0 0 24 24">
+          <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+        </svg>
+        ДОСТАВКА / ОПЛАТА
+      </a>
+      <a
+        class="sm:px-6 py-3 w-1/2 sm:w-auto justify-center sm:justify-start border-b-2 title-font font-medium inline-flex items-center leading-none border-gray-200 hover:text-gray-900 tracking-wider">
+        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+             class="w-5 h-5 mr-3" viewBox="0 0 24 24">
+          <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+        ІНФОРМАЦІЯ ПРО ДОСТАВКУ
+      </a>
+    </div>
+    <div *ngIf="orderStep === 0" class="flex flex-row">
+      <img class="xl:w-32 lg:w-1/5 md:w-1/2 w-2/3 block mx-auto mb-10 object-cover object-center rounded" alt="hero"
+           src="https://dummyimage.com/720x600">
+      <div class="flex flex-col text-left w-full ml-8">
+        <h1 class="text-xl font-medium title-font mb-4 text-gray-900">Biofinity toric (6 лінз)</h1>
+        <div class="flex flex-row">
+          <div class="flex flex-col">
+            <label>Кількість:</label>
+            <select name="" id="">
+              <option value="">1</option>
+            </select>
+          </div>
+          <div class="flex flex-col">
+            <label>Діоптрії:</label>
+            <select name="" id="">
+              <option value="">1</option>
+            </select>
+          </div>
+          <div class="flex flex-col">
+            <label>Кривизна:</label>
+            <select name="" id="">
+              <option value="">1</option>
+            </select>
+          </div>
+          <div class="flex flex-col">
+            <label>Діаметр:</label>
+            <select name="" id="">
+              <option value="">1</option>
+            </select>
+          </div>
+          <div class="flex flex-col">
+            <label>Приблизна дата доставки:</label>
+            <select name="" id="">
+              <option value="">1</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div>
+        <span>455 грн.</span>
+      </div>
+    </div>
+    <div *ngIf="orderStep === 1" >
+      <div class="deliveries-payments-recapitulation-wrapper flex flex-row">
+        <div class="deliveries-payments-surcharges">
+          <span class="deliveries-header">Оберіть спосіб доставки замовлення</span>
+          <div class="deliveries-wrapper ">
+            <div id="snippet--normalDeliveriesFormSnippet">
+              <form action="/pokupka/vashe-zamovlennya/?do=normalDeliveriesForm-submit" method="post"
+                    id="frm-normalDeliveriesForm" class="ajax_attributes normal_deliveries_form">
+
+
+                <div class="delivery " data-delivery-id="9262">
+                  <input type="radio" id="delivery-input-9262" class="delivery-input hidden" value="9262"
+                         name="delivery">
+                  <label class="delivery-label" for="delivery-input-9262">
+                    <span class="delivery-checkbox checkbox"></span>
+                    <span class="delivery-icon icon deliveryType259"></span>
+                    <span class="delivery-name name">
+											<span class="delivery-name-value">
+													Meest Express
+											</span>
+												<span class="delivery-info info">
+													(5-10 робочих днів)
+												</span>
+										</span>
+                    <span class="delivery-price price">
+												Безкоштовно
+										</span>
+                  </label>
+                </div>
+                <input type="submit" class="submitAttrs button hidden" name="send"
+                       id="frm-950550586-normalDeliveriesForm-send" value="Send"></form>
+            </div>
+            <div id="snippet--personalDeliveriesFormSnippet">
+              <div class="delivery personal-delivery-new ">
+                <input type="radio" class="delivery-input hidden" name="delivery" id="delivery-input-personal">
+                <label class="delivery-label" for="delivery-input-personal">
+                  <span class="delivery-checkbox checkbox"></span>
+                  <span class="delivery-icon icon deliveryTypePD"></span>
+                  <span class="delivery-name name">
+										<span class="delivery-name-value">
+											НоваПошта - (доставка до відділення)
+										</span>
+
+											<span class="delivery-info info">
+												(5-10 робочих днів)
+											</span>
+
+										<span class="delivery-pickup-point-wrapper">
+											<span class="delivery-pickup-point">
+												<span class="delivery-pickup-point-text">
+														Введіть назву міста або місця видачі
+												</span>
+											</span>
+										</span>
+									</span>
+                  <span class="delivery-price price">
+										Безкоштовно
+									</span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div id="snippet--currentOrderDeliveryTime">
+            <div class="orderDeliveryTime">
+
+              Передбачувана дата відправки п'ятниця 16. жовтня
+            </div>
+          </div>
+          <div class="payments-wrapper">
+            <span class="payments-header">Оберіть спосіб оплати замовлення</span>
+            <div id="snippet--paymentsFormSnippet">
+              <form action="/pokupka/vashe-zamovlennya/?do=dependentPaymentsForm-submit" method="post"
+                    id="frm-dependentPaymentsForm" class="ajax_attributes payments_form">
+                <div class="payment " data-payment-id="3">
+                  <input type="radio" id="payment-input-3" class="payment-input hidden" value="3" name="payment">
+                  <label class="payment-label" for="payment-input-3">
+                    <span class="payment-checkbox checkbox"></span>
+                    <span class="payment-icon icon paymentType1"></span>
+                    <span class="payment-name name">
+												Післяплата
+												<span class="payment-tooltip tooltip tipso_style" data-title=""></span>
+											</span>
+                    <span class="payment-price price free">
+														Безкоштовно
+												</span>
+                  </label>
+                </div>
+                <input type="submit" class="submitAttrs button hidden" name="send"
+                       id="frm-950550586-dependentPaymentsForm-send" value="Send"></form>
+            </div>
+          </div>
+        </div>
+        <div class="checkout-basket-wrapper deliveries-checkout-basket-wrapper">
+          <div id="snippet-basket-">
+            <div class="checkout-basket">
+              <h2 class="checkout-basket-title">Кошик містить</h2>
+              <table>
+                <thead>
+                <tr>
+                  <th>Товарна позиція</th>
+                  <th>Кількість</th>
+                  <th>Ціна</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="checkout-basket-product-info">
+                  <td>
+                    TopVue Premium (6&nbsp;лінз)
+                    <br>
+                    <div class="checkout-basket-product-info-params first">Діоптрії:: <b>-12.00</b></div>
+                    <div class="checkout-basket-product-info-params ">Кривизна:: <b>8.60</b></div>
+                    <div class="checkout-basket-product-info-params ">Діаметр:: <b>14.20</b></div>
+                  </td>
+                  <td>1</td>
+                  <td class="checkout-basket-price">
+                    455
+                    грн.
+                  </td>
+                </tr>
+                </tbody>
+                <tbody class="checkout-basket-separator">
+                <tr>
+                  <th colspan="3"></th>
+                </tr>
+                </tbody>
+                <tbody class="checkout-basket-prices">
+                <tr>
+                  <th colspan="2">Ціна товару</th>
+                  <th class="checkout-basket-price">
+                    455
+                    грн.
+                  </th>
+                </tr>
+                <tr>
+                  <th colspan="2">Ціна доставки</th>
+                  <th class="checkout-basket-price">
+                    0 грн.
+                  </th>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                  <th colspan="3">
+                    Загальна ціна
+                <span>
+								455 грн.
+							</span>
+                  </th>
+                </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-end my-4">
+      <span class="md:text-xl">Загальна вартість: <span class="text-red-500 font-bold">455 грн</span></span>
+    </div>
+    <div class="flex justify-between">
+      <div>
+        <button
+          class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+          (click)="prevStep()">
+          Продовжити покупки
+        </button>
+      </div>
+      <div>
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="nextStep()">
+          Перейти до замовлення
+        </button>
+      </div>
+    </div>
+
+  </div>
+</section>

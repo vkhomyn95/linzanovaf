@@ -1,0 +1,47 @@
+.deliveries-payments-recapitulation-wrapper {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  flex-direction: row;
+  border: 1px solid #d9e5e8;
+}
+.deliveries-payments-surcharges {
+  border: none;
+  border-right: 1px solid #d9e5e8;
+  padding: 20px 30px;
+}
+.checkout-basket-wrapper {
+  padding: 20px 30px;
+}
+.deliveries-header {
+  display: block;
+  margin-bottom: 20px;
+  font-family: 'Roboto Medium';
+  font-size: 14px;
+  line-height: 20px;
+}
+.deliveries-wrapper {
+  display: flex;;
+  flex-direction: column;
+  padding-bottom: 15px;
+}
+.payments-wrapper {
+  padding-top: 15px;
+  border-top: 1px solid #d9e5e8;
+}
+.checkout-basket-title {
+  display: block;
+  margin-bottom: 30px;
+  font-family: 'Roboto Medium';
+  font-size: 13px;
+  color: #253746;
+  text-align: center;
+  text-transform: uppercase;
+}
+.checkout-basket-separator {
+  display: block;
+  height: 150px;
+}
+.checkout-basket-prices {
+  border-top: 1px solid #d9e5e8;
+  border-bottom: 1px solid #d9e5e8;
+}

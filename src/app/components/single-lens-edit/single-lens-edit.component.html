@@ -1,0 +1,167 @@
+<form class="w-full max-w-lg m-auto md:py-24 xs:py-12" [formGroup]="updateForm">
+  <div class="flex flex-wrap -mx-3 mb-6">
+    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+        Name
+      </label>
+      <input formControlName="name" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Jane">
+    </div>
+    <div class="w-full md:w-1/2 px-3">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+        Price
+      </label>
+      <input formControlName="price" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe">
+    </div>
+  </div>
+  <div class="flex flex-wrap -mx-3 mb-6">
+    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-ltype">
+        Тип контактних лінз
+      </label>
+      <div class="relative">
+        <select formControlName="lenseType" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-ltype">
+          <option *ngFor="let lType of lTypeList" [ngValue]="lType.name" [selected]="updateForm.controls.lenseType.value === lType.name">{{ lType.name }}</option>
+        </select>
+        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+          <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+        </div>
+      </div>
+    </div>
+    <div class="w-full md:w-1/2 px-3">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-lfactored">
+        Виробник
+      </label>
+      <div class="relative">
+        <select formControlName="lenseProducer" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-lfactored">
+          <option *ngFor="let lProducer of lProducerList" [ngValue]="lProducer.name" [selected]="updateForm.controls.lenseProducer.value === lProducer.name">{{ lProducer.name }}</option>
+        </select>
+        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+          <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-wrap -mx-3 mb-6">
+    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-lbrand">
+        Бренд
+      </label>
+      <div class="relative">
+        <select formControlName="lenseBrand" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-lbrand">
+          <option *ngFor="let lBrand of lBrandList" [ngValue]="lBrand.name" [selected]="updateForm.controls.lenseBrand.value === lBrand.name">{{ lBrand.name }}</option>
+        </select>
+        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+          <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+        </div>
+      </div>
+    </div>
+    <div class="w-full md:w-1/2 px-3">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-quantity">
+        Кількість лінз
+      </label>
+      <div class="relative">
+        <select formControlName="quantity" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-quantity">
+          <option *ngFor="let lQuantity of lQuantityList" [ngValue]="lQuantity.value" [selected]="updateForm.controls.quantity.value === lQuantity.value">{{ lQuantity.value }}</option>
+        </select>
+        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+          <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-wrap -mx-3 mb-6">
+    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-correction">
+        Тип корекції
+      </label>
+      <div class="relative">
+        <select formControlName="lenseCorrection" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-correction">
+          <option *ngFor="let lCorrection of lCorrectionList" [ngValue]="lCorrection.name" [selected]="updateForm.controls.lenseCorrection.value === lCorrection.name">{{ lCorrection.name }}</option>
+        </select>
+        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+          <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+        </div>
+      </div>
+    </div>
+    <div class="w-full md:w-1/2 px-3">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-material">
+        Матеріал лінзи
+      </label>
+      <div class="relative">
+        <select formControlName="lenseMaterial" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-material">
+          <option *ngFor="let lMaterial of lMaterialList" [ngValue]="lMaterial.name" [selected]="updateForm.controls.lenseMaterial.value === lMaterial.name">{{ lMaterial.name }}</option>
+        </select>
+        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+          <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-wrap -mx-3 mb-6">
+    <div class="w-full px-3">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-file">
+        Фото
+      </label>
+      <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-file" type="file" placeholder="Обрати фото">
+    </div>
+  </div>
+  <div class="flex flex-wrap -mx-3 mb-6">
+    <div class="w-full px-3">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-desc">
+        Опис
+      </label>
+      <textarea formControlName="description" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-desc" type="text" placeholder="Опишіть товар"></textarea>
+    </div>
+  </div>
+  <div class="flex flex-wrap -mx-3 mb-2">
+    <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+      <label class="xxs-text block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-water">
+        Вміст води
+      </label>
+      <div class="relative">
+        <input formControlName="lenseWater" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-water" type="number" placeholder="45%">
+      </div>
+    </div>
+    <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+      <label class="xxs-text block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-date">
+        Термін придатності
+      </label>
+      <input formControlName="sdate" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-date" type="number" placeholder="24 міс">
+    </div>
+    <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+      <label class="xxs-text block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-tdt">
+        Термін носіння
+      </label>
+      <div class="relative">
+        <input formControlName="stdt" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-tdt" type="number" placeholder="3 міс">
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-wrap -mx-3 mb-2">
+    <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+      <label class="xxs-text block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-sleep">
+        Чи можна спати
+      </label>
+      <input formControlName="lenseSleep"  id="grid-sleep" type="checkbox">
+    </div>
+    <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+      <label class="xxs-text block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-tdt">
+        Термін носіння
+      </label>
+      <div class="relative">
+        <input formControlName="lenseShelfLife" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-shelf" type="number" placeholder="3 міс">
+      </div>
+    </div>
+    <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+      <label class="xxs-text block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-tdt">
+        User id
+      </label>
+      <div class="relative">
+<!--        <input formControlName="userId" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-user" type="number" placeholder="3">-->
+      </div>
+    </div>
+  </div>
+  <button (click)="updateLens()" class="my-2 bg-yellow-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+    Оновити
+  </button>
+</form>
