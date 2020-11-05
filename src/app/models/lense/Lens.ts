@@ -1,6 +1,7 @@
 export interface Lens {
   name: string;
   price: number;
+  category?: number;
   lenseType: string;
   lenseProducer: string;
   lenseBrand: string;

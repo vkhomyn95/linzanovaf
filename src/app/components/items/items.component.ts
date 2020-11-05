@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Router} from '@angular/router';
 import {CabinetService} from '../../services/cabinet.service';
+import {CartObjectService} from '../../services/components-data/cart-object.service';
 
 @Component({
   selector: 'app-items',
@@ -10,12 +11,15 @@ import {CabinetService} from '../../services/cabinet.service';
 export class ItemsComponent implements OnInit {
   drops = [];
   items = [{
-    drops: []
+    drops: [],
+    lenses: [],
+    solutions: []
   }];
-  @Output() sendObject: EventEmitter <any> = new EventEmitter<any>();
+
 
   constructor(private router: Router,
-              private cabinetService: CabinetService) { }
+              private cabinetService: CabinetService,
+              private cartObjectService: CartObjectService) { }
 
   ngOnInit(): void {
     this.cabinetService.getAllCares(0, 10).subscribe(value => this.drops = value.drops);
@@ -26,11 +30,24 @@ export class ItemsComponent implements OnInit {
     this.router.navigate(['single']);
   }
 
-  addToCartItem(drop): void {
-    this.items.map(value => {
-      value.drops.push(drop);
-    });
-    this.sendObject.emit(drop);
-    console.log(this.items);
+  addToCartItem(item): void {
+    console.log(item);
+    item.quantity = 1;
+    if (item.category === 0) {
+      this.items.map(value => {
+        value.drops.push(item);
+      });
+      this.cartObjectService.sendObject(this.items);
+    }else if (item.category === 1) {
+      this.items.map(value => {
+        value.lenses.push(item);
+      });
+      this.cartObjectService.sendObject(this.items);
+    }else if (item.category === 2) {
+      this.items.map(value => {
+        value.solutions.push(item);
+      });
+      this.cartObjectService.sendObject(this.items);
+    }
   }
 }

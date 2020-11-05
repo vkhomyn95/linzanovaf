@@ -20,6 +20,14 @@
   }
   &-main {
     padding: 10px;
+    &-title {
+      display: flex;
+      justify-content: center;
+      margin: 0 auto;
+      width: 16%;
+      white-space: nowrap;
+      border-bottom: 1px solid #e1e1e1;
+    }
     &-item {
       padding: 15px;
     }
@@ -54,4 +62,19 @@
 .btn-trans {
   transition: all .3s ease-in-out;
   outline: none;
+}
+.flex {
+  &-right {
+    &-row {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}
+.delete {
+  color: #d63511;
+  margin-left: 110px;
+  &:hover {
+    cursor: pointer;
+  }
 }

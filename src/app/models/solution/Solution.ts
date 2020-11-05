@@ -1,6 +1,7 @@
 export interface Solution {
   name: string;
   price: number;
+  category?: number;
   solutionType: string;
   solutionProducer: string;
   solutionBrand: string;

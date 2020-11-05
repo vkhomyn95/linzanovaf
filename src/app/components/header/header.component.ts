@@ -1,7 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {TokenStorageService} from '../../services/token-storage.service';
-import {UserService} from '../../services/user.service';
+
 
 @Component({
   selector: 'app-header',
@@ -10,12 +10,12 @@ import {UserService} from '../../services/user.service';
 })
 export class HeaderComponent implements OnInit {
   isLoggedIn = false;
-  roles: string[] = [];
   changeView: boolean;
 
   constructor(private router: Router,
-              private token: TokenStorageService,
-              private userService: UserService) {
+              private token: TokenStorageService) {
+
+
     this.changeView = false;
     if (this.token.getToken()) {
       this.isLoggedIn = true;
