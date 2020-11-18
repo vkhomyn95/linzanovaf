@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {TokenStorageService} from './token-storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CabinetService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private token: TokenStorageService) { }
 
   getUsersCount(): Observable<any> {
     return this.httpClient.get<any>('/api/users/count');
@@ -17,6 +18,13 @@ export class CabinetService {
   }
   getUser(userId): Observable<any> {
     return this.httpClient.get<any>(`/api/users/${userId}`);
+  }
+  getUserByUsername(): Observable<any> {
+    if (this.token.getToken()) {
+      return this.httpClient.get<any>(`/api/users/auth`);
+    }else {
+      return this.httpClient.get<any>(`/api/users/auth`, {headers: {skip: 'true'}});
+    }
   }
   searchUserByName(username, page, size): Observable<any> {
     return this.httpClient.get<any>(`/api/users/name?name=${username}&page=${page}&size=${size}`);
@@ -74,6 +82,9 @@ export class CabinetService {
   }
   getOrder(orderId): Observable<any> {
     return this.httpClient.get<any>(`/api/order/${orderId}`);
+  }
+  getAllOrdersByUsername(page, size): Observable<any>{
+    return this.httpClient.get<any>(`/api/order/user?page=${page}&size=${size}`);
   }
   updateOrder(orderId, userId, order): Observable<any> {
     return this.httpClient.post<any>(`/api/order/${orderId}`, order);

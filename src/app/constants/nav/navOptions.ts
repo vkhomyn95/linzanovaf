@@ -13,5 +13,10 @@ export const navOption = [
     id: 2,
     name: 'Догляд за очима',
     default: false
+  },
+  {
+    id: 3,
+    name: 'Гарячі пропозиції',
+    default: false
   }
 ];

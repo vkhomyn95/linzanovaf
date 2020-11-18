@@ -1,83 +1,91 @@
-<svg class="relative w-10 h-10 mr-8 cursor-pointer" (click)="showCart()" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-<div *ngIf="cartVisisbility" class="cart-modal-box" >
-  <div class="cart-modal-box-header">
-    <div class="cart-modal-box-title">
-      В корзині: <span>{{cartItemsQuantity}}</span> прод.
+<div class="relative">
+  <svg class="w-10 h-10 mr-8 cursor-pointer" (click)="showCart()" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+  <div *ngIf="cartVisisbility" class="cart-modal-box" >
+    <div class="cart-modal-box-header">
+      <div class="cart-modal-box-title">
+        В корзині: <span>{{cartItemsQuantity}}</span> прод.
+      </div>
+      <div class="cart-modal-box-title">
+        Загальна вартість: <span>{{cartItemsPrice}}</span> &#8372;
+      </div>
     </div>
-    <div class="cart-modal-box-title">
-      Загальна вартість: <span>2</span> &#8372;
-    </div>
-  </div>
-  <div class="cart-modal-box-main" *ngFor="let item of cartItems">
-    <span *ngIf="item.drops.length !== 0" class="cart-modal-box-main-title">Догляд за очима</span>
-    <div class="solution-cart-wrapper" *ngFor="let care of item.drops">
-      <div class="cart-modal-box-main-item flex">
-        <div class="flex-left">
-          <a href="https://www.alensa.pl/biofinity-toric-6-soczewek-plyn-gelone-360-ml">
-            <img src="https://www.alensa.pl/imagesCdn/1480/1644-800x600.jpg" alt="product" class="w-18 h-16">
-          </a>
-        </div>
-        <div class="flex-right ml-3">
-          <div class="flex-right-row">
-            <span class="text-base font-medium font-mono">{{care.name}}</span>
-            <svg (click)="deleteCareItemFromCart(care)" class="w-6 h-6 delete" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+    <h2 *ngIf="!cartItems || cartItems[0].drops.length === 0 && cartItems[0].lenses.length === 0 && cartItems[0].solutions.length === 0" class="flex justify-center py-8 tracking-widest font-medium title-font text-sm">
+      КОШИК ПОРОЖНІЙ!
+    </h2>
+
+    <div class="cart-modal-box-main" *ngFor="let item of cartItems">
+      <span *ngIf="item.drops.length !== 0" class="cart-modal-box-main-title">Догляд за очима</span>
+      <div class="solution-cart-wrapper" *ngFor="let care of item.drops">
+        <div class="cart-modal-box-main-item flex">
+          <div class="flex-left">
+            <a href="https://www.alensa.pl/biofinity-toric-6-soczewek-plyn-gelone-360-ml">
+              <img src="https://www.alensa.pl/imagesCdn/1480/1644-800x600.jpg" alt="product" class="w-18 h-16">
+            </a>
           </div>
-          <div class="flex flex-row pt-2">
-            <div class="flex flex-row">
-              <span class="cart-modal-box-buttons mr-3 cursor-pointer"><svg class="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path></svg></span>
-              <span class="text-lg font-medium">{{care.quantity}}</span>
-              <span class="cart-modal-box-buttons ml-3 mr-4 cursor-pointer"><svg class="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg></span>
+          <div class="flex-right ml-3">
+            <div class="flex-right-row">
+              <span class="text-base font-medium font-mono">{{care.name}}</span>
+              <svg (click)="deleteCareItemFromCart(care)" class="w-6 h-6 delete" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
             </div>
-            <div class="font-bold ">{{care.price}} &#8372;</div>
+            <div class="flex flex-row pt-2">
+              <div class="flex flex-row">
+                <span class="cart-modal-box-buttons mr-3 cursor-pointer"><svg class="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path></svg></span>
+                <span class="text-lg font-medium">{{care.quantity}}</span>
+                <span class="cart-modal-box-buttons ml-3 mr-4 cursor-pointer"><svg class="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg></span>
+              </div>
+              <div class="font-bold ">{{care.price}} &#8372;</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span *ngIf="item.lenses.length !== 0" class="cart-modal-box-main-title">Контактні лінзи</span>
+      <div class="solution-cart-wrapper" *ngFor="let lense of item.lenses">
+        <div class="cart-modal-box-main-item flex">
+          <div class="flex-left">
+            <a href="https://www.alensa.pl/biofinity-toric-6-soczewek-plyn-gelone-360-ml">
+              <img src="https://www.alensa.pl/imagesCdn/1480/1644-800x600.jpg" alt="product" class="w-18 h-16">
+            </a>
+          </div>
+          <div class="flex-right ml-3">
+            <span class="text-base font-medium font-mono">{{lense.name}}</span>
+            <div class="flex flex-row pt-2">
+              <div class="flex flex-row">
+                <span class="cart-modal-box-buttons mr-3 cursor-pointer"><svg class="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path></svg></span>
+                <span class="text-lg font-medium">1</span>
+                <span class="cart-modal-box-buttons ml-3 mr-4 cursor-pointer"><svg class="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg></span>
+              </div>
+              <div class="font-bold ">{{lense.price}} &#8372;</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span *ngIf="item.solutions.length !== 0" class="cart-modal-box-main-title">Розчини</span>
+      <div class="solution-cart-wrapper" *ngFor="let solution of item.solutions">
+        <div class="cart-modal-box-main-item flex">
+          <div class="flex-left">
+            <a href="https://www.alensa.pl/biofinity-toric-6-soczewek-plyn-gelone-360-ml">
+              <img src="https://www.alensa.pl/imagesCdn/1480/1644-800x600.jpg" alt="product" class="w-18 h-16">
+            </a>
+          </div>
+          <div class="flex-right ml-3">
+            <span class="text-base font-medium font-mono">{{solution.name}}</span>
+            <div class="flex flex-row pt-2">
+              <div class="flex flex-row">
+                <span class="cart-modal-box-buttons mr-3 cursor-pointer"><svg class="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path></svg></span>
+                <span class="text-lg font-medium">1</span>
+                <span class="cart-modal-box-buttons ml-3 mr-4 cursor-pointer"><svg class="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg></span>
+              </div>
+              <div class="font-bold ">{{solution.price}} &#8372;</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <span *ngIf="item.lenses.length !== 0" class="cart-modal-box-main-title">Контактні лінзи</span>
-    <div class="solution-cart-wrapper" *ngFor="let lense of item.lenses">
-      <div class="cart-modal-box-main-item flex">
-        <div class="flex-left">
-          <a href="https://www.alensa.pl/biofinity-toric-6-soczewek-plyn-gelone-360-ml">
-            <img src="https://www.alensa.pl/imagesCdn/1480/1644-800x600.jpg" alt="product" class="w-18 h-16">
-          </a>
-        </div>
-        <div class="flex-right ml-3">
-          <span class="text-base font-medium font-mono">{{lense.name}}</span>
-          <div class="flex flex-row pt-2">
-            <div class="flex flex-row">
-              <span class="cart-modal-box-buttons mr-3 cursor-pointer"><svg class="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path></svg></span>
-              <span class="text-lg font-medium">1</span>
-              <span class="cart-modal-box-buttons ml-3 mr-4 cursor-pointer"><svg class="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg></span>
-            </div>
-            <div class="font-bold ">{{lense.price}} &#8372;</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <span *ngIf="item.solutions.length !== 0" class="cart-modal-box-main-title">Розчини</span>
-    <div class="solution-cart-wrapper" *ngFor="let solution of item.solutions">
-      <div class="cart-modal-box-main-item flex">
-        <div class="flex-left">
-          <a href="https://www.alensa.pl/biofinity-toric-6-soczewek-plyn-gelone-360-ml">
-            <img src="https://www.alensa.pl/imagesCdn/1480/1644-800x600.jpg" alt="product" class="w-18 h-16">
-          </a>
-        </div>
-        <div class="flex-right ml-3">
-          <span class="text-base font-medium font-mono">{{solution.name}}</span>
-          <div class="flex flex-row pt-2">
-            <div class="flex flex-row">
-              <span class="cart-modal-box-buttons mr-3 cursor-pointer"><svg class="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path></svg></span>
-              <span class="text-lg font-medium">1</span>
-              <span class="cart-modal-box-buttons ml-3 mr-4 cursor-pointer"><svg class="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg></span>
-            </div>
-            <div class="font-bold ">{{solution.price}} &#8372;</div>
-          </div>
-        </div>
-      </div>
+
+    <div class="cart-modal-box-footer flex flex-row justify-center py-5">
+      <button class="mr-2 btn-trans bg-transparent hover:bg-yellow-400 text-black-700 font-semibold hover:text-black py-2 px-4 border border-black hover:border-transparent rounded" (click)="goToCart()">Перейти до корзини</button>
+      <button class="ml-2 btn-trans bg-teal-400 hover:bg-yellow-400 text-white font-semibold hover:text-black py-2 px-4 border border-transparent hover:border-transparent rounded">Оплатити</button>
     </div>
   </div>
-  <div class="cart-modal-box-footer flex flex-row justify-center py-5">
-    <button class="mr-2 btn-trans bg-transparent hover:bg-yellow-400 text-black-700 font-semibold hover:text-black py-2 px-4 border border-black hover:border-transparent rounded" (click)="goToCart()">Перейти до корзини</button>
-    <button class="ml-2 btn-trans bg-teal-400 hover:bg-yellow-400 text-white font-semibold hover:text-black py-2 px-4 border border-transparent hover:border-transparent rounded">Оплатити</button>
-  </div>
+
 </div>

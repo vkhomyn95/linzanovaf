@@ -5,6 +5,7 @@
   border: 1px solid #d9e5e8;
 }
 .deliveries-payments-surcharges {
+  width: 67%;
   border: none;
   border-right: 1px solid #d9e5e8;
   padding: 20px 30px;
@@ -12,15 +13,18 @@
 .checkout-basket-wrapper {
   padding: 20px 30px;
 }
+.checkout-basket-product-info-params{
+  font-size: 11px;
+}
 .deliveries-header {
   display: block;
   margin-bottom: 20px;
-  font-family: 'Roboto Medium';
   font-size: 14px;
+  font-weight: bold;
   line-height: 20px;
 }
 .deliveries-wrapper {
-  display: flex;;
+  display: flex;
   flex-direction: column;
   padding-bottom: 15px;
 }
@@ -44,4 +48,22 @@
 .checkout-basket-prices {
   border-top: 1px solid #d9e5e8;
   border-bottom: 1px solid #d9e5e8;
+}
+.checkout-basket-price {
+  text-align: right;
+}
+.delete-button {
+  color: #dfe3e8;
+  &:hover {
+    color: #d63511;
+  }
+}
+.price {
+  color: #ef5e67;
+}
+.hr-line {
+  border-top: 1px solid #d9e5e8;
+}
+.item-color {
+  color: #b1b3b3;
 }

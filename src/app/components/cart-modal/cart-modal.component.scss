@@ -3,8 +3,8 @@
   transform: translate3d(0,0,0);
   filter: drop-shadow(0 0 3px rgba(1, 3, 4, 0.19)) !important;
   transition: all .3s ease-in-out;
-  top: 11%;
-  right: 10%;
+  top: 165%;
+  right: 15%;
   background: #ffffff;
   min-width: 350px;
   z-index: 10;
@@ -73,8 +73,25 @@
 }
 .delete {
   color: #d63511;
-  margin-left: 110px;
   &:hover {
     cursor: pointer;
   }
+}
+.alert-message {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  &-column {
+    display: flex;
+    flex-direction: column;
+  }
+  &-new {
+    margin-top: 10px;
+  }
+}
+.relative-pos {
+  position: relative!important;
 }

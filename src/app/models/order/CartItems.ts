@@ -8,6 +8,11 @@ interface Drops {
   name: string;
   price: number;
   quantity: number;
+  cvalue: number;
+  category: number;
+  sdate: number;
+  stdt: number;
+  cproducer: number;
 }
 
 interface Lenses {

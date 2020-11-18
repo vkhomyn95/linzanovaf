@@ -14,6 +14,7 @@ export class CartModalComponent implements OnInit, OnDestroy {
   cartVisisbility = false;
   cartItems: CartItems[];
   cartItemsQuantity = 0;
+  cartItemsPrice = 0;
   subscription: Subscription;
 
   constructor(private router: Router,
@@ -21,31 +22,80 @@ export class CartModalComponent implements OnInit, OnDestroy {
     this.subscription = this.cartObjectService.getObject().subscribe(value => {
       if (value){
         this.cartItems = value;
-        console.log(this.cartItems);
+        this.cartItems.map(item => {
+          this.cartItemsPrice = 0;
+          this.cartItemsQuantity = 0;
+          item.drops.map(valuePrice => {
+            this.cartItemsPrice += valuePrice.price;
+            this.cartItemsQuantity += valuePrice.quantity;
+          });
+          item.solutions.map(valuePrice => {
+            this.cartItemsPrice += valuePrice.price;
+            this.cartItemsQuantity += valuePrice.quantity;
+          });
+          item.lenses.map(valuePrice => {
+            this.cartItemsPrice += valuePrice.price;
+            this.cartItemsQuantity += valuePrice.quantity;
+            });
+          });
       } else {
         this.cartItems = null;
       }
     });
+
   }
 
   ngOnInit(): void {}
+
+  // ngOnChanges(): void {
+  //   this.cartItems.map(value => {
+  //     value.drops.map(valuePrice => {
+  //       this.cartItemsPrice += valuePrice.price;
+  //       console.log(this.cartItemsPrice);
+  //     });
+  //     value.solutions.map(valuePrice => {
+  //       this.cartItemsPrice += valuePrice.price;
+  //     });
+  //     value.lenses.map(valuePrice => {
+  //       this.cartItemsPrice += valuePrice.price;
+  //     });
+  //   });
+  // }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
   showCart(): boolean {
-    return this.cartVisisbility = !this.cartVisisbility;
+    // if (this.cartItems) {
+    if (this.router.url.includes('/cart')) {
+      this.cartVisisbility = false;
+    }else {
+      return this.cartVisisbility = !this.cartVisisbility;
+    }
+
+    // }else {
+    //   this.cartListErrors.push('Будь ласка, добавте товар у корзину!');
+    //   this.cartValidator = true;
+    //   setTimeout(() => {
+    //     this.cartValidator = false;
+    //     this.cartListErrors.splice(-1, 1);
+    //   }, 5000);
+    // }
   }
 
   goToCart(): void {
     this.cartVisisbility = !this.cartVisisbility;
-    this.router.navigate(['cart']);
+    const item = this.cartItems;
+    const totalPrice = this.cartItemsPrice;
+    this.router.navigate(['cart'], {state: {item, totalPrice} });
   }
 
   deleteCareItemFromCart(care: Drops): void {
     this.cartItems.map(value => {
       const dropInArr = value.drops.find(drop => drop.name === care.name);
+      this.cartItemsPrice -= dropInArr.price;
+      this.cartItemsQuantity -= dropInArr.quantity;
       const index = value.drops.indexOf(dropInArr);
       if (index > -1) {
         value.drops.splice(index, 1);

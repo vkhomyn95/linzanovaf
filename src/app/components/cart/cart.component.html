@@ -1,6 +1,6 @@
 <section class="text-gray-700 body-font">
   <div class="container px-5 py-20 mx-auto flex flex-wrap flex-col">
-    <div class="flex mx-auto flex-wrap mb-20">
+    <div class="flex mx-auto flex-wrap mb-12">
       <a
         class="sm:px-6 py-3 w-1/2 sm:w-auto justify-center sm:justify-start border-b-2 title-font font-medium inline-flex items-center leading-none border-gray-200 tracking-wider rounded-t"
         [ngClass]="{'bg-gray-100 border-indigo-500 text-indigo-500': orderStep === 0}">
@@ -20,7 +20,8 @@
         ДОСТАВКА / ОПЛАТА
       </a>
       <a
-        class="sm:px-6 py-3 w-1/2 sm:w-auto justify-center sm:justify-start border-b-2 title-font font-medium inline-flex items-center leading-none border-gray-200 hover:text-gray-900 tracking-wider">
+        class="sm:px-6 py-3 w-1/2 sm:w-auto justify-center sm:justify-start border-b-2 title-font font-medium inline-flex items-center leading-none border-gray-200 hover:text-gray-900 tracking-wider"
+        [ngClass]="{'bg-gray-100 border-indigo-500 text-indigo-500': orderStep === 2}">
         <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
              class="w-5 h-5 mr-3" viewBox="0 0 24 24">
           <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
@@ -29,165 +30,228 @@
         ІНФОРМАЦІЯ ПРО ДОСТАВКУ
       </a>
     </div>
-    <div *ngIf="orderStep === 0" class="flex flex-row">
-      <img class="xl:w-32 lg:w-1/5 md:w-1/2 w-2/3 block mx-auto mb-10 object-cover object-center rounded" alt="hero"
-           src="https://dummyimage.com/720x600">
-      <div class="flex flex-col text-left w-full ml-8">
-        <h1 class="text-xl font-medium title-font mb-4 text-gray-900">Biofinity toric (6 лінз)</h1>
-        <div class="flex flex-row">
-          <div class="flex flex-col">
-            <label>Кількість:</label>
-            <select name="" id="">
-              <option value="">1</option>
-            </select>
-          </div>
-          <div class="flex flex-col">
-            <label>Діоптрії:</label>
-            <select name="" id="">
-              <option value="">1</option>
-            </select>
-          </div>
-          <div class="flex flex-col">
-            <label>Кривизна:</label>
-            <select name="" id="">
-              <option value="">1</option>
-            </select>
-          </div>
-          <div class="flex flex-col">
-            <label>Діаметр:</label>
-            <select name="" id="">
-              <option value="">1</option>
-            </select>
-          </div>
-          <div class="flex flex-col">
-            <label>Приблизна дата доставки:</label>
-            <select name="" id="">
-              <option value="">1</option>
-            </select>
-          </div>
+    <ng-container *ngIf="orderStep === 0">
+      <div *ngIf="!cartItems" class="flex flex-col">
+        <div class="mx-auto">
+          <img src="../../../assets/empty-cart.png" alt="empty-cart"/>
         </div>
+        <span class="mx-auto text-lg font-medium title-font">У вас немає товарів у кошику!</span>
       </div>
-      <div>
-        <span>455 грн.</span>
-      </div>
-    </div>
-    <div *ngIf="orderStep === 1" >
-      <div class="deliveries-payments-recapitulation-wrapper flex flex-row">
-        <div class="deliveries-payments-surcharges">
-          <span class="deliveries-header">Оберіть спосіб доставки замовлення</span>
-          <div class="deliveries-wrapper ">
-            <div id="snippet--normalDeliveriesFormSnippet">
-              <form action="/pokupka/vashe-zamovlennya/?do=normalDeliveriesForm-submit" method="post"
-                    id="frm-normalDeliveriesForm" class="ajax_attributes normal_deliveries_form">
-
-
-                <div class="delivery " data-delivery-id="9262">
-                  <input type="radio" id="delivery-input-9262" class="delivery-input hidden" value="9262"
-                         name="delivery">
-                  <label class="delivery-label" for="delivery-input-9262">
-                    <span class="delivery-checkbox checkbox"></span>
-                    <span class="delivery-icon icon deliveryType259"></span>
-                    <span class="delivery-name name">
-											<span class="delivery-name-value">
-													Meest Express
-											</span>
-												<span class="delivery-info info">
-													(5-10 робочих днів)
-												</span>
-										</span>
-                    <span class="delivery-price price">
-												Безкоштовно
-										</span>
-                  </label>
-                </div>
-                <input type="submit" class="submitAttrs button hidden" name="send"
-                       id="frm-950550586-normalDeliveriesForm-send" value="Send"></form>
-            </div>
-            <div id="snippet--personalDeliveriesFormSnippet">
-              <div class="delivery personal-delivery-new ">
-                <input type="radio" class="delivery-input hidden" name="delivery" id="delivery-input-personal">
-                <label class="delivery-label" for="delivery-input-personal">
-                  <span class="delivery-checkbox checkbox"></span>
-                  <span class="delivery-icon icon deliveryTypePD"></span>
-                  <span class="delivery-name name">
-										<span class="delivery-name-value">
-											НоваПошта - (доставка до відділення)
-										</span>
-
-											<span class="delivery-info info">
-												(5-10 робочих днів)
-											</span>
-
-										<span class="delivery-pickup-point-wrapper">
-											<span class="delivery-pickup-point">
-												<span class="delivery-pickup-point-text">
-														Введіть назву міста або місця видачі
-												</span>
-											</span>
-										</span>
-									</span>
-                  <span class="delivery-price price">
-										Безкоштовно
-									</span>
+      <div class="wrapper-box" *ngFor="let item of cartItems">
+        <h2 *ngIf="item.drops.length !== 0"
+            class="text-lg text-gray-900 font-medium title-font mb-4 mx-auto flex justify-center">Догляд за очима</h2>
+        <div class="flex flex-row" *ngFor="let care of item.drops">
+          <img class="xl:w-32 lg:w-1/5 md:w-1/2 w-2/3 block mx-auto mb-10 object-cover object-center rounded" alt="hero"
+               src="https://dummyimage.com/720x600">
+          <div class="flex flex-col text-left w-full ml-8">
+            <h1 class="text-xl font-medium title-font mb-3 text-gray-900">{{care.name}}</h1>
+            <div class="flex flex-row">
+              <div class="flex flex-col pr-2">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                  Кількість:
                 </label>
+                <div class="relative">
+                  <select
+                    class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    id="grid-state">
+                    <option>New Mexico</option>
+                    <option>Missouri</option>
+                    <option>Texas</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div class="flex flex-col pr-2">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                  Об'єм:
+                </label>
+                <div class="relative">
+                  <select
+                    class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    id="grid-state">
+                    <option>New Mexico</option>
+                    <option>Missouri</option>
+                    <option>Texas</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                    </svg>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          <div id="snippet--currentOrderDeliveryTime">
-            <div class="orderDeliveryTime">
-
-              Передбачувана дата відправки п'ятниця 16. жовтня
-            </div>
-          </div>
-          <div class="payments-wrapper">
-            <span class="payments-header">Оберіть спосіб оплати замовлення</span>
-            <div id="snippet--paymentsFormSnippet">
-              <form action="/pokupka/vashe-zamovlennya/?do=dependentPaymentsForm-submit" method="post"
-                    id="frm-dependentPaymentsForm" class="ajax_attributes payments_form">
-                <div class="payment " data-payment-id="3">
-                  <input type="radio" id="payment-input-3" class="payment-input hidden" value="3" name="payment">
-                  <label class="payment-label" for="payment-input-3">
-                    <span class="payment-checkbox checkbox"></span>
-                    <span class="payment-icon icon paymentType1"></span>
-                    <span class="payment-name name">
-												Післяплата
-												<span class="payment-tooltip tooltip tipso_style" data-title=""></span>
-											</span>
-                    <span class="payment-price price free">
-														Безкоштовно
-												</span>
-                  </label>
-                </div>
-                <input type="submit" class="submitAttrs button hidden" name="send"
-                       id="frm-950550586-dependentPaymentsForm-send" value="Send"></form>
-            </div>
+          <div class="flex items-center flex-col">
+            <span>
+              <svg (click)="deleteCareFromList(care)" class="w-8 h-8 delete-button" fill="none" stroke="currentColor"
+                   viewBox="0 0 24 24"
+                   xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+              </svg>
+            </span>
+            <span class="whitespace-no-wrap mt-10 font-medium price">{{care.price}} грн.</span>
           </div>
         </div>
-        <div class="checkout-basket-wrapper deliveries-checkout-basket-wrapper">
-          <div id="snippet-basket-">
+        <h2 *ngIf="item.lenses.length !== 0"
+            class="text-lg text-gray-900 font-medium title-font mb-4 mx-auto flex justify-center">Контактні лінзи</h2>
+        <div class="flex flex-row" *ngFor="let lense of item.lenses">
+          <img class="xl:w-32 lg:w-1/5 md:w-1/2 w-2/3 block mx-auto mb-10 object-cover object-center rounded" alt="hero"
+               src="https://dummyimage.com/720x600">
+          <div class="flex flex-col text-left w-full ml-8">
+            <h1 class="text-xl font-medium title-font mb-4 text-gray-900">{{lense.name}}</h1>
+            <div class="flex flex-row">
+              <div class="flex flex-col">
+                <label>Кількість:</label>
+                <select name="" id="">
+                  <option value="">1</option>
+                </select>
+              </div>
+              <div class="flex flex-col">
+                <label>Діоптрії:</label>
+                <select name="" id="">
+                  <option value="">1</option>
+                </select>
+              </div>
+              <div class="flex flex-col">
+                <label>Кривизна:</label>
+                <select name="" id="">
+                  <option value="">1</option>
+                </select>
+              </div>
+              <div class="flex flex-col">
+                <label>Діаметр:</label>
+                <select name="" id="">
+                  <option value="">1</option>
+                </select>
+              </div>
+              <div class="flex flex-col">
+                <label>Приблизна дата доставки:</label>
+                <select name="" id="">
+                  <option value="">1</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <span>{{lense.price}} грн.</span>
+          </div>
+        </div>
+        <h2 *ngIf="item.solutions.length !== 0"
+            class="text-lg text-gray-900 font-medium title-font mb-4 mx-auto flex justify-center">Розчини</h2>
+        <div class="flex flex-row" *ngFor="let solution of item.solutions">
+          <img class="xl:w-32 lg:w-1/5 md:w-1/2 w-2/3 block mx-auto mb-10 object-cover object-center rounded" alt="hero"
+               src="https://dummyimage.com/720x600">
+          <div class="flex flex-col text-left w-full ml-8">
+            <h1 class="text-xl font-medium title-font mb-4 text-gray-900">{{solution.name}}</h1>
+            <div class="flex flex-row">
+              <div class="flex flex-col">
+                <label>Кількість:</label>
+                <select name="" id="">
+                  <option value="">1</option>
+                </select>
+              </div>
+              <div class="flex flex-col">
+                <label>Діоптрії:</label>
+                <select name="" id="">
+                  <option value="">1</option>
+                </select>
+              </div>
+              <div class="flex flex-col">
+                <label>Кривизна:</label>
+                <select name="" id="">
+                  <option value="">1</option>
+                </select>
+              </div>
+              <div class="flex flex-col">
+                <label>Діаметр:</label>
+                <select name="" id="">
+                  <option value="">1</option>
+                </select>
+              </div>
+              <div class="flex flex-col">
+                <label>Приблизна дата доставки:</label>
+                <select name="" id="">
+                  <option value="">1</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <span>{{solution.price}} грн.</span>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <div *ngIf="orderStep === 1">
+      <div class="deliveries-payments-recapitulation-wrapper flex flex-row">
+        <div class="deliveries-payments-surcharges">
+          <span class="deliveries-header font-sans">Оберіть спосіб доставки замовлення</span>
+          <div class="deliveries-wrapper">
+
+            <form class="flex flex-col">
+              <div class="flex flex-row items-center pb-6">
+                <label class="inline-flex items-center mt-3">
+                  <input type="checkbox" class="form-checkbox h-5 w-5 text-red-600 mr-2" checked>
+                  <span><img class="w-16 h-6" src="../../../assets/nova-poshta-logo.png" alt="novaposhta"></span>
+                  <span class="ml-2 text-gray-700 font-medium pr-4">У відділення Нової пошти</span>
+                  <span class="text-sm flex items-center text-green-400">(3-5 робочих днів по прибуттю в Україну)</span>
+                  <span class="font-medium pl-4">60грн</span>
+                </label>
+              </div>
+              <div class="flex flex-row pb-10">
+                <label class="inline-flex items-center mt-3">
+                  <input type="checkbox" class="form-checkbox h-5 w-5 text-orange-600 mr-2" checked>
+                  <span><img class="w-20 h-6" src="../../../assets/ukposhta-logo.png" alt="ukrposhta"></span>
+                  <span class="ml-2 text-gray-700 font-medium pr-4">У відділення Укрпошти</span>
+                  <span class="text-sm text-green-400">(3-5 робочих днів по прибуттю в Україну)</span>
+                  <span class="font-medium pl-4">30грн</span>
+                </label>
+              </div>
+              <div class="orderDeliveryTime pb-4">
+                Передбачувана дата відправки п'ятниця <span class="font-medium">16 жовтня</span>
+              </div>
+              <span class="deliveries-header hr-line pt-4 font-sans">Оберіть спосіб оплати замовлення</span>
+              <div class="flex flex-row pb-6">
+                <input type="checkbox" class="form-checkbox h-5 w-5 text-red-600" checked>
+                <span><img class="w-16 h-6" src="../../../assets/wallet.svg" alt="wallet"></span>
+                <span class="ml-2 text-gray-700 font-medium">Оплата при отрманні</span>
+              </div>
+              <div class="flex flex-row pb-6">
+                <input type="checkbox" class="form-checkbox h-5 w-5 text-red-600" checked>
+                <span><img class="w-16 h-6" src="../../../assets/card.svg" alt="creditcard"></span>
+                <span class="ml-2 text-gray-700 font-medium">Оплата карткою</span>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="checkout-basket-wrapper deliveries-checkout-basket-wrapper mx-auto" *ngFor="let item of cartItems">
+          <div id="snippet-basket">
             <div class="checkout-basket">
               <h2 class="checkout-basket-title">Кошик містить</h2>
-              <table>
+              <table class="table-auto">
                 <thead>
                 <tr>
-                  <th>Товарна позиція</th>
-                  <th>Кількість</th>
-                  <th>Ціна</th>
+                  <th class="pr-4 py-2 w-full">Товарна позиція</th>
+                  <th class="pr-4 py-2 w-1/4">Кількість</th>
+                  <th class="pr-4 py-2 w-1/4">Ціна</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="checkout-basket-product-info">
-                  <td>
-                    TopVue Premium (6&nbsp;лінз)
-                    <br>
-                    <div class="checkout-basket-product-info-params first">Діоптрії:: <b>-12.00</b></div>
-                    <div class="checkout-basket-product-info-params ">Кривизна:: <b>8.60</b></div>
-                    <div class="checkout-basket-product-info-params ">Діаметр:: <b>14.20</b></div>
+                <tr *ngFor="let care of item.drops">
+                  <td class="border-b pr-4 py-2 item-color text-left">
+                    {{care.name}}
+                    <div class="checkout-basket-product-info-params">Об'єм:: <b>{{care.cvalue}} ml</b></div>
                   </td>
-                  <td>1</td>
-                  <td class="checkout-basket-price">
-                    455
-                    грн.
+                  <td class="border-b pr-4 py-2 text-center">{{care.quantity}}</td>
+                  <td class="border-b pr-4 py-2 checkout-basket-price text-sm whitespace-no-wrap">{{care.price}}грн
                   </td>
                 </tr>
                 </tbody>
@@ -197,48 +261,259 @@
                 </tr>
                 </tbody>
                 <tbody class="checkout-basket-prices">
-                <tr>
-                  <th colspan="2">Ціна товару</th>
-                  <th class="checkout-basket-price">
-                    455
-                    грн.
-                  </th>
+                <tr class="py-4">
+                  <th colspan="2" class="text-left">Ціна товару</th>
+                  <th class="checkout-basket-price ">{{totalPrice}} грн.</th>
                 </tr>
                 <tr>
-                  <th colspan="2">Ціна доставки</th>
-                  <th class="checkout-basket-price">
-                    0 грн.
+                  <th colspan="2" class="text-left">Ціна доставки</th>
+                  <th class="checkout-basket-price">0 грн.</th>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                  <th colspan="3">
+                    <span class="flex flex-row text-2xl justify-center mx-auto py-8">Загальна ціна <span
+                      class="text-red-500 pl-4">{{totalPrice}} грн.</span></span>
                   </th>
                 </tr>
                 </tbody>
-                <tfoot>
-                <tr>
-                  <th colspan="3">
-                    Загальна ціна
-                <span>
-								455 грн.
-							</span>
-                  </th>
-                </tr>
-                </tfoot>
               </table>
+
+
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="flex justify-end my-4">
-      <span class="md:text-xl">Загальна вартість: <span class="text-red-500 font-bold">455 грн</span></span>
+    <div *ngIf="orderStep === 2">
+      <div *ngIf="token.getToken()">
+        <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+          <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
+            <h3 class="text-lg leading-6 font-medium text-gray-900">
+              Інформація про доставку
+            </h3>
+            <p class="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
+              Персональна інформація.
+            </p>
+          </div>
+          <div>
+            <dl>
+              <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm leading-5 font-medium text-gray-500">
+                  Full name
+                </dt>
+                <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                  {{authUserData?.firstName}} {{authUserData?.lastName}}
+                </dd>
+              </div>
+              <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm leading-5 font-medium text-gray-500">
+                  Телефон
+                </dt>
+                <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                  {{authUserData?.phone}}
+                </dd>
+              </div>
+              <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm leading-5 font-medium text-gray-500">
+                  Email address
+                </dt>
+                <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                  {{authUserData?.email}}
+                </dd>
+              </div>
+              <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm leading-5 font-medium text-gray-500">
+                  Salary expectation
+                </dt>
+                <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                  $120,000
+                </dd>
+              </div>
+              <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm leading-5 font-medium text-gray-500">
+                  About
+                </dt>
+                <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-1">
+                  {{authUserData?.location}}, {{authUserData?.warehouse}}, відділення № {{authUserData?.number}}
+                </dd>
+                <span class="mt-1 pr-4 text-sm leading-5 text-indigo-600 sm:mt-0 sm:col-span-1 text-right hover:text-indigo-500 transition duration-150 ease-in-out">Update</span>
+              </div>
+              <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm leading-5 font-medium text-gray-500">
+                  Коментар до замовлення
+                </dt>
+                <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                  <input class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="comment" type="text" placeholder="Покладіть...">
+                </dd>
+              </div>
+              <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm leading-5 font-medium text-gray-500">
+                  Attachments
+                </dt>
+                <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                  <ul class="border border-gray-200 rounded-md">
+                    <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm leading-5">
+                      <div class="w-0 flex-1 flex items-center">
+                        <!-- Heroicon name: paper-clip -->
+                        <svg class="flex-shrink-0 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg"
+                             viewBox="0 0 20 20" fill="currentColor">
+                          <path fill-rule="evenodd"
+                                d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z"
+                                clip-rule="evenodd"/>
+                        </svg>
+                        <span class="ml-2 flex-1 w-0 truncate">
+                  Оплата картою
+                  </span>
+                      </div>
+                      <div class="ml-4 flex-shrink-0">
+                        <a href="#"
+                           class="font-medium text-indigo-600 hover:text-indigo-500 transition duration-150 ease-in-out">
+                          Download
+                        </a>
+                      </div>
+                    </li>
+                    <li
+                      class="border-t border-gray-200 pl-3 pr-4 py-3 flex items-center justify-between text-sm leading-5">
+                      <div class="w-0 flex-1 flex items-center">
+                        <!-- Heroicon name: paper-clip -->
+                        <svg class="flex-shrink-0 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg"
+                             viewBox="0 0 20 20" fill="currentColor">
+                          <path fill-rule="evenodd"
+                                d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z"
+                                clip-rule="evenodd"/>
+                        </svg>
+                        <span class="ml-2 flex-1 w-0 truncate">
+                     coverletter_back_end_developer.pdf
+                   </span>
+                      </div>
+                      <div class="ml-4 flex-shrink-0">
+                        <a href="#"
+                           class="font-medium text-indigo-600 hover:text-indigo-500 transition duration-150 ease-in-out">
+                          Download
+                        </a>
+                      </div>
+                    </li>
+                  </ul>
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!token.getToken()">
+        <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+          <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
+            <h3 class="text-lg leading-6 font-medium text-gray-900">
+              Applicant Information
+            </h3>
+            <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 px-4 py-2 mt-1" role="alert">
+              <p class="font-bold">Зверніть увагу</p>
+              <p class="text-sm">Ви не є авторизованим користувачем! Для отримання можливості слідкувати за статусом замовлення та іншим рекомендуємо зареєструватись на сайті!</p>
+            </div>
+          </div>
+          <div>
+            <dl>
+              <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm leading-5 font-medium text-gray-500">
+                  Full name
+                </dt>
+                <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-1 flex flex-row">
+                  <input class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="firstName" type="text" placeholder="Ваше ім'я">
+                  <input class="shadow-sm appearance-none border rounded w-full py-2 px-3 ml-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="lastName" type="text" placeholder="Ваше прізвище">
+                </dd>
+              </div>
+              <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm leading-5 font-medium text-gray-500">
+                  Application for
+                </dt>
+                <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                  Backend Developer
+                </dd>
+              </div>
+              <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm leading-5 font-medium text-gray-500">
+                  Email address
+                </dt>
+                <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-1">
+                  <input class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="text" placeholder="Email">
+                </dd>
+              </div>
+              <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm leading-5 font-medium text-gray-500">
+                  Salary expectation
+                </dt>
+                <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                  $120,000
+                </dd>
+              </div>
+              <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm leading-5 font-medium text-gray-500">
+                  About
+                </dt>
+                <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                  Fugiat ipsum ipsum deserunt culpa aute sint do nostrud anim incididunt cillum culpa consequat. Excepteur qui ipsum aliquip consequat sint. Sit id mollit nulla mollit nostrud in ea officia proident. Irure nostrud pariatur mollit ad adipisicing reprehenderit deserunt qui eu.
+                </dd>
+              </div>
+              <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm leading-5 font-medium text-gray-500">
+                  Attachments
+                </dt>
+                <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                  <ul class="border border-gray-200 rounded-md">
+                    <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm leading-5">
+                      <div class="w-0 flex-1 flex items-center">
+                        <!-- Heroicon name: paper-clip -->
+                        <svg class="flex-shrink-0 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                          <path fill-rule="evenodd" d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z" clip-rule="evenodd" />
+                        </svg>
+                        <span class="ml-2 flex-1 w-0 truncate">
+                  resume_back_end_developer.pdf
+                </span>
+                      </div>
+                      <div class="ml-4 flex-shrink-0">
+                        <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500 transition duration-150 ease-in-out">
+                          Download
+                        </a>
+                      </div>
+                    </li>
+                    <li class="border-t border-gray-200 pl-3 pr-4 py-3 flex items-center justify-between text-sm leading-5">
+                      <div class="w-0 flex-1 flex items-center">
+                        <!-- Heroicon name: paper-clip -->
+                        <svg class="flex-shrink-0 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                          <path fill-rule="evenodd" d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z" clip-rule="evenodd" />
+                        </svg>
+                        <span class="ml-2 flex-1 w-0 truncate">
+                  coverletter_back_end_developer.pdf
+                </span>
+                      </div>
+                      <div class="ml-4 flex-shrink-0">
+                        <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500 transition duration-150 ease-in-out">
+                          Download
+                        </a>
+                      </div>
+                    </li>
+                  </ul>
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="cartItems" class="flex justify-end my-4">
+      <span class="md:text-xl">Загальна вартість: <span class="text-red-500 font-bold">{{totalPrice}} грн</span></span>
     </div>
     <div class="flex justify-between">
-      <div>
+      <div [ngClass]="{'mx-auto mt-10': !cartItems}">
         <button
           class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
           (click)="prevStep()">
           Продовжити покупки
         </button>
       </div>
-      <div>
+      <div *ngIf="cartItems">
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="nextStep()">
           Перейти до замовлення
         </button>

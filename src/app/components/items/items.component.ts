@@ -9,6 +9,9 @@ import {CartObjectService} from '../../services/components-data/cart-object.serv
   styleUrls: ['./items.component.scss']
 })
 export class ItemsComponent implements OnInit {
+  range = 12;
+  loader = true;
+
   drops = [];
   items = [{
     drops: [],
@@ -22,8 +25,10 @@ export class ItemsComponent implements OnInit {
               private cartObjectService: CartObjectService) { }
 
   ngOnInit(): void {
-    this.cabinetService.getAllCares(0, 10).subscribe(value => this.drops = value.drops);
-    // console.log(this.drops);
+    this.cabinetService.getAllCares(0, 10).subscribe(value => {
+      this.drops = value.drops;
+      this.loader = false;
+    });
   }
 
   viewDetails(): void {
