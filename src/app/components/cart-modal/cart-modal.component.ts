@@ -10,16 +10,15 @@ import {Drops} from '../../models/drops/Drops';
   templateUrl: './cart-modal.component.html',
   styleUrls: ['./cart-modal.component.scss']
 })
-export class CartModalComponent implements OnInit, OnDestroy {
+export class CartModalComponent implements OnInit {
   cartVisisbility = false;
   cartItems: CartItems[];
   cartItemsQuantity = 0;
   cartItemsPrice = 0;
-  subscription: Subscription;
 
   constructor(private router: Router,
               private cartObjectService: CartObjectService) {
-    this.subscription = this.cartObjectService.getObject().subscribe(value => {
+    this.cartObjectService.getObject().subscribe(value => {
       if (value){
         this.cartItems = value;
         this.cartItems.map(item => {
@@ -62,9 +61,9 @@ export class CartModalComponent implements OnInit, OnDestroy {
   //   });
   // }
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
+  // ngOnDestroy(): void {
+  //   this.subscription.unsubscribe();
+  // }
 
   showCart(): boolean {
     // if (this.cartItems) {

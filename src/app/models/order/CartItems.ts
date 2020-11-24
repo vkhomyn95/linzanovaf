@@ -2,6 +2,7 @@ export interface CartItems {
   drops: Drops[];
   lenses: Lenses[];
   solutions: Solutions[];
+  hotOffers: HotOffers[];
 }
 
 interface Drops {
@@ -22,6 +23,11 @@ interface Lenses {
 }
 
 interface Solutions {
+  name: string;
+  price: number;
+  quantity: number;
+}
+interface HotOffers {
   name: string;
   price: number;
   quantity: number;

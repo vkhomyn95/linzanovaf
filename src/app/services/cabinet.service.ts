@@ -69,13 +69,22 @@ export class CabinetService {
     return this.httpClient.get<any>(`/api/drops?page=${page}&size=${size}`, {headers: {skip: 'true'}});
   }
   getCare(careId): Observable<any> {
-    return this.httpClient.get<any>(`/api/drops/${careId}`);
+    return this.httpClient.get<any>(`/api/drops/${careId}`, {headers: {skip: 'true'}});
   }
   updateCare(careId, userId, care): Observable<any> {
     return this.httpClient.post<any>(`/api/drops/${careId}/user/${userId}`, care);
   }
   searchCaresByName(careName, page, size): Observable<any> {
     return this.httpClient.get<any>(`/api/drops/name?name=${careName}&page=${page}&size=${size}`);
+  }
+  getSpecialOfferCount(): Observable<any> {
+    return this.httpClient.get<any>(`/api/special/count`);
+  }
+  getAllSpecialOffers(page, size): Observable<any> {
+    return this.httpClient.get<any>(`/api/special?page=${page}&size=${size}`, {headers: {skip: 'true'}});
+  }
+  updateSpecialOffer(offerId, userId, special): Observable<any> {
+    return this.httpClient.post<any>(`/api/special/${offerId}/user/${userId}`, special);
   }
   getAllOrders(page, size): Observable<any> {
     return this.httpClient.get<any>(`/api/order?page=${page}&size=${size}`);
@@ -92,4 +101,11 @@ export class CabinetService {
   searchOrdersByName(orderName, page, size): Observable<any> {
     return this.httpClient.get<any>(`/api/order/name?name=${orderName}&page=${page}&size=${size}`);
   }
+  setUserTrackId(trackingId, orderNumber): Observable<any> {
+    return this.httpClient.post<any>(`/api/order/track/${trackingId}`, orderNumber);
+  }
+  getUserTrackId(trackingId): Observable<any> {
+    return this.httpClient.post<any>(`/api/order/tracking/realtime`, trackingId);
+  }
 }
+

@@ -9,7 +9,7 @@
         Загальна вартість: <span>{{cartItemsPrice}}</span> &#8372;
       </div>
     </div>
-    <h2 *ngIf="!cartItems || cartItems[0].drops.length === 0 && cartItems[0].lenses.length === 0 && cartItems[0].solutions.length === 0" class="flex justify-center py-8 tracking-widest font-medium title-font text-sm">
+    <h2 *ngIf="!cartItems || cartItems[0].drops.length === 0 && cartItems[0].lenses.length === 0 && cartItems[0].solutions.length === 0 && cartItems[0].hotOffers.length === 0" class="flex justify-center py-8 tracking-widest font-medium title-font text-sm">
       КОШИК ПОРОЖНІЙ!
     </h2>
 
@@ -80,6 +80,28 @@
           </div>
         </div>
       </div>
+      <span *ngIf="item.hotOffers.length !== 0" class="cart-modal-box-main-title">Вигідні пропозиції</span>
+      <div class="solution-cart-wrapper" *ngFor="let offer of item.hotOffers">
+        <div class="cart-modal-box-main-item flex">
+          <div class="flex-left w-10">
+<!--            <a href="https://www.alensa.pl/biofinity-toric-6-soczewek-plyn-gelone-360-ml">-->
+<!--              <img src="https://www.alensa.pl/imagesCdn/1480/1644-800x600.jpg" alt="product" class="w-18 h-16">-->
+<!--            </a>-->
+          </div>
+          <div class="flex-right ml-3">
+            <span class="text-base font-medium font-mono">{{offer.name}}</span>
+            <div class="flex flex-row pt-2">
+              <div class="flex flex-row">
+                <span class="cart-modal-box-buttons mr-3 cursor-pointer"><svg class="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path></svg></span>
+                <span class="text-lg font-medium">1</span>
+                <span class="cart-modal-box-buttons ml-3 mr-4 cursor-pointer"><svg class="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg></span>
+              </div>
+              <div class="font-bold ">{{offer.price}} &#8372;</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <div class="cart-modal-box-footer flex flex-row justify-center py-5">

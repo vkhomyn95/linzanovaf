@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {Solution} from '../models/solution/Solution';
 import {Lens} from '../models/lense/Lens';
 import {Drops} from '../models/drops/Drops';
+import {SpecialOffer} from '../models/special-offers/SpecialOffer';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,10 @@ export class LensService {
 
   addLensDrops(drops: Drops): Observable<Drops> {
     return this.httpClient.post<Drops>('/api/drops/user/1', drops);
+  }
+
+  addSpecialOffer(offer: SpecialOffer): Observable<SpecialOffer> {
+    return this.httpClient.post<SpecialOffer>('/api/special/user/1', offer);
   }
 
 }

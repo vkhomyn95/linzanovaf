@@ -8,6 +8,8 @@ import {LensService} from '../../../services/lens.service';
 import {Solution} from '../../../models/solution/Solution';
 import {Lens} from '../../../models/lense/Lens';
 import {Drops} from '../../../models/drops/Drops';
+import {SpecialOffer} from '../../../models/special-offers/SpecialOffer';
+import {of} from 'rxjs';
 
 @Component({
   selector: 'app-add-form',
@@ -50,6 +52,12 @@ export class AddFormComponent implements OnInit {
       lAxisF: new FormControl(),
       lAxisT: new FormControl(),
       cValue: new FormControl(''),
+      offerLink: new FormControl(''),
+      offerFirstItemName: new FormControl(''),
+      offerSecondItemName: new FormControl(''),
+      offerFirstItemQuantity: new FormControl(''),
+      offerSecondItemQuantity: new FormControl(''),
+      activeStatus: new FormControl(),
       cproducer: new FormControl(''),
       description: new FormControl('')
     });
@@ -170,8 +178,33 @@ export class AddFormComponent implements OnInit {
     }
   }
 
-  addHotProposition(): void {
-
+  addHotProposition(): object {
+    if (this.addSolutionForm.controls.pName.value !== ''
+      && this.addSolutionForm.controls.pPrice.value !== ''
+      && this.addSolutionForm.controls.offerLink.value.name !== ''
+      && this.addSolutionForm.controls.offerFirstItemName.value !== ''
+      && this.addSolutionForm.controls.offerSecondItemName.value !== ''
+      && this.addSolutionForm.controls.offerFirstItemQuantity.value !== ''
+      && this.addSolutionForm.controls.offerSecondItemQuantity.value !== ''){
+      const offer: SpecialOffer = {
+        name: this.addSolutionForm.controls.pName.value,
+        price: this.addSolutionForm.controls.pPrice.value,
+        alensaLink: this.addSolutionForm.controls.offerLink.value,
+        firstItemName: this.addSolutionForm.controls.offerFirstItemName.value,
+        secondItemName: this.addSolutionForm.controls.offerSecondItemName.value,
+        firstItemQuanity: this.addSolutionForm.controls.offerFirstItemQuantity.value,
+        secondItemQuanity: this.addSolutionForm.controls.offerSecondItemQuantity.value,
+        activeStatus: this.addSolutionForm.controls.activeStatus.value
+      };
+      console.log(offer)
+      return this.lensService.addSpecialOffer(offer).subscribe(value => console.log(value), error => {
+        this.errorResponse.push(error.error);
+        this.removeError();
+      });
+    }else {
+      this.errorResponse.push('Заповніть усі поля коректно!');
+      this.removeError();
+    }
   }
 
   removeError(): void {

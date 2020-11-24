@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {CabinetService} from '../../services/cabinet.service';
+import {Drops} from '../../models/drops/Drops';
 
 @Component({
   selector: 'app-single-item',
@@ -6,10 +9,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./single-item.component.scss']
 })
 export class SingleItemComponent implements OnInit {
+  loader = true;
+  care: Drops;
 
-  constructor() { }
+  constructor(private activatedRoute: ActivatedRoute,
+              private cabinetService: CabinetService,
+              private router: Router) { }
 
   ngOnInit(): void {
+    this.activatedRoute.params.subscribe(urlId => {
+      this.cabinetService.getCare(history.state.stateId).subscribe(careValue => {
+          this.care = careValue;
+          this.loader = false;
+          console.log(this.care);
+        }
+      );
+    });
   }
 
 }

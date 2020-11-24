@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-cabinet-future',
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cabinet-future.component.scss']
 })
 export class CabinetFutureComponent implements OnInit {
+  trackingForm: FormGroup;
 
-  constructor() { }
+  constructor() {
+    this.trackingForm = new FormGroup({
+      trackingNumber: new FormControl('')
+    });
+  }
 
   ngOnInit(): void {
   }
-
 }

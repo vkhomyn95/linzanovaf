@@ -42,6 +42,9 @@ import { CabinetUserOrdersComponent } from './components/user-cabinet-components
 import { CabinetUserDataComponent } from './components/user-cabinet-components/cabinet-user-data/cabinet-user-data.component';
 import { WarningBannerComponent } from './components/warning-banner/warning-banner.component';
 import {NgxSkeletonLoaderModule} from 'ngx-skeleton-loader';
+import { SpecialOffersCabinetComponent } from './components/admin-cabinet-components/special-offers-cabinet/special-offers-cabinet.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { TrackingModalComponent } from './components/tracking-modal/tracking-modal.component';
 
 
 @NgModule({
@@ -81,7 +84,10 @@ import {NgxSkeletonLoaderModule} from 'ngx-skeleton-loader';
     HotPropositionComponent,
     CabinetUserOrdersComponent,
     CabinetUserDataComponent,
-    WarningBannerComponent
+    WarningBannerComponent,
+    SpecialOffersCabinetComponent,
+    NotFoundComponent,
+    TrackingModalComponent
   ],
   imports: [
     BrowserModule,

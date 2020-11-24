@@ -100,4 +100,8 @@ export class CartComponent implements OnInit, OnDestroy {
     });
     console.log(this.cartItems);
   }
+
+  checkOut(): void {
+
+  }
 }

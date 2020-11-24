@@ -21,11 +21,20 @@ export class CabinetUserDataComponent implements OnInit {
       number: new FormControl(''),
       warehouse: new FormControl(''),
       password: new FormControl(''),
-      userRole: new FormControl('')
     });
   }
 
   ngOnInit(): void {
+    this.cabinetService.getUserByUsername().subscribe(value => {
+      console.log(value);
+      for (const param of Object.keys(this.updateForm.controls)) {
+        for (const user in value) {
+          if (param === user){
+            this.updateForm.get(param).setValue(value[param]);
+          }
+        }
+      }
+    });
   }
   updateUser(): void {
     const user: UpdateUser = this.updateForm.value;

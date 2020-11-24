@@ -191,7 +191,7 @@
       </div>
     </ng-container>
     <div *ngIf="orderStep === 1">
-      <div class="deliveries-payments-recapitulation-wrapper flex flex-row">
+      <div class="deliveries-payments-recapitulation-wrapper flex flex-row shadow sm:rounded-lg">
         <div class="deliveries-payments-surcharges">
           <span class="deliveries-header font-sans">Оберіть спосіб доставки замовлення</span>
           <div class="deliveries-wrapper">
@@ -410,7 +410,7 @@
             </h3>
             <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 px-4 py-2 mt-1" role="alert">
               <p class="font-bold">Зверніть увагу</p>
-              <p class="text-sm">Ви не є авторизованим користувачем! Для отримання можливості слідкувати за статусом замовлення та іншим рекомендуємо зареєструватись на сайті!</p>
+              <p class="text-sm">Ви не є авторизованим користувачем! Для отримання можливості слідкувати за статусом замовлення та іншим рекомендуємо <a routerLink="/register">зареєструватись</a> на сайті!</p>
             </div>
           </div>
           <div>
@@ -426,10 +426,10 @@
               </div>
               <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-sm leading-5 font-medium text-gray-500">
-                  Application for
+                  Телефон
                 </dt>
-                <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                  Backend Developer
+                <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-1">
+                  <input class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="phone" type="number" placeholder="Ваш телефон">
                 </dd>
               </div>
               <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -513,9 +513,14 @@
           Продовжити покупки
         </button>
       </div>
-      <div *ngIf="cartItems">
+      <div *ngIf="cartItems && orderStep !== 2">
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="nextStep()">
           Перейти до замовлення
+        </button>
+      </div>
+      <div *ngIf="orderStep === 2">
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="checkOut()">
+          Оформити замовлення
         </button>
       </div>
     </div>

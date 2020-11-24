@@ -98,6 +98,45 @@
         </div>
       </div>
     </div>
+    <div *ngIf="currentOption === 3" class="flex flex-wrap -mx-3 mb-6">
+      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-offerLink">
+          Посилання на товар
+        </label>
+        <input formControlName="offerLink" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-offerLink" type="text" placeholder="link...">
+      </div>
+      <div class="w-full md:w-1/2 px-3">
+        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-firstitemname">
+          Ім'я першого товару
+        </label>
+        <input formControlName="offerFirstItemName" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-firstitemname" type="text" placeholder="Name">
+      </div>
+      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-seconditemname">
+          Ім'я другого товару
+        </label>
+        <input formControlName="offerSecondItemName" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-seconditemname" type="text" placeholder="Name">
+      </div>
+      <div class="w-full md:w-1/2 px-3">
+        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-firstitemquantity">
+          Кількість першого товару
+        </label>
+        <input formControlName="offerFirstItemQuantity" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-firstitemquantity" type="number" placeholder="1">
+      </div>
+      <div class="w-full md:w-1/2 px-3 py-2">
+        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-seconditemquantity">
+          Кількість другого товару
+        </label>
+        <input formControlName="offerSecondItemQuantity" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-seconditemquantity" type="number" placeholder="1">
+      </div>
+      <div class="w-full md:w-1/2 px-3 py-2">
+        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-seconditemquantity">
+          Відображати на сайті?
+        </label>
+        <input formControlName="activeStatus" class="w-4 h-4" id="grid-activestatus" type="checkbox">
+      </div>
+    </div>
+
     <div *ngIf="currentOption === 0" class="flex flex-wrap -mx-3 mb-6">
       <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-brand">

@@ -22,13 +22,19 @@ import {AdminComponent} from './components/admin-cabinet-components/admin/admin.
 import {AdminAuthGuardService} from './services/admin-auth-guard.service';
 import {CabinetUserOrdersComponent} from './components/user-cabinet-components/cabinet-user-orders/cabinet-user-orders.component';
 import {CabinetUserDataComponent} from './components/user-cabinet-components/cabinet-user-data/cabinet-user-data.component';
+import {SpecialOffersCabinetComponent} from './components/admin-cabinet-components/special-offers-cabinet/special-offers-cabinet.component';
+import {InfoStepsComponent} from './components/info-steps/info-steps.component';
+import {NotFoundComponent} from './components/not-found/not-found.component';
 
 const routes: Routes = [
   {
     path: '', component: HomeComponent,
   },
   {
-    path: 'single', component: SingleItemComponent
+    path: 'not', component: NotFoundComponent,
+  },
+  {
+    path: 'product/:name', component: SingleItemComponent
   },
   {
     path: 'login', component: LoginComponent
@@ -58,6 +64,9 @@ const routes: Routes = [
     path: 'admin/products', component: ProductsCabinetComponent
   },
   {
+    path: 'admin/offers', component: SpecialOffersCabinetComponent
+  },
+  {
     path: 'admin/products/lenses', component: LensesCabinetComponent
   },
   {
@@ -83,6 +92,9 @@ const routes: Routes = [
   },
   {
     path: 'admin/products/cares/:id', component: SingleCareEditComponent
+  },
+  {
+    path: 'steps', component: InfoStepsComponent
   },
   {
     path: 'admin', component: AdminComponent, canActivate: [AdminAuthGuardService]
