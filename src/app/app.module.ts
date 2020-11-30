@@ -50,6 +50,10 @@ import { LensesComponent } from './components/tab-components/lenses/lenses.compo
 import { SearchComponent } from './components/tab-components/search/search.component';
 import { SolutionsComponent } from './components/tab-components/solutions/solutions.component';
 import { DropsComponent } from './components/tab-components/drops/drops.component';
+import { SessionModalComponent } from './components/session-modal/session-modal.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import {MatButtonModule} from '@angular/material/button';
 
 
 @NgModule({
@@ -97,7 +101,8 @@ import { DropsComponent } from './components/tab-components/drops/drops.componen
     LensesComponent,
     SearchComponent,
     SolutionsComponent,
-    DropsComponent
+    DropsComponent,
+    SessionModalComponent
   ],
   imports: [
     BrowserModule,
@@ -105,7 +110,11 @@ import { DropsComponent } from './components/tab-components/drops/drops.componen
     HttpClientModule,
     FormsModule,
     AppRoutingModule,
-    NgxSkeletonLoaderModule
+    NgxSkeletonLoaderModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    MatButtonModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
