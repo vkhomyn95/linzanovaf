@@ -29,4 +29,15 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['login']);
   }
 
+  goContactLenses(): void {
+    this.router.navigate(['lenses']);
+  }
+
+  goSolutions(): void {
+    this.router.navigate(['solutions']);
+  }
+
+  goCares(): void {
+    this.router.navigate(['cares']);
+  }
 }

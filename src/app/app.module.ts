@@ -45,6 +45,11 @@ import {NgxSkeletonLoaderModule} from 'ngx-skeleton-loader';
 import { SpecialOffersCabinetComponent } from './components/admin-cabinet-components/special-offers-cabinet/special-offers-cabinet.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { TrackingModalComponent } from './components/tracking-modal/tracking-modal.component';
+import { UserCabinetSingleOrderComponent } from './components/user-cabinet-components/user-cabinet-single-order/user-cabinet-single-order.component';
+import { LensesComponent } from './components/tab-components/lenses/lenses.component';
+import { SearchComponent } from './components/tab-components/search/search.component';
+import { SolutionsComponent } from './components/tab-components/solutions/solutions.component';
+import { DropsComponent } from './components/tab-components/drops/drops.component';
 
 
 @NgModule({
@@ -87,7 +92,12 @@ import { TrackingModalComponent } from './components/tracking-modal/tracking-mod
     WarningBannerComponent,
     SpecialOffersCabinetComponent,
     NotFoundComponent,
-    TrackingModalComponent
+    TrackingModalComponent,
+    UserCabinetSingleOrderComponent,
+    LensesComponent,
+    SearchComponent,
+    SolutionsComponent,
+    DropsComponent
   ],
   imports: [
     BrowserModule,

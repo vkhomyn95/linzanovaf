@@ -1,0 +1,165 @@
+<section class="2xl:w-9/12 2xl:mx-auto xl:w-9/12 xl:mx-auto xl:w-9/12 xl:mx-auto lg:w-9/12 lg:mx-auto md:w-10/12 md:mx-auto py-8 pt-10">
+  <div class="bg-white shadow overflow-hidden sm:rounded-lg" *ngIf="loader">
+    <div class="px-4 py-5 sm:px-6 flex flex-col">
+      <ngx-skeleton-loader [theme]="{'margin-bottom': '0px', 'width':'25%'}"></ngx-skeleton-loader>
+      <ngx-skeleton-loader [theme]="{'margin-bottom': '0px', 'width':'15%'}"></ngx-skeleton-loader>
+    </div>
+    <div class="border-t border-gray-200">
+      <dl>
+        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="text-sm font-medium text-gray-500">
+            Full name
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+            Margot Foster
+          </dd>
+        </div>
+        <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="text-sm font-medium text-gray-500">
+            Application for
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+            Backend Developer
+          </dd>
+        </div>
+        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="text-sm font-medium text-gray-500">
+            Email address
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+            margotfoster@example.com
+          </dd>
+        </div>
+        <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="text-sm font-medium text-gray-500">
+            Загальна вартість
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+            <ngx-skeleton-loader [theme]="{'margin-bottom': '0px', 'width':'25%'}"></ngx-skeleton-loader>
+          </dd>
+        </div>
+        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="text-sm font-medium text-gray-500">
+            Коментар замовлення
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex flex-col">
+            <ngx-skeleton-loader [theme]="{'margin-bottom': '0px'}"></ngx-skeleton-loader>
+            <ngx-skeleton-loader [theme]="{'margin-bottom': '0px'}"></ngx-skeleton-loader>
+          </dd>
+        </div>
+        <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="text-sm font-medium text-gray-500">
+            Товар
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+            <ul class="w-full max-w-md">
+              <li class="px-4 py-2 mb-3 flex justify-between items-center bg-white shadow rounded-lg">
+                <div class="flex items-center">
+                  <ngx-skeleton-loader class="w-10" appearance="circle" [theme]="{'margin-bottom': '0px','height':'2.5rem'}"></ngx-skeleton-loader>
+                  <ngx-skeleton-loader class="pl-4" [theme]="{'margin-bottom': '0px', 'width':'14rem', 'margin-top':'5px'}"></ngx-skeleton-loader>
+                </div>
+              </li>
+            </ul>
+          </dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+  <div class="bg-white shadow overflow-hidden sm:rounded-lg" *ngIf="!loader">
+    <div class="px-4 py-5 sm:px-6">
+      <h3 class="text-lg leading-6 font-medium text-gray-900">
+        Замовлення №{{currentOrder?.id}}
+      </h3>
+      <p class="mt-1 max-w-2xl text-sm text-gray-500">
+        Дата створення {{currentOrder?.createdAt}}
+      </p>
+    </div>
+    <div class="border-t border-gray-200">
+      <dl>
+        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="text-sm font-medium text-gray-500">
+            Full name
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+            Margot Foster
+          </dd>
+        </div>
+        <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="text-sm font-medium text-gray-500">
+            Чи отримано кур'єром | трек-номер
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+            {{currentOrder?.receivedInMesstPoland ? 'Отримано на складі за кордоном': 'Ще не отримано'}} | <app-tracking-modal [trackingNumber]="currentOrder?.meestTrackingId"></app-tracking-modal>
+          </dd>
+        </div>
+        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="text-sm font-medium text-gray-500">
+            Email address
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+            margotfoster@example.com
+          </dd>
+        </div>
+        <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="text-sm font-medium text-gray-500">
+            Salary expectation
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+            {{currentOrder?.totalSumm}}&#8372;
+          </dd>
+        </div>
+        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="text-sm font-medium text-gray-500">
+            Коментар
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+            {{currentOrder?.customerComment}}
+          </dd>
+        </div>
+        <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="text-sm font-medium text-gray-500">
+            Замовлення
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+            <ul class="w-full max-w-md">
+              <ng-container *ngFor="let item of currentOrder.items">
+                <ng-container *ngIf="item.drops.length !== 0">
+                  <li class="p-4 mb-3 flex justify-between items-center bg-white shadow rounded-lg" *ngFor="let care of item.drops">
+                    <div class="flex items-center">
+                      <svg class="w-10 h-10 rounded-full" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                      <p class="ml-2 text-gray-700 font-semibold font-sans tracking-wide">{{care.name}}</p>
+                    </div>
+                  </li>
+                </ng-container>
+                <ng-container *ngIf="item.offers.length !== 0">
+                  <li class="p-4 mb-3 flex justify-between items-center bg-white shadow rounded-lg" *ngFor="let offer of item.offers">
+                    <div class="flex items-center">
+                      <svg class="w-10 h-10 rounded-full" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                      <p class="ml-2 text-gray-700 font-semibold font-sans tracking-wide">{{offer.name}}</p>
+                    </div>
+                  </li>
+                </ng-container>
+<!--                <ng-container *ngIf="item.lenses.length !== 0">-->
+<!--                  <li class="p-4 mb-3 flex justify-between items-center bg-white shadow rounded-lg" *ngFor="let lense of item.lenses">-->
+<!--                    <div class="flex items-center">-->
+<!--                      <svg class="w-10 h-10 rounded-full" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>-->
+<!--                      <p class="ml-2 text-gray-700 font-semibold font-sans tracking-wide">{{lense.name}}</p>-->
+<!--                    </div>-->
+<!--                  </li>-->
+<!--                </ng-container>-->
+<!--                <ng-container *ngIf="item.solutions.length !== 0">-->
+<!--                  <li class="p-4 mb-3 flex justify-between items-center bg-white shadow rounded-lg" *ngFor="let solution of item.solutions">-->
+<!--                    <div class="flex items-center">-->
+<!--                      <svg class="w-10 h-10 rounded-full" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>-->
+<!--                      <p class="ml-2 text-gray-700 font-semibold font-sans tracking-wide">{{solution.name}}</p>-->
+<!--                    </div>-->
+<!--                  </li>-->
+<!--                </ng-container>-->
+              </ng-container>
+            </ul>
+          </dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+</section>

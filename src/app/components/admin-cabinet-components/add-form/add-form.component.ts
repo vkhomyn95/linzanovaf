@@ -9,7 +9,6 @@ import {Solution} from '../../../models/solution/Solution';
 import {Lens} from '../../../models/lense/Lens';
 import {Drops} from '../../../models/drops/Drops';
 import {SpecialOffer} from '../../../models/special-offers/SpecialOffer';
-import {of} from 'rxjs';
 
 @Component({
   selector: 'app-add-form',
@@ -45,8 +44,7 @@ export class AddFormComponent implements OnInit {
       lDiametr: new FormControl(),
       lWater: new FormControl(),
       lCurvature: new FormControl(),
-      lDioptersF: new FormControl(),
-      lDioptersT: new FormControl(),
+      ukrPrice: new FormControl(),
       lCylF: new FormControl(),
       lCylT: new FormControl(),
       lAxisF: new FormControl(),
@@ -109,7 +107,10 @@ export class AddFormComponent implements OnInit {
         lenseWater: this.addSolutionForm.controls.lWater.value,
         lenseSleep: this.addSolutionForm.controls.lSleep.value,
         sdate: this.addSolutionForm.controls.sDate.value,
-        stdt: this.addSolutionForm.controls.sTdt.value
+        stdt: this.addSolutionForm.controls.sTdt.value,
+        defaultBC: this.addSolutionForm.controls.lCurvature.value,
+        defaultDiameter: this.addSolutionForm.controls.lDiametr.value,
+        avgPriceInUkraine: this.addSolutionForm.controls.ukrPrice.value
       };
       return this.lensService.addLens(lens).subscribe(value => console.log(value), error => {
         this.errorResponse.push(error.error);

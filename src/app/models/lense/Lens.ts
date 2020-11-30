@@ -13,6 +13,9 @@ export interface Lens {
   lenseSleep: boolean;
   sdate: number;
   stdt: number;
+  defaultBC?: number;
+  defaultDiameter?: number;
+  avgPriceInUkraine: number;
 }
 
 export interface UpdateLens {

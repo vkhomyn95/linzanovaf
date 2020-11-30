@@ -19,9 +19,9 @@
       <span class="ml-3 text-xl">Linzanova</span>
     </a>
     <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
-      <a class="mr-5 hover:text-gray-900 cursor-pointer">Контактні лінзи</a>
-      <a class="mr-5 hover:text-gray-900 cursor-pointer">Розчини</a>
-      <a class="mr-5 hover:text-gray-900 cursor-pointer">Догляд за очима</a>
+      <a class="mr-5 hover:text-gray-900 cursor-pointer" (click)="goContactLenses()">Контактні лінзи</a>
+      <a class="mr-5 hover:text-gray-900 cursor-pointer" (click)="goSolutions()">Розчини</a>
+      <a class="mr-5 hover:text-gray-900 cursor-pointer" (click)="goCares()">Догляд за очима</a>
     </nav>
     <div class="inline-flex items-center">
       <app-cart-modal></app-cart-modal>

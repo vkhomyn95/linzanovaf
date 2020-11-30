@@ -12,7 +12,7 @@ import {CabinetService} from '../../services/cabinet.service';
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit, OnDestroy {
-  orderStep = 2;
+  orderStep = 0;
   cartItems: CartItems[];
   totalPrice = 0;
   authUserData;

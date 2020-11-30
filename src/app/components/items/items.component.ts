@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {CabinetService} from '../../services/cabinet.service';
 import {CartObjectService} from '../../services/components-data/cart-object.service';
 import {CartItems} from '../../models/order/CartItems';
@@ -13,25 +13,52 @@ export class ItemsComponent implements OnInit, OnChanges {
   range = 12;
   loader = true;
   totalElements = 0; totalPages = 0;
-  currentPage = 0; itemsSize = 1;
+  currentPage = 0; itemsSize = 1; allPagesSize = 12;
 
-  drops = [];
+  values = [];
   items: CartItems[];
 
 
   constructor(private router: Router,
+              private activatedRoute: ActivatedRoute,
               private cabinetService: CabinetService,
               private cartObjectService: CartObjectService) {
   }
 
   ngOnInit(): void {
-    this.cabinetService.getAllCares(this.currentPage, this.itemsSize).subscribe(value => {
-      this.drops = value.drops;
-      this.totalElements = value.totalElements;
-      this.totalPages = value.totalPages;
-      console.log(value);
-      this.loader = false;
-    });
+    if (this.router.url.indexOf('/lenses') > -1) {
+      this.cabinetService.getAllLenses(this.currentPage, this.allPagesSize).subscribe(value => {
+        this.values = value.lenses;
+        this.totalElements = value.totalElements;
+        this.totalPages = value.totalPages;
+        console.log(value);
+        this.loader = false;
+      });
+    }else if (this.router.url.indexOf('/solutions') > -1){
+      this.cabinetService.getAllSolutions(this.currentPage, this.allPagesSize).subscribe(value => {
+        this.values = value.solutions;
+        this.totalElements = value.totalElements;
+        this.totalPages = value.totalPages;
+        console.log(value);
+        this.loader = false;
+      });
+    }else if (this.router.url.indexOf('/cares') > -1) {
+      this.cabinetService.getAllCares(this.currentPage, this.allPagesSize).subscribe(value => {
+        this.values = value.drops;
+        this.totalElements = value.totalElements;
+        this.totalPages = value.totalPages;
+        console.log(value);
+        this.loader = false;
+      });
+    }else {
+      this.cabinetService.getAllCares(this.currentPage, this.itemsSize).subscribe(value => {
+        this.values = value.drops;
+        this.totalElements = value.totalElements;
+        this.totalPages = value.totalPages;
+        console.log(value);
+        this.loader = false;
+      });
+    }
     this.cartObjectService.getObject().subscribe(value => {
       this.items = value;
       console.log(this.items);
@@ -69,22 +96,41 @@ export class ItemsComponent implements OnInit, OnChanges {
   }
 
   nextPage(page: any): void {
-    this.cabinetService.getAllCares(page, this.itemsSize).subscribe(value => {
-      this.drops = value.drops;
-      this.totalElements = value.totalElements;
-      this.totalPages = value.totalPages;
-      console.log(value);
-      this.loader = false;
-    });
+    if (this.router.url.indexOf('/lenses') > -1) {
+      this.cabinetService.getAllLenses(page, this.allPagesSize).subscribe(value => {
+        this.values = value.lenses;
+        this.totalElements = value.totalElements;
+        this.totalPages = value.totalPages;
+        console.log(value);
+        this.loader = false;
+      });
+    }else {
+      this.cabinetService.getAllCares(page, this.itemsSize).subscribe(value => {
+        this.values = value.drops;
+        this.totalElements = value.totalElements;
+        this.totalPages = value.totalPages;
+        console.log(value);
+        this.loader = false;
+      });
+    }
   }
 
   prevPage(page: any): void {
-    this.cabinetService.getAllCares(page, this.itemsSize).subscribe(value => {
-      this.drops = value.drops;
-      this.totalElements = value.totalElements;
-      this.totalPages = value.totalPages;
-      console.log(value);
-      this.loader = false;
-    });
+    if (this.router.url.indexOf('/lenses') > -1) {
+      this.cabinetService.getAllLenses(page, this.allPagesSize).subscribe(value => {
+        this.values = value.lenses;
+        this.totalElements = value.totalElements;
+        this.totalPages = value.totalPages;
+        this.loader = false;
+      });
+    }else {
+      this.cabinetService.getAllCares(page, this.itemsSize).subscribe(value => {
+        this.values = value.drops;
+        this.totalElements = value.totalElements;
+        this.totalPages = value.totalPages;
+        console.log(value);
+        this.loader = false;
+      });
+    }
   }
 }

@@ -25,6 +25,10 @@ import {CabinetUserDataComponent} from './components/user-cabinet-components/cab
 import {SpecialOffersCabinetComponent} from './components/admin-cabinet-components/special-offers-cabinet/special-offers-cabinet.component';
 import {InfoStepsComponent} from './components/info-steps/info-steps.component';
 import {NotFoundComponent} from './components/not-found/not-found.component';
+import {UserCabinetSingleOrderComponent} from './components/user-cabinet-components/user-cabinet-single-order/user-cabinet-single-order.component';
+import {LensesComponent} from './components/tab-components/lenses/lenses.component';
+import {SolutionsComponent} from './components/tab-components/solutions/solutions.component';
+import {DropsComponent} from './components/tab-components/drops/drops.component';
 
 const routes: Routes = [
   {
@@ -32,6 +36,15 @@ const routes: Routes = [
   },
   {
     path: 'not', component: NotFoundComponent,
+  },
+  {
+    path: 'lenses', component: LensesComponent,
+  },
+  {
+    path: 'solutions', component: SolutionsComponent,
+  },
+  {
+    path: 'cares', component: DropsComponent,
   },
   {
     path: 'product/:name', component: SingleItemComponent
@@ -50,6 +63,9 @@ const routes: Routes = [
   },
   {
     path: 'cabinet/orders', component: CabinetUserOrdersComponent
+  },
+  {
+    path: 'cabinet/orders/:id', component: UserCabinetSingleOrderComponent
   },
   {
     path: 'cabinet/user', component: CabinetUserDataComponent

@@ -8,6 +8,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./cabinet-user-orders.component.scss']
 })
 export class CabinetUserOrdersComponent implements OnInit {
+  loader = true;
   orders = [];
   currentPage =  0;
   currentSize = 4;
@@ -23,13 +24,14 @@ export class CabinetUserOrdersComponent implements OnInit {
       this.orders = value.orders;
       this.totalElements = value.totalElements;
       this.totalPages = value.totalPages;
+      this.loader = false;
       console.log(this.orders);
       console.log(value);
     });
   }
 
   getCurrentOrderEditView(id: any): void {
-    this.router.navigate(['admin/order', id]);
+    this.router.navigate(['cabinet/orders', id]);
   }
 
   prevPage(): void {
@@ -79,4 +81,7 @@ export class CabinetUserOrdersComponent implements OnInit {
     return !(this.itemName === '' || this.itemName === undefined);
   }
 
+    disableRouter($event: MouseEvent): void {
+        event.stopPropagation();
+    }
 }
