@@ -19,8 +19,7 @@ export class CabinetUserDataComponent implements OnInit {
       phone: new FormControl(''),
       location: new FormControl(''),
       number: new FormControl(''),
-      warehouse: new FormControl(''),
-      password: new FormControl(''),
+      warehouse: new FormControl('')
     });
   }
 
@@ -38,6 +37,8 @@ export class CabinetUserDataComponent implements OnInit {
   }
   updateUser(): void {
     const user: UpdateUser = this.updateForm.value;
+    console.log(user);
+    this.cabinetService.updateCurrentUser(user).subscribe(value => console.log(value));
     // this.activatedRoute.params.subscribe(userId => {
     //   return this.cabinetService.updateUser(userId.id, user).subscribe(value => console.log(value));
     // });

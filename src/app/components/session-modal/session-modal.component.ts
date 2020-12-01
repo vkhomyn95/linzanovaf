@@ -1,5 +1,5 @@
-import {Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {MatDialogRef} from '@angular/material/dialog';
+import {Component, ElementRef, Inject, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-session-modal',
@@ -8,8 +8,8 @@ import {MatDialogRef} from '@angular/material/dialog';
 })
 export class SessionModalComponent implements OnInit, OnDestroy {
 
-  constructor(public dialogRef: MatDialogRef<SessionModalComponent>) {}
-  public confirmMessage: string;
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+              public dialogRef: MatDialogRef<SessionModalComponent>) {}
 
   ngOnInit(): void {
   }

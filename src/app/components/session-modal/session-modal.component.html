@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>Сесія застаріла!</h1>
-<div mat-dialog-content>Ви ввійшли, як user. Продовжити покупки Lorem ipsum dolor.?</div>
+<div mat-dialog-content class="custom-margin">Ви ввійшли, як <span class="font-medium">{{data.confirmMessage}}</span>. <br/>Продовжити покупки на linzanova?</div>
 <div mat-dialog-actions>
-  <button mat-button mat-dialog-close (click)="dialogRef.close(false)">Cancel</button>
-  <button mat-button [mat-dialog-close] cdkFocusInitial (click)="dialogRef.close(true)">Confirm</button>
+  <button mat-button mat-dialog-close class="custom-button" (click)="dialogRef.close(false)">Вийти</button>
+  <button mat-button [mat-dialog-close] cdkFocusInitial (click)="dialogRef.close(true)">Продовжити</button>
 </div>

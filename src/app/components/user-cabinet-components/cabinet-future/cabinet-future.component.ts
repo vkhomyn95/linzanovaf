@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {CabinetStats} from '../../../models/user/CabinetStats';
 
 @Component({
   selector: 'app-cabinet-future',
@@ -7,6 +8,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./cabinet-future.component.scss']
 })
 export class CabinetFutureComponent implements OnInit {
+  @Input() stats: CabinetStats;
   trackingForm: FormGroup;
 
   constructor() {

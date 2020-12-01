@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {CabinetService} from '../../../services/cabinet.service';
+import {CabinetStats} from '../../../models/user/CabinetStats';
 
 @Component({
   selector: 'app-cabinet',
@@ -6,11 +8,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cabinet.component.scss']
 })
 export class CabinetComponent implements OnInit {
+  stats: CabinetStats;
+  loader = true;
 
-  constructor() {
-  }
+  constructor(private cabinetService: CabinetService) {}
 
   ngOnInit(): void {
+    this.cabinetService.getUserStatsByUsername().subscribe(value => {
+      this.stats = value;
+      this.loader = false;
+    });
   }
 
 }

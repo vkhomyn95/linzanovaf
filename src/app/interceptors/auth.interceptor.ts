@@ -28,8 +28,12 @@ export class AuthInterceptor implements HttpInterceptor{
         return of(err.message);
       }
       if (err.status === 401 && this.token.getToken()){
+        const userName = JSON.parse(atob(this.token.getToken().split('.')[1]));
         this.dialogRef = this.modal.open(SessionModalComponent, {
-          disableClose: true
+          disableClose: true,
+          data: {
+            confirmMessage: userName.sub
+          }
         });
         // this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete?';
 
@@ -38,6 +42,7 @@ export class AuthInterceptor implements HttpInterceptor{
             this.userService.refreshToken().subscribe(value => {
               this.token.saveToken(value.token);
             });
+            window.location.reload();
           }else {
             this.token.signOut();
             this.router.navigateByUrl(`/login`);

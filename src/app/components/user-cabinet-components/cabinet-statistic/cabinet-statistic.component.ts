@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {CabinetService} from '../../../services/cabinet.service';
 import {Router} from '@angular/router';
 import {TokenStorageService} from '../../../services/token-storage.service';
 import {UserService} from '../../../services/user.service';
+import {CabinetStats} from '../../../models/user/CabinetStats';
 
 @Component({
   selector: 'app-cabinet-statistic',
@@ -10,9 +11,11 @@ import {UserService} from '../../../services/user.service';
   styleUrls: ['./cabinet-statistic.component.scss']
 })
 export class CabinetStatisticComponent implements OnInit {
-  usersCount: number;
+  @Input() stats: CabinetStats;
+  @Input() loader: boolean;
   changeView: boolean;
   isLoggedIn = false;
+  userName: string;
 
 
   constructor(private cabinetService: CabinetService,
@@ -27,6 +30,7 @@ export class CabinetStatisticComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
+    this.userName =  JSON.parse(atob(this.tokenStorageService.getToken().split('.')[1]));
   }
 
   getAllUserOrders(): void {

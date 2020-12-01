@@ -26,17 +26,25 @@ export class CabinetService {
       return this.httpClient.get<any>(`/api/users/auth`, {headers: {skip: 'true'}});
     }
   }
+  getUserStatsByUsername(): Observable<any> {
+    if (this.token.getToken()) {
+      return this.httpClient.get<any>(`/api/users/stats`);
+    }
+  }
   searchUserByName(username, page, size): Observable<any> {
     return this.httpClient.get<any>(`/api/users/name?name=${username}&page=${page}&size=${size}`);
   }
   updateUser(userId, user): Observable<any> {
     return this.httpClient.post<any>(`/api/users/${userId}`, user);
   }
+  updateCurrentUser(user): Observable<any>{
+    return this.httpClient.post<any>(`/api/users/update`, user);
+  }
   getLensesCount(): Observable<any> {
     return this.httpClient.get<any>('/api/lenses/count');
   }
   getAllLenses(page, size): Observable<any> {
-    return this.httpClient.get<any>(`/api/lenses?page=${page}&size=${size}`);
+    return this.httpClient.get<any>(`/api/lenses?page=${page}&size=${size}`, {headers: {skip: 'true'}});
   }
   getLens(lensId): Observable<any> {
     return this.httpClient.get<any>(`/api/lenses/${lensId}`);
@@ -51,7 +59,7 @@ export class CabinetService {
     return this.httpClient.get<any>('/api/solution/count');
   }
   getAllSolutions(page, size): Observable<any> {
-    return this.httpClient.get<any>(`/api/solution?page=${page}&size=${size}`);
+    return this.httpClient.get<any>(`/api/solution?page=${page}&size=${size}`, {headers: {skip: 'true'}});
   }
   getSolution(solutionId): Observable<any> {
     return this.httpClient.get<any>(`api/solution/${solutionId}`);
