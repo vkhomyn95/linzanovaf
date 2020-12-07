@@ -108,14 +108,14 @@
             <div class="flex flex-row">
               <div class="flex flex-col">
                 <label>Кількість:</label>
-                <select name="" id="">
-                  <option value="">1</option>
+                <select (change)="changeQuantity(item, $event)">
+                  <option *ngFor="let quantity of lenseQuantity" [value]="quantity.value">{{quantity.value}}</option>
                 </select>
               </div>
               <div class="flex flex-col">
                 <label>Діоптрії:</label>
-                <select name="" id="">
-                  <option value="">1</option>
+                <select  (change)="changeDiopters(item, $event)">
+                  <option *ngFor="let diopters of lenseDiopters" [value]="diopters.value">{{diopters.value}}</option>
                 </select>
               </div>
               <div class="flex flex-col">

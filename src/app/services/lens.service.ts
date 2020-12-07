@@ -29,4 +29,8 @@ export class LensService {
     return this.httpClient.post<SpecialOffer>('/api/special/user/1', offer);
   }
 
+  createOrder(order): Observable<any> {
+    return this.httpClient.post<any>(`/api/order`, order);
+  }
+
 }

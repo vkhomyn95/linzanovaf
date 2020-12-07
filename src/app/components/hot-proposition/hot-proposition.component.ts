@@ -39,7 +39,7 @@ export class HotPropositionComponent implements OnInit {
     offer.quantity = 1;
     if (offer.category === 3) {
       this.items.map(value => {
-        value.hotOffers.push(offer);
+        value.offers.push(offer);
       });
       this.cartObjectService.sendObject(this.items);
       console.log(this.items);

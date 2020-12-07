@@ -187,6 +187,41 @@ export const lenseQuantity = [
   }
 ];
 
+export const lenseDiopters = [
+  {
+    id: 0,
+    value: '-10.00'
+  },
+  {
+    id: 1,
+    value: '-9.50'
+  },
+  {
+    id: 2,
+    value: '-9.00'
+  },
+  {
+    id: 3,
+    value: '-8.50'
+  },
+  {
+    id: 4,
+    value: '-8.00'
+  },
+  {
+    id: 5,
+    value: '-7.50'
+  },
+  {
+    id: 6,
+    value: '-7.00'
+  },
+  {
+    id: 7,
+    value: '-6.50'
+  }
+];
+
 export const correctionType = [
   {
     id: 0,

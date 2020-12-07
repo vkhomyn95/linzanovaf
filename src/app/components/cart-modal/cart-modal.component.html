@@ -9,7 +9,7 @@
         Загальна вартість: <span>{{cartItemsPrice}}</span> &#8372;
       </div>
     </div>
-    <h2 *ngIf="!cartItems || cartItems[0].drops.length === 0 && cartItems[0].lenses.length === 0 && cartItems[0].solutions.length === 0 && cartItems[0].hotOffers.length === 0" class="flex justify-center py-8 tracking-widest font-medium title-font text-sm">
+    <h2 *ngIf="!cartItems || cartItems[0].drops.length === 0 && cartItems[0].lenses.length === 0 && cartItems[0].solutions.length === 0 && cartItems[0].offers.length === 0" class="flex justify-center py-8 tracking-widest font-medium title-font text-sm">
       КОШИК ПОРОЖНІЙ!
     </h2>
 
@@ -80,8 +80,8 @@
           </div>
         </div>
       </div>
-      <span *ngIf="item.hotOffers.length !== 0" class="cart-modal-box-main-title">Вигідні пропозиції</span>
-      <div class="solution-cart-wrapper" *ngFor="let offer of item.hotOffers">
+      <span *ngIf="item.offers.length !== 0" class="cart-modal-box-main-title">Вигідні пропозиції</span>
+      <div class="solution-cart-wrapper" *ngFor="let offer of item.offers">
         <div class="cart-modal-box-main-item flex">
           <div class="flex-left w-10">
 <!--            <a href="https://www.alensa.pl/biofinity-toric-6-soczewek-plyn-gelone-360-ml">-->

@@ -11,7 +11,7 @@ export class CartObjectService {
     drops: [],
     lenses: [],
     solutions: [],
-    hotOffers: []
+    offers: []
   }];
   private objectSource = new BehaviorSubject<CartItems[]>(this.items);
   currentObject = this.objectSource.asObservable();
