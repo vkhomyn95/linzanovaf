@@ -18,6 +18,27 @@ export class CartModalComponent implements OnInit {
 
   constructor(private router: Router,
               private cartObjectService: CartObjectService) {
+    // this.cartItems = this.cartObjectService.getObject();
+    // if (this.cartItems){
+    //   this.cartItems.map(item => {
+    //     this.cartItemsPrice = 0;
+    //     this.cartItemsQuantity = 0;
+    //     item.drops.map(valuePrice => {
+    //       this.cartItemsPrice += valuePrice.price;
+    //       this.cartItemsQuantity += valuePrice.quantity;
+    //     });
+    //     item.solutions.map(valuePrice => {
+    //       this.cartItemsPrice += valuePrice.price;
+    //       this.cartItemsQuantity += valuePrice.quantity;
+    //     });
+    //     item.lenses.map(valuePrice => {
+    //       this.cartItemsPrice += valuePrice.price;
+    //       this.cartItemsQuantity += valuePrice.quantity;
+    //     });
+    //   });
+    // } else {
+    //   this.cartItems = null;
+    // }
     this.cartObjectService.getObject().subscribe(value => {
       if (value){
         this.cartItems = value;
@@ -36,7 +57,11 @@ export class CartModalComponent implements OnInit {
             this.cartItemsPrice += valuePrice.price;
             this.cartItemsQuantity += valuePrice.quantity;
             });
+          item.offers.map(valuePrice => {
+            this.cartItemsPrice += valuePrice.price;
+            this.cartItemsQuantity += valuePrice.quantity;
           });
+        });
       } else {
         this.cartItems = null;
       }
@@ -100,6 +125,7 @@ export class CartModalComponent implements OnInit {
         value.drops.splice(index, 1);
       }
     });
+    this.cartObjectService.sendObject(this.cartItems);
     console.log(this.cartItems);
   }
 }

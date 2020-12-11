@@ -60,9 +60,12 @@ export class ItemsComponent implements OnInit, OnChanges {
       });
     }
     this.cartObjectService.getObject().subscribe(value => {
-      this.items = value;
-      console.log(this.items);
+      if (value){
+        this.items = value;
+        console.log(this.items);
+      }
     });
+    // this.items = this.cartObjectService.getObject();
   }
   ngOnChanges(): void {
     console.log(this.currentPage);

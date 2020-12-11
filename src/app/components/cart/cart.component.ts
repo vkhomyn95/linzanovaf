@@ -8,6 +8,7 @@ import {CabinetService} from '../../services/cabinet.service';
 import {LensService} from '../../services/lens.service';
 import {Items, OrderToSend} from '../../models/order/OrderToSend';
 import {lenseDiopters, lenseQuantity} from '../../constants/lense/lenses';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-cart',
@@ -18,6 +19,7 @@ export class CartComponent implements OnInit, OnDestroy {
   orderStep = 0;
   cartItems: CartItems[];
   totalPrice = 0;
+  cartItemsQuantity = 0;
   authUserData;
   itemsToSend: Items[] = [{
     offers: [],
@@ -25,6 +27,7 @@ export class CartComponent implements OnInit, OnDestroy {
     lenses: []
   }];
   lenseQuantity; lenseDiopters;
+  userDataForm: FormGroup;
 
 
   constructor(private cartObjectService: CartObjectService,
@@ -32,9 +35,35 @@ export class CartComponent implements OnInit, OnDestroy {
               private token: TokenStorageService,
               private cabinetService: CabinetService,
               private lensService: LensService) {
-    this.activatedRoute.params.subscribe(value => {
-      this.cartItems = history.state.item;
-      this.totalPrice = history.state.totalPrice;
+    this.userDataForm = new FormGroup({
+      userFirstName: new FormControl('', [Validators.required]),
+      userLastName: new FormControl('', [Validators.required]),
+      userPhone: new FormControl('', [Validators.required]),
+    });
+    this.cartObjectService.getObject().subscribe(value => {
+      if (value){
+        this.cartItems = value;
+        this.cartItems.map(item => {
+          this.cartItemsQuantity = 0;
+          this.totalPrice = 0;
+          item.drops.map(valuePrice => {
+            this.totalPrice += valuePrice.price;
+            this.cartItemsQuantity += valuePrice.quantity;
+          });
+          item.solutions.map(valuePrice => {
+            this.totalPrice += valuePrice.price;
+            this.cartItemsQuantity += valuePrice.quantity;
+          });
+          item.lenses.map(valuePrice => {
+            this.totalPrice += valuePrice.price;
+            this.cartItemsQuantity += valuePrice.quantity;
+          });
+          item.offers.map(valuePrice => {
+            this.totalPrice += valuePrice.price;
+            this.cartItemsQuantity += valuePrice.quantity;
+          });
+        });
+      }
     });
     this.lenseQuantity = lenseQuantity; this.lenseDiopters = lenseDiopters;
   }
@@ -93,15 +122,27 @@ export class CartComponent implements OnInit, OnDestroy {
         this.itemsToSend.map(itemOffer => itemOffer.drops.push({dropId: drops.id}));
       });
     });
-    const order = {
-      createdAt: '2020-09-01 12:18:51',
-      totalSumm: this.totalPrice,
-      lastName: this.authUserData.lastName,
-      firstName: this.authUserData.firstName,
-      phone: this.authUserData.phone,
-      items: this.itemsToSend,
-      user: this.authUserData.id
-    };
+    let order;
+    if (this.authUserData){
+       order = {
+        createdAt: '2020-09-01 12:18:51',
+        totalSumm: this.totalPrice,
+        lastName: this.authUserData.lastName,
+        firstName: this.authUserData.firstName,
+        phone: this.authUserData.phone,
+        items: this.itemsToSend,
+        user: this.authUserData.id
+      };
+    }else {
+      order = {
+        createdAt: '2020-09-01 12:18:51',
+        totalSumm: this.totalPrice,
+        lastName: this.userDataForm.controls.userFirstName.value,
+        firstName: this.userDataForm.controls.userLastName.value,
+        phone: this.userDataForm.controls.userPhone.value,
+        items: this.itemsToSend,
+      };
+    }
 
     console.log(order);
     this.lensService.createOrder(order).subscribe(value => console.log(value));

@@ -30,9 +30,15 @@ export class HotPropositionComponent implements OnInit {
       console.log(this.offers);
     });
     this.cartObjectService.getObject().subscribe(value => {
-      this.items = value;
-      console.log(value);
+      if (value){
+        this.items = value;
+        console.log(value);
+
+      }
     });
+    // this.items = this.cartObjectService.getObject();
+    console.log('------');
+    console.log(this.items);
   }
 
   addToCart(offer: any): void {

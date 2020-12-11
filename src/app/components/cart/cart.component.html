@@ -52,8 +52,7 @@
                 </label>
                 <div class="relative">
                   <select
-                    class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="grid-state">
+                    class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                     <option>New Mexico</option>
                     <option>Missouri</option>
                     <option>Texas</option>
@@ -106,41 +105,182 @@
           <div class="flex flex-col text-left w-full ml-8">
             <h1 class="text-xl font-medium title-font mb-4 text-gray-900">{{lense.name}}</h1>
             <div class="flex flex-row">
-              <div class="flex flex-col">
-                <label>Кількість:</label>
-                <select (change)="changeQuantity(item, $event)">
-                  <option *ngFor="let quantity of lenseQuantity" [value]="quantity.value">{{quantity.value}}</option>
-                </select>
+              <div class="flex flex-col pr-2">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Кількість:</label>
+                <div class="relative">
+                  <select (change)="changeQuantity(item, $event)"
+                    class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option *ngFor="let quantity of lenseQuantity" [value]="quantity.value">{{quantity.value}}</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                    </svg>
+                  </div>
+                </div>
               </div>
-              <div class="flex flex-col">
-                <label>Діоптрії:</label>
-                <select  (change)="changeDiopters(item, $event)">
-                  <option *ngFor="let diopters of lenseDiopters" [value]="diopters.value">{{diopters.value}}</option>
-                </select>
+              <div class="flex flex-col pr-2">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Діоптрії:</label>
+                <div class="relative">
+                  <select (change)="changeDiopters(item, $event)"
+                          class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option *ngFor="let diopters of lenseDiopters" [value]="diopters.value">{{diopters.value}}</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                    </svg>
+                  </div>
+                </div>
               </div>
-              <div class="flex flex-col">
-                <label>Кривизна:</label>
-                <select name="" id="">
-                  <option value="">1</option>
-                </select>
+              <div class="flex flex-col pr-2">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Кривизна:</label>
+                <div class="relative">
+                  <select (change)="changeQuantity(item, $event)"
+                          class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option *ngFor="let quantity of lenseQuantity" [value]="quantity.value">{{quantity.value}}</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                    </svg>
+                  </div>
+                </div>
               </div>
-              <div class="flex flex-col">
-                <label>Діаметр:</label>
-                <select name="" id="">
-                  <option value="">1</option>
-                </select>
+              <div class="flex flex-col pr-2">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Діаметр:</label>
+                <div class="relative">
+                  <select (change)="changeQuantity(item, $event)"
+                          class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option *ngFor="let quantity of lenseQuantity" [value]="quantity.value">{{quantity.value}}</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                    </svg>
+                  </div>
+                </div>
               </div>
-              <div class="flex flex-col">
-                <label>Приблизна дата доставки:</label>
-                <select name="" id="">
-                  <option value="">1</option>
-                </select>
+              <div class="flex flex-col pr-2">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Приблизна дата доставки:</label>
+                <div class="relative">
+                  <select (change)="changeQuantity(item, $event)"
+                          class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option *ngFor="let quantity of lenseQuantity" [value]="quantity.value">{{quantity.value}}</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                    </svg>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
-          <div>
-            <span>{{lense.price}} грн.</span>
+          <div class="flex items-center flex-col">
+            <span>
+              <svg (click)="deleteCareFromList(lense)" class="w-8 h-8 delete-button" fill="none" stroke="currentColor"
+                   viewBox="0 0 24 24"
+                   xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+              </svg>
+            </span>
+            <span class="whitespace-no-wrap mt-10 font-medium price">{{lense.price}} грн.</span>
+          </div>
+        </div>
+        <h2 *ngIf="item.offers.length !== 0"
+            class="text-lg text-gray-900 font-medium title-font mb-4 mx-auto flex justify-center">Вигідні пропозиції</h2>
+        <div class="flex flex-row" *ngFor="let offer of item.offers">
+          <img class="xl:w-32 lg:w-1/5 md:w-1/2 w-2/3 block mx-auto mb-10 object-cover object-center rounded" alt="hero"
+               src="https://dummyimage.com/720x600">
+          <div class="flex flex-col text-left w-full ml-8">
+            <h1 class="text-xl font-medium title-font mb-4 text-gray-900">{{offer.name}}</h1>
+            <div class="flex flex-row">
+              <div class="flex flex-col pr-2">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Кількість:</label>
+                <div class="relative">
+                  <select (change)="changeQuantity(item, $event)"
+                          class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option *ngFor="let quantity of lenseQuantity" [value]="quantity.value">{{quantity.value}}</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div class="flex flex-col pr-2">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Діоптрії:</label>
+                <div class="relative">
+                  <select (change)="changeDiopters(item, $event)"
+                          class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option *ngFor="let diopters of lenseDiopters" [value]="diopters.value">{{diopters.value}}</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div class="flex flex-col pr-2">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Кривизна:</label>
+                <div class="relative">
+                  <select (change)="changeQuantity(item, $event)"
+                          class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option *ngFor="let quantity of lenseQuantity" [value]="quantity.value">{{quantity.value}}</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div class="flex flex-col pr-2">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Діаметр:</label>
+                <div class="relative">
+                  <select (change)="changeQuantity(item, $event)"
+                          class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option *ngFor="let quantity of lenseQuantity" [value]="quantity.value">{{quantity.value}}</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div class="flex flex-col pr-2">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Приблизна дата доставки:</label>
+                <div class="relative">
+                  <select (change)="changeQuantity(item, $event)"
+                          class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option *ngFor="let quantity of lenseQuantity" [value]="quantity.value">{{quantity.value}}</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center flex-col">
+            <span>
+              <svg (click)="deleteCareFromList(offer)" class="w-8 h-8 delete-button" fill="none" stroke="currentColor"
+                   viewBox="0 0 24 24"
+                   xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+              </svg>
+            </span>
+            <span class="whitespace-no-wrap mt-10 font-medium price">{{offer.price}} грн.</span>
           </div>
         </div>
         <h2 *ngIf="item.solutions.length !== 0"
@@ -153,33 +293,59 @@
             <div class="flex flex-row">
               <div class="flex flex-col">
                 <label>Кількість:</label>
-                <select name="" id="">
-                  <option value="">1</option>
-                </select>
+                <div class="relative">
+                  <select (change)="changeQuantity(item, $event)"
+                          class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option *ngFor="let quantity of lenseQuantity" [value]="quantity.value">{{quantity.value}}</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                    </svg>
+                  </div>
+                </div>
               </div>
               <div class="flex flex-col">
                 <label>Діоптрії:</label>
-                <select name="" id="">
-                  <option value="">1</option>
-                </select>
+                <div class="relative">
+                  <select (change)="changeQuantity(item, $event)"
+                          class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option *ngFor="let quantity of lenseQuantity" [value]="quantity.value">{{quantity.value}}</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                    </svg>
+                  </div>
+                </div>
               </div>
               <div class="flex flex-col">
                 <label>Кривизна:</label>
-                <select name="" id="">
-                  <option value="">1</option>
-                </select>
+                <div class="relative">
+                  <select (change)="changeQuantity(item, $event)"
+                          class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option *ngFor="let quantity of lenseQuantity" [value]="quantity.value">{{quantity.value}}</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                    </svg>
+                  </div>
+                </div>
               </div>
               <div class="flex flex-col">
                 <label>Діаметр:</label>
-                <select name="" id="">
-                  <option value="">1</option>
-                </select>
-              </div>
-              <div class="flex flex-col">
-                <label>Приблизна дата доставки:</label>
-                <select name="" id="">
-                  <option value="">1</option>
-                </select>
+                <div class="relative">
+                  <select (change)="changeQuantity(item, $event)"
+                          class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option *ngFor="let quantity of lenseQuantity" [value]="quantity.value">{{quantity.value}}</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                    </svg>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -414,14 +580,14 @@
             </div>
           </div>
           <div>
-            <dl>
+            <dl [formGroup]="userDataForm">
               <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-sm leading-5 font-medium text-gray-500">
                   Full name
                 </dt>
                 <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-1 flex flex-row">
-                  <input class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="firstName" type="text" placeholder="Ваше ім'я">
-                  <input class="shadow-sm appearance-none border rounded w-full py-2 px-3 ml-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="lastName" type="text" placeholder="Ваше прізвище">
+                  <input formControlName="userFirstName" class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="firstName" type="text" placeholder="Ваше ім'я">
+                  <input formControlName="userLastName" class="shadow-sm appearance-none border rounded w-full py-2 px-3 ml-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="lastName" type="text" placeholder="Ваше прізвище">
                 </dd>
               </div>
               <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -429,7 +595,7 @@
                   Телефон
                 </dt>
                 <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-1">
-                  <input class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="phone" type="number" placeholder="Ваш телефон">
+                  <input formControlName="userPhone" class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="phone" type="number" placeholder="Ваш телефон">
                 </dd>
               </div>
               <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -440,20 +606,29 @@
                   <input class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="text" placeholder="Email">
                 </dd>
               </div>
-              <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt class="text-sm leading-5 font-medium text-gray-500">
-                  Salary expectation
-                </dt>
-                <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                  $120,000
-                </dd>
-              </div>
+<!--              <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">-->
+<!--                <dt class="text-sm leading-5 font-medium text-gray-500">-->
+<!--                  Salary expectation-->
+<!--                </dt>-->
+<!--                <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">-->
+<!--                  $120,000-->
+<!--                </dd>-->
+<!--              </div>-->
               <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-sm leading-5 font-medium text-gray-500">
                   About
                 </dt>
-                <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                  Fugiat ipsum ipsum deserunt culpa aute sint do nostrud anim incididunt cillum culpa consequat. Excepteur qui ipsum aliquip consequat sint. Sit id mollit nulla mollit nostrud in ea officia proident. Irure nostrud pariatur mollit ad adipisicing reprehenderit deserunt qui eu.
+                <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-1 flex flex-row">
+                  <input formControlName="userFirstName" class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="Населений пункт">
+                  <input formControlName="userLastName" class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  type="text" placeholder="Номер відділення">
+                </dd>
+              </div>
+              <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm leading-5 font-medium text-gray-500">
+                  Опис
+                </dt>
+                <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-1 flex flex-row">
+                  <textarea formControlName="aboutWarehouse"  class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-desc" type="text" placeholder="Не знайшли свого відділення?"></textarea>
                 </dd>
               </div>
               <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
