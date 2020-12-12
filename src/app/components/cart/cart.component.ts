@@ -3,12 +3,14 @@ import {CartObjectService} from '../../services/components-data/cart-object.serv
 import {CartItems} from '../../models/order/CartItems';
 import {ActivatedRoute} from '@angular/router';
 import {Drops} from '../../models/drops/Drops';
+import {Lens} from '../../models/lense/Lens';
 import {TokenStorageService} from '../../services/token-storage.service';
 import {CabinetService} from '../../services/cabinet.service';
 import {LensService} from '../../services/lens.service';
 import {Items, OrderToSend} from '../../models/order/OrderToSend';
 import {lenseDiopters, lenseQuantity} from '../../constants/lense/lenses';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {SpecialOffer} from '../../models/special-offers/SpecialOffer';
 
 @Component({
   selector: 'app-cart',
@@ -104,6 +106,42 @@ export class CartComponent implements OnInit, OnDestroy {
         value.drops.splice(index, 1);
       }
     });
+    this.cartObjectService.sendObject(this.cartItems);
+  }
+  deleteLenseFromList(lense: Lens): void {
+    this.cartItems.map(value => {
+      const lensInArr = value.lenses.find(lens => lens.name === lense.name);
+      this.totalPrice -= lensInArr.price;
+      const index = value.lenses.indexOf(lensInArr);
+      if (index > -1) {
+        value.lenses.splice(index, 1);
+      }
+    });
+    this.cartObjectService.sendObject(this.cartItems);
+  }
+  deleteOfferFromList(offer: SpecialOffer): void {
+    this.cartItems.map(value => {
+      const offerInArr = value.offers.find(offerValue => offerValue.name === offer.name);
+      this.totalPrice -= offerInArr.price;
+      const index = value.offers.indexOf(offerInArr);
+      if (index > -1) {
+        value.offers.splice(index, 1);
+      }
+    });
+    this.cartObjectService.sendObject(this.cartItems);
+  }
+
+  changeQuantity(item: CartItems, event): void {
+    item.lenses.map(value => {
+      value.quantity = event.target.value;
+    });
+    console.log(this.cartItems);
+  }
+
+  changeDiopters(item: CartItems, event): void {
+    item.lenses.map(value => {
+      value.diopters = event.target.value;
+    });
     console.log(this.cartItems);
   }
 
@@ -144,21 +182,9 @@ export class CartComponent implements OnInit, OnDestroy {
       };
     }
 
-    console.log(order);
-    this.lensService.createOrder(order).subscribe(value => console.log(value));
+    console.log(this.itemsToSend);
+    // this.lensService.createOrder(order).subscribe(value => console.log(value));
   }
 
-  changeQuantity(item: CartItems, event): void {
-    item.lenses.map(value => {
-      value.quantity = event.target.value;
-    });
-    console.log(this.cartItems);
-  }
 
-  changeDiopters(item: CartItems, event): void {
-    item.lenses.map(value => {
-      value.diopters = event.target.value;
-    });
-    console.log(this.cartItems);
-  }
 }

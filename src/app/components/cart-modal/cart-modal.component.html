@@ -16,16 +16,15 @@
     <div class="cart-modal-box-main" *ngFor="let item of cartItems">
       <span *ngIf="item.drops.length !== 0" class="cart-modal-box-main-title">Догляд за очима</span>
       <div class="solution-cart-wrapper" *ngFor="let care of item.drops">
-        <div class="cart-modal-box-main-item flex">
-          <div class="flex-left">
+        <div class="cart-modal-box-main-item flex flex-row">
+          <div>
             <a href="https://www.alensa.pl/biofinity-toric-6-soczewek-plyn-gelone-360-ml">
               <img src="https://www.alensa.pl/imagesCdn/1480/1644-800x600.jpg" alt="product" class="w-18 h-16">
             </a>
           </div>
-          <div class="flex-right ml-3">
+          <div class="ml-3">
             <div class="flex-right-row">
               <span class="text-base font-medium font-mono">{{care.name}}</span>
-              <svg (click)="deleteCareItemFromCart(care)" class="w-6 h-6 delete" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
             </div>
             <div class="flex flex-row pt-2">
               <div class="flex flex-row">
@@ -36,18 +35,23 @@
               <div class="font-bold ">{{care.price}} &#8372;</div>
             </div>
           </div>
+          <div class="flex ml-auto">
+            <svg (click)="deleteCareItemFromCart(care)" class="w-6 h-6 delete" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          </div>
         </div>
       </div>
       <span *ngIf="item.lenses.length !== 0" class="cart-modal-box-main-title">Контактні лінзи</span>
       <div class="solution-cart-wrapper" *ngFor="let lense of item.lenses">
-        <div class="cart-modal-box-main-item flex">
-          <div class="flex-left">
+        <div class="cart-modal-box-main-item flex flex-row">
+          <div>
             <a href="https://www.alensa.pl/biofinity-toric-6-soczewek-plyn-gelone-360-ml">
               <img src="https://cdn.alensa.pl/imagesCdn/199/5-800x600.jpg" alt="product" class="w-18 h-16">
             </a>
           </div>
-          <div class="flex-right ml-3">
-            <span class="text-base font-medium font-mono">{{lense.name}}</span>
+          <div class="ml-3">
+            <div class="flex flex-row pt-2">
+              <span class="text-base font-medium font-mono">{{lense.name}}</span>
+            </div>
             <div class="flex flex-row pt-2">
               <div class="flex flex-row">
                 <span class="cart-modal-box-buttons mr-3 cursor-pointer"><svg class="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path></svg></span>
@@ -57,17 +61,20 @@
               <div class="font-bold ">{{lense.price}} &#8372;</div>
             </div>
           </div>
+          <div class="ml-auto pt-2">
+            <svg (click)="deleteCareItemFromCart(lense)" class="w-6 h-6 delete" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          </div>
         </div>
       </div>
       <span *ngIf="item.solutions.length !== 0" class="cart-modal-box-main-title">Розчини</span>
       <div class="solution-cart-wrapper" *ngFor="let solution of item.solutions">
-        <div class="cart-modal-box-main-item flex">
-          <div class="flex-left">
+        <div class="cart-modal-box-main-item flex flex-row">
+          <div class="flex">
             <a href="https://www.alensa.pl/biofinity-toric-6-soczewek-plyn-gelone-360-ml">
               <img src="https://www.alensa.pl/imagesCdn/1480/1644-800x600.jpg" alt="product" class="w-18 h-16">
             </a>
           </div>
-          <div class="flex-right ml-3">
+          <div class="ml-3">
             <span class="text-base font-medium font-mono">{{solution.name}}</span>
             <div class="flex flex-row pt-2">
               <div class="flex flex-row">
@@ -78,18 +85,23 @@
               <div class="font-bold ">{{solution.price}} &#8372;</div>
             </div>
           </div>
+          <div>
+
+          </div>
         </div>
       </div>
       <span *ngIf="item.offers.length !== 0" class="cart-modal-box-main-title">Вигідні пропозиції</span>
       <div class="solution-cart-wrapper" *ngFor="let offer of item.offers">
-        <div class="cart-modal-box-main-item flex">
-          <div class="flex-left w-10">
+        <div class="cart-modal-box-main-item flex flex-row">
+          <div class=" w-10">
 <!--            <a href="https://www.alensa.pl/biofinity-toric-6-soczewek-plyn-gelone-360-ml">-->
 <!--              <img src="https://www.alensa.pl/imagesCdn/1480/1644-800x600.jpg" alt="product" class="w-18 h-16">-->
 <!--            </a>-->
           </div>
-          <div class="flex-right ml-3">
-            <span class="text-base font-medium font-mono">{{offer.name}}</span>
+          <div class=" ml-3">
+            <div class="flex flex-row">
+              <span class="text-base font-medium font-mono">{{offer.name}}</span>
+            </div>
             <div class="flex flex-row pt-2">
               <div class="flex flex-row">
                 <span class="cart-modal-box-buttons mr-3 cursor-pointer"><svg class="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path></svg></span>
@@ -98,6 +110,9 @@
               </div>
               <div class="font-bold ">{{offer.price}} &#8372;</div>
             </div>
+          </div>
+          <div class="ml-auto">
+            <svg (click)="deleteCareItemFromCart(offer)" class="w-6 h-6 delete" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
           </div>
         </div>
       </div>
