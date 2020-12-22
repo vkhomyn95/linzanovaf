@@ -25,6 +25,11 @@ interface Lenses {
   diopters?: string;
   cylinder?: string;
   axis?: string;
+  defaultDiameter: number;
+  defaultBC?: number;
+  hasDefaultBC?: boolean;
+  hasAxis?: boolean;
+  hasCylinder?: boolean;
 }
 
 interface Solutions {
@@ -32,10 +37,19 @@ interface Solutions {
   name: string;
   price: number;
   quantity: number;
+  solutionValue: number;
 }
 interface HotOffers {
   id: number;
   name: string;
   price: number;
   quantity: number;
+  diopters?: string;
+  cylinder?: string;
+  axis?: string;
+  defaultDiameter: number;
+  defaultBC?: number;
+  hasDefaultBC?: boolean;
+  hasAxis?: boolean;
+  hasCylinder?: boolean;
 }

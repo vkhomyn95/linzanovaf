@@ -140,7 +140,8 @@ export class AddFormComponent implements OnInit {
         description: this.addSolutionForm.controls.description.value,
         sdate: this.addSolutionForm.controls.sDate.value,
         stdt: this.addSolutionForm.controls.sTdt.value,
-        boolHyaluronate: this.addSolutionForm.controls.sZip.value
+        boolHyaluronate: this.addSolutionForm.controls.sZip.value,
+        avgPriceInUkraine: this.addSolutionForm.controls.ukrPrice.value
       };
       return this.lensService.addSolution(solution).subscribe(value => console.log(value), error => {
         this.errorResponse.push(error.error);
@@ -165,7 +166,8 @@ export class AddFormComponent implements OnInit {
         cvalue: this.addSolutionForm.controls.cValue.value,
         description: this.addSolutionForm.controls.description.value,
         sdate: this.addSolutionForm.controls.sDate.value,
-        stdt: this.addSolutionForm.controls.sTdt.value
+        stdt: this.addSolutionForm.controls.sTdt.value,
+        avgPriceInUkraine: this.addSolutionForm.controls.ukrPrice.value
       };
       console.log(drops)
       return this.lensService.addLensDrops(drops).subscribe(value => console.log(value), error => {
@@ -195,7 +197,8 @@ export class AddFormComponent implements OnInit {
         secondItemName: this.addSolutionForm.controls.offerSecondItemName.value,
         firstItemQuanity: this.addSolutionForm.controls.offerFirstItemQuantity.value,
         secondItemQuanity: this.addSolutionForm.controls.offerSecondItemQuantity.value,
-        activeStatus: this.addSolutionForm.controls.activeStatus.value
+        activeStatus: this.addSolutionForm.controls.activeStatus.value,
+        avgPriceInUkraine: this.addSolutionForm.controls.ukrPrice.value
       };
       console.log(offer)
       return this.lensService.addSpecialOffer(offer).subscribe(value => console.log(value), error => {

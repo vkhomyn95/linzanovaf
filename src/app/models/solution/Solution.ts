@@ -10,6 +10,7 @@ export interface Solution {
   sdate: number;
   stdt: number;
   boolHyaluronate: boolean;
+  avgPriceInUkraine: number;
 }
 export interface UpdateSolution {
   name: string;

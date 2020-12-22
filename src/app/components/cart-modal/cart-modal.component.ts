@@ -1,9 +1,13 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {CartObjectService} from '../../services/components-data/cart-object.service';
-import {Subscription} from 'rxjs';
+import {of, Subscription} from 'rxjs';
 import {CartItems} from '../../models/order/CartItems';
 import {Drops} from '../../models/drops/Drops';
+import {Lens} from '../../models/lense/Lens';
+import {Solution} from '../../models/solution/Solution';
+import {SpecialOffer} from '../../models/special-offers/SpecialOffer';
+import {log} from 'util';
 
 @Component({
   selector: 'app-cart-modal',
@@ -18,27 +22,6 @@ export class CartModalComponent implements OnInit {
 
   constructor(private router: Router,
               private cartObjectService: CartObjectService) {
-    // this.cartItems = this.cartObjectService.getObject();
-    // if (this.cartItems){
-    //   this.cartItems.map(item => {
-    //     this.cartItemsPrice = 0;
-    //     this.cartItemsQuantity = 0;
-    //     item.drops.map(valuePrice => {
-    //       this.cartItemsPrice += valuePrice.price;
-    //       this.cartItemsQuantity += valuePrice.quantity;
-    //     });
-    //     item.solutions.map(valuePrice => {
-    //       this.cartItemsPrice += valuePrice.price;
-    //       this.cartItemsQuantity += valuePrice.quantity;
-    //     });
-    //     item.lenses.map(valuePrice => {
-    //       this.cartItemsPrice += valuePrice.price;
-    //       this.cartItemsQuantity += valuePrice.quantity;
-    //     });
-    //   });
-    // } else {
-    //   this.cartItems = null;
-    // }
     this.cartObjectService.getObject().subscribe(value => {
       if (value){
         this.cartItems = value;
@@ -66,6 +49,7 @@ export class CartModalComponent implements OnInit {
         this.cartItems = null;
       }
     });
+    console.log(this.cartItems)
 
   }
 
@@ -126,6 +110,44 @@ export class CartModalComponent implements OnInit {
       }
     });
     this.cartObjectService.sendObject(this.cartItems);
-    console.log(this.cartItems);
+  }
+
+  deleteLenseItemFromCart(lense: Lens): void {
+    this.cartItems.map(value => {
+      const lensesInArr = value.lenses.find(lens => lens.name === lense.name);
+      this.cartItemsPrice -= lensesInArr.price;
+      this.cartItemsQuantity -= lensesInArr.quantity;
+      const index = value.lenses.indexOf(lensesInArr);
+      if (index > -1) {
+        value.lenses.splice(index, 1);
+      }
+    });
+    this.cartObjectService.sendObject(this.cartItems);
+  }
+
+  deleteSolutionItemFromCart(solution: Solution): void {
+    this.cartItems.map(value => {
+      const solutionInArr = value.solutions.find(sol => sol.name === solution.name);
+      this.cartItemsPrice -= solutionInArr.price;
+      this.cartItemsQuantity -= solutionInArr.quantity;
+      const index = value.solutions.indexOf(solutionInArr);
+      if (index > -1) {
+        value.solutions.splice(index, 1);
+      }
+    });
+    this.cartObjectService.sendObject(this.cartItems);
+  }
+
+  deleteOfferItemFromCart(offer: SpecialOffer): void {
+    this.cartItems.map(value => {
+      const offerInArr = value.offers.find(off => off.name === offer.name);
+      this.cartItemsPrice -= offerInArr.price;
+      this.cartItemsQuantity -= offerInArr.quantity;
+      const index = value.offers.indexOf(offerInArr);
+      if (index > -1) {
+        value.offers.splice(index, 1);
+      }
+    });
+    this.cartObjectService.sendObject(this.cartItems);
   }
 }

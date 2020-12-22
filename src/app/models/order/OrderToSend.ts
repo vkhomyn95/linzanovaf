@@ -20,6 +20,7 @@ interface Drops {
   dropId: number;
 }
 interface Lenses {
+  defaultDiameter: number;
   lenseId: number;
 }
 interface Offers {

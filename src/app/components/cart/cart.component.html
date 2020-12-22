@@ -31,7 +31,8 @@
       </a>
     </div>
     <ng-container *ngIf="orderStep === 0">
-      <div *ngIf="!cartItems" class="flex flex-col">
+      <div *ngIf="cartItems[0].offers.length === 0 && cartItems[0].solutions.length === 0 &&
+       cartItems[0].lenses.length === 0 && cartItems[0].drops.length === 0" class="flex flex-col">
         <div class="mx-auto">
           <img src="../../../assets/empty-cart.png" alt="empty-cart"/>
         </div>
@@ -51,11 +52,9 @@
                   Кількість:
                 </label>
                 <div class="relative">
-                  <select
-                    class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                    <option>New Mexico</option>
-                    <option>Missouri</option>
-                    <option>Texas</option>
+                  <select (change)="changeDropsQuantity(item, $event, care.id)"
+                          class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option *ngFor="let quantity of lenseQuantity" [selected]="care.quantity === quantity.value"  [value]="quantity.value">{{quantity.value}}</option>
                   </select>
                   <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                     <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -72,9 +71,7 @@
                   <select
                     class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     id="grid-state">
-                    <option>New Mexico</option>
-                    <option>Missouri</option>
-                    <option>Texas</option>
+                    <option [value]="care.cvalue" [disabled]="true">{{care.cvalue}} ml</option>
                   </select>
                   <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                     <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -94,7 +91,7 @@
                       d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
               </svg>
             </span>
-            <span class="whitespace-no-wrap mt-10 font-medium price">{{care.price}} грн.</span>
+            <span class="whitespace-no-wrap mt-10 font-medium price">{{care.price * care.quantity}} грн.</span>
           </div>
         </div>
         <h2 *ngIf="item.lenses.length !== 0"
@@ -108,9 +105,9 @@
               <div class="flex flex-col pr-2">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Кількість:</label>
                 <div class="relative">
-                  <select (change)="changeQuantity(item, $event)"
+                  <select (change)="changeLensesQuantity(item, $event, lense.id)"
                     class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                    <option *ngFor="let quantity of lenseQuantity" [value]="quantity.value">{{quantity.value}}</option>
+                    <option *ngFor="let quantity of lenseQuantity" [selected]="lense.quantity === quantity.value" [value]="quantity.value">{{quantity.value}}</option>
                   </select>
                   <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                     <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -122,9 +119,10 @@
               <div class="flex flex-col pr-2">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Діоптрії:</label>
                 <div class="relative">
-                  <select (change)="changeDiopters(item, $event)"
+                  <select (change)="changeDiopters(item, $event, lense.id)"
                           class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                    <option *ngFor="let diopters of lenseDiopters" [value]="diopters.value">{{diopters.value}}</option>
+                    <option value="Вибрати">Вибрати</option>
+                    <option *ngFor="let diopters of lenseDiopters" [selected]="lense.diopters === diopters.value" [value]="diopters.value">{{diopters.value}}</option>
                   </select>
                   <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                     <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -132,13 +130,60 @@
                     </svg>
                   </div>
                 </div>
+              </div>
+
+
+              <div class="flex flex-col pr-2" *ngIf="lense.hasCylinder">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Циліндр:</label>
+                <div class="relative">
+                  <select (change)="changeLensCylinder(item, $event, lense.id)"
+                          class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option value="Вибрати">Вибрати</option>
+                    <option *ngFor="let cylinder of lensCylinder" [selected]="cylinder.value === lense.cylinder"  [value]="cylinder.value">{{cylinder.value}}</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="flex flex-col pr-2" *ngIf="lense.hasAxis">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Вісь:</label>
+                <div class="relative">
+                  <select (change)="changeLensAxis(item, $event, lense.id)"
+                          class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option value="Вибрати">Вибрати</option>
+                    <option *ngFor="let axis of lensAxis" [selected]="lense.axis === axis.value"  [value]="axis.value">{{axis.value}}</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                    </svg>
+                  </div>
+                </div>
+
               </div>
               <div class="flex flex-col pr-2">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Кривизна:</label>
-                <div class="relative">
-                  <select (change)="changeQuantity(item, $event)"
+                <div class="relative" *ngIf="lense.hasDefaultBC">
+                  <select
                           class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                    <option *ngFor="let quantity of lenseQuantity" [value]="quantity.value">{{quantity.value}}</option>
+                    <option [value]="lense.defaultBC" [disabled]="true">{{lense.defaultBC}}</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                    </svg>
+                  </div>
+                </div>
+                <div class="relative" *ngIf="!lense.hasDefaultBC">
+                  <select (change)="changeLensBc(item, $event, lense.id)"
+                    class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option value="Вибрати">Вибрати</option>
+                    <option *ngFor="let bc of lensBC" [selected]="lense.defaultBC == bc.value" [value]="bc.value">{{bc.value}}</option>
                   </select>
                   <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                     <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -147,26 +192,13 @@
                   </div>
                 </div>
               </div>
+
               <div class="flex flex-col pr-2">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Діаметр:</label>
                 <div class="relative">
-                  <select (change)="changeQuantity(item, $event)"
+                  <select
                           class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                    <option *ngFor="let quantity of lenseQuantity" [value]="quantity.value">{{quantity.value}}</option>
-                  </select>
-                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                    </svg>
-                  </div>
-                </div>
-              </div>
-              <div class="flex flex-col pr-2">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Приблизна дата доставки:</label>
-                <div class="relative">
-                  <select (change)="changeQuantity(item, $event)"
-                          class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                    <option *ngFor="let quantity of lenseQuantity" [value]="quantity.value">{{quantity.value}}</option>
+                    <option [value]="lense.defaultDiameter" [disabled]="true">{{lense.defaultDiameter}}</option>
                   </select>
                   <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                     <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -177,7 +209,6 @@
               </div>
             </div>
           </div>
-
           <div class="flex items-center flex-col">
             <span>
               <svg (click)="deleteLenseFromList(lense)" class="w-8 h-8 delete-button" fill="none" stroke="currentColor"
@@ -187,9 +218,10 @@
                       d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
               </svg>
             </span>
-            <span class="whitespace-no-wrap mt-10 font-medium price">{{lense.price}} грн.</span>
+            <span class="whitespace-no-wrap mt-10 font-medium price">{{lense.price * lense.quantity}} грн.</span>
           </div>
         </div>
+
         <h2 *ngIf="item.offers.length !== 0"
             class="text-lg text-gray-900 font-medium title-font mb-4 mx-auto flex justify-center">Вигідні пропозиції</h2>
         <div class="flex flex-row" *ngFor="let offer of item.offers">
@@ -199,11 +231,12 @@
             <h1 class="text-xl font-medium title-font mb-4 text-gray-900">{{offer.name}}</h1>
             <div class="flex flex-row">
               <div class="flex flex-col pr-2">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Кількість:</label>
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Діоптрії:</label>
                 <div class="relative">
-                  <select (change)="changeQuantity(item, $event)"
+                  <select (change)="changeOfferDiopters(item, $event, offer.id)"
                           class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                    <option *ngFor="let quantity of lenseQuantity" [value]="quantity.value">{{quantity.value}}</option>
+                    <option value="Вибрати">Вибрати</option>
+                    <option *ngFor="let diopters of lenseDiopters" [selected]="offer.diopters === diopters.value" [value]="diopters.value">{{diopters.value}}</option>
                   </select>
                   <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                     <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -212,12 +245,15 @@
                   </div>
                 </div>
               </div>
-              <div class="flex flex-col pr-2">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Діоптрії:</label>
+
+
+              <div class="flex flex-col pr-2" *ngIf="offer.hasCylinder">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Циліндр:</label>
                 <div class="relative">
-                  <select (change)="changeDiopters(item, $event)"
+                  <select (change)="changeOfferCylinder(item, $event, offer.id)"
                           class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                    <option *ngFor="let diopters of lenseDiopters" [value]="diopters.value">{{diopters.value}}</option>
+                    <option value="Вибрати">Вибрати</option>
+                    <option *ngFor="let cylinder of lensCylinder" [selected]="cylinder.value === offer.cylinder"  [value]="cylinder.value">{{cylinder.value}}</option>
                   </select>
                   <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                     <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -225,13 +261,43 @@
                     </svg>
                   </div>
                 </div>
+              </div>
+
+
+              <div class="flex flex-col pr-2" *ngIf="offer.hasAxis">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Вісь:</label>
+                <div class="relative">
+                  <select (change)="changeOfferAxis(item, $event, offer.id)"
+                          class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option value="Вибрати">Вибрати</option>
+                    <option *ngFor="let axis of lensAxis" [selected]="offer.axis === axis.value"  [value]="axis.value">{{axis.value}}</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                    </svg>
+                  </div>
+                </div>
+
               </div>
               <div class="flex flex-col pr-2">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Кривизна:</label>
-                <div class="relative">
-                  <select (change)="changeQuantity(item, $event)"
+                <div class="relative" *ngIf="offer.hasDefaultBC">
+                  <select
+                    class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option [value]="offer.defaultBC" [disabled]="true">{{offer.defaultBC}}</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                    </svg>
+                  </div>
+                </div>
+                <div class="relative" *ngIf="!offer.hasDefaultBC">
+                  <select (change)="changeOfferBc(item, $event, offer.id)"
                           class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                    <option *ngFor="let quantity of lenseQuantity" [value]="quantity.value">{{quantity.value}}</option>
+                    <option value="Вибрати">Вибрати</option>
+                    <option *ngFor="let bc of lensBC" [selected]="offer.defaultBC == bc.value" [value]="bc.value">{{bc.value}}</option>
                   </select>
                   <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                     <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -240,26 +306,13 @@
                   </div>
                 </div>
               </div>
+
               <div class="flex flex-col pr-2">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Діаметр:</label>
                 <div class="relative">
-                  <select (change)="changeQuantity(item, $event)"
-                          class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                    <option *ngFor="let quantity of lenseQuantity" [value]="quantity.value">{{quantity.value}}</option>
-                  </select>
-                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                    </svg>
-                  </div>
-                </div>
-              </div>
-              <div class="flex flex-col pr-2">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Приблизна дата доставки:</label>
-                <div class="relative">
-                  <select (change)="changeQuantity(item, $event)"
-                          class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                    <option *ngFor="let quantity of lenseQuantity" [value]="quantity.value">{{quantity.value}}</option>
+                  <select
+                    class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option [value]="offer.defaultDiameter" [disabled]="true">{{offer.defaultDiameter}}</option>
                   </select>
                   <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                     <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -280,9 +333,10 @@
                       d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
               </svg>
             </span>
-            <span class="whitespace-no-wrap mt-10 font-medium price">{{offer.price}} грн.</span>
+            <span class="whitespace-no-wrap mt-10 font-medium price">{{offer.price * offer.quantity}} грн.</span>
           </div>
         </div>
+
         <h2 *ngIf="item.solutions.length !== 0"
             class="text-lg text-gray-900 font-medium title-font mb-4 mx-auto flex justify-center">Розчини</h2>
         <div class="flex flex-row" *ngFor="let solution of item.solutions">
@@ -291,12 +345,12 @@
           <div class="flex flex-col text-left w-full ml-8">
             <h1 class="text-xl font-medium title-font mb-4 text-gray-900">{{solution.name}}</h1>
             <div class="flex flex-row">
-              <div class="flex flex-col">
+              <div class="flex flex-col pr-2">
                 <label>Кількість:</label>
                 <div class="relative">
-                  <select (change)="changeQuantity(item, $event)"
+                  <select (change)="changeSolutionQuantity(item, $event, solution.id)"
                           class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                    <option *ngFor="let quantity of lenseQuantity" [value]="quantity.value">{{quantity.value}}</option>
+                    <option *ngFor="let quantity of lenseQuantity" [selected]="solution.quantity === quantity.value" [value]="quantity.value">{{quantity.value}}</option>
                   </select>
                   <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                     <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -306,39 +360,11 @@
                 </div>
               </div>
               <div class="flex flex-col">
-                <label>Діоптрії:</label>
+                <label>Об'єм:</label>
                 <div class="relative">
-                  <select (change)="changeQuantity(item, $event)"
+                  <select
                           class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                    <option *ngFor="let quantity of lenseQuantity" [value]="quantity.value">{{quantity.value}}</option>
-                  </select>
-                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                    </svg>
-                  </div>
-                </div>
-              </div>
-              <div class="flex flex-col">
-                <label>Кривизна:</label>
-                <div class="relative">
-                  <select (change)="changeQuantity(item, $event)"
-                          class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                    <option *ngFor="let quantity of lenseQuantity" [value]="quantity.value">{{quantity.value}}</option>
-                  </select>
-                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                    </svg>
-                  </div>
-                </div>
-              </div>
-              <div class="flex flex-col">
-                <label>Діаметр:</label>
-                <div class="relative">
-                  <select (change)="changeQuantity(item, $event)"
-                          class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                    <option *ngFor="let quantity of lenseQuantity" [value]="quantity.value">{{quantity.value}}</option>
+                    <option [value]="solution.solutionValue">{{solution.solutionValue}} ml</option>
                   </select>
                   <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                     <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -350,8 +376,16 @@
             </div>
           </div>
 
-          <div>
-            <span>{{solution.price}} грн.</span>
+          <div class="flex items-center flex-col">
+            <span>
+              <svg (click)="deleteSolutionFromList(solution)" class="w-8 h-8 delete-button" fill="none" stroke="currentColor"
+                   viewBox="0 0 24 24"
+                   xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+              </svg>
+            </span>
+            <span class="whitespace-no-wrap mt-10 font-medium price">{{solution.price * solution.quantity}} грн.</span>
           </div>
         </div>
       </div>
@@ -619,8 +653,8 @@
                   About
                 </dt>
                 <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-1 flex flex-row">
-                  <input formControlName="userFirstName" class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="Населений пункт">
-                  <input formControlName="userLastName" class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  type="text" placeholder="Номер відділення">
+                  <input formControlName="userCity" class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="Населений пункт">
+                  <input formControlName="userWarehouseNumber" class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  type="text" placeholder="Номер відділення">
                 </dd>
               </div>
               <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">

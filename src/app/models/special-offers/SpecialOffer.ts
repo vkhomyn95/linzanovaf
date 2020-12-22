@@ -8,4 +8,5 @@ export interface SpecialOffer {
   firstItemQuanity: string;
   secondItemQuanity: string;
   activeStatus?: boolean;
+  avgPriceInUkraine?: number;
 }

@@ -8,9 +8,12 @@ import {TokenStorageService} from '../../services/token-storage.service';
 import {CabinetService} from '../../services/cabinet.service';
 import {LensService} from '../../services/lens.service';
 import {Items, OrderToSend} from '../../models/order/OrderToSend';
-import {lenseDiopters, lenseQuantity} from '../../constants/lense/lenses';
+import {lensAxis, lensBCValues, lensCylinder, lenseDiopters, lenseQuantity} from '../../constants/lense/lenses';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {SpecialOffer} from '../../models/special-offers/SpecialOffer';
+import {Solution} from '../../models/solution/Solution';
+import {log} from 'util';
+import {of} from 'rxjs';
 
 @Component({
   selector: 'app-cart',
@@ -28,7 +31,7 @@ export class CartComponent implements OnInit, OnDestroy {
     drops: [],
     lenses: []
   }];
-  lenseQuantity; lenseDiopters;
+  lenseQuantity; lenseDiopters; lensBC; lensCylinder; lensAxis;
   userDataForm: FormGroup;
 
 
@@ -41,6 +44,8 @@ export class CartComponent implements OnInit, OnDestroy {
       userFirstName: new FormControl('', [Validators.required]),
       userLastName: new FormControl('', [Validators.required]),
       userPhone: new FormControl('', [Validators.required]),
+      userCity: new FormControl('', [Validators.required]),
+      userWarehouseNumber: new FormControl('', [Validators.required]),
     });
     this.cartObjectService.getObject().subscribe(value => {
       if (value){
@@ -49,15 +54,15 @@ export class CartComponent implements OnInit, OnDestroy {
           this.cartItemsQuantity = 0;
           this.totalPrice = 0;
           item.drops.map(valuePrice => {
-            this.totalPrice += valuePrice.price;
+            this.totalPrice += valuePrice.price * valuePrice.quantity;
             this.cartItemsQuantity += valuePrice.quantity;
           });
           item.solutions.map(valuePrice => {
-            this.totalPrice += valuePrice.price;
+            this.totalPrice += valuePrice.price * valuePrice.quantity;
             this.cartItemsQuantity += valuePrice.quantity;
           });
           item.lenses.map(valuePrice => {
-            this.totalPrice += valuePrice.price;
+            this.totalPrice += valuePrice.price * valuePrice.quantity;
             this.cartItemsQuantity += valuePrice.quantity;
           });
           item.offers.map(valuePrice => {
@@ -67,7 +72,8 @@ export class CartComponent implements OnInit, OnDestroy {
         });
       }
     });
-    this.lenseQuantity = lenseQuantity; this.lenseDiopters = lenseDiopters;
+    this.lenseQuantity = lenseQuantity; this.lenseDiopters = lenseDiopters; this.lensBC = lensBCValues;
+    this.lensAxis = lensAxis; this.lensCylinder = lensCylinder;
   }
 
   ngOnInit(): void {
@@ -130,20 +136,116 @@ export class CartComponent implements OnInit, OnDestroy {
     });
     this.cartObjectService.sendObject(this.cartItems);
   }
-
-  changeQuantity(item: CartItems, event): void {
+  deleteSolutionFromList(solution: Solution): void {
+    this.cartItems.map(value => {
+      const solutionInArr = value.solutions.find(solutionValue => solutionValue.name === solution.name);
+      this.totalPrice -= solutionInArr.price;
+      const index = value.solutions.indexOf(solutionInArr);
+      if (index > -1) {
+        value.solutions.splice(index, 1);
+      }
+    });
+    this.cartObjectService.sendObject(this.cartItems);
+  }
+  changeDropsQuantity(item: CartItems, event, careId): void {
+    item.drops.map(value => {
+      if (careId === value.id){
+        value.quantity = Number(event.target.value);
+      }
+    });
+    this.cartObjectService.sendObject(this.cartItems);
+  }
+  changeLensesQuantity(item: CartItems, event, lensId): void {
+    item.lenses.map((value) => {
+      if (lensId === value.id){
+        value.quantity = Number(event.target.value);
+      }
+    });
+    console.log(item);
+    this.cartObjectService.sendObject(this.cartItems);
+  }
+  changeLensBc(item: CartItems, event, lensId): void {
+    item.lenses.map((value) => {
+      if (lensId === value.id){
+        value.defaultBC = Number(event.target.value);
+      }
+    });
+    console.log(item);
+    this.cartObjectService.sendObject(this.cartItems);
+  }
+  changeDiopters(item: CartItems, event, lensId): void {
     item.lenses.map(value => {
-      value.quantity = event.target.value;
+      if (lensId === value.id){
+       value.diopters = event.target.value;
+      }
     });
     console.log(this.cartItems);
+    this.cartObjectService.sendObject(this.cartItems);
   }
-
-  changeDiopters(item: CartItems, event): void {
-    item.lenses.map(value => {
-      value.diopters = event.target.value;
+  changeLensCylinder(item: CartItems, event, lensId): void {
+    item.lenses.map((value) => {
+      if (lensId === value.id){
+        value.cylinder = event.target.value;
+      }
+    });
+    console.log(item);
+    this.cartObjectService.sendObject(this.cartItems);
+  }
+  changeLensAxis(item: CartItems, event, lensId): void {
+    item.lenses.map((value) => {
+      if (lensId === value.id){
+        value.axis = event.target.value;
+      }
+    });
+    console.log(item);
+    this.cartObjectService.sendObject(this.cartItems);
+  }
+  changeOfferBc(item: CartItems, event, offerId): void {
+    item.offers.map((value) => {
+      if (offerId === value.id){
+        value.defaultBC = Number(event.target.value);
+      }
+    });
+    console.log(item);
+    this.cartObjectService.sendObject(this.cartItems);
+  }
+  changeOfferDiopters(item: CartItems, event, offerId): void {
+    item.offers.map(value => {
+      if (offerId === value.id){
+        value.diopters = event.target.value;
+      }
     });
     console.log(this.cartItems);
+    this.cartObjectService.sendObject(this.cartItems);
   }
+  changeOfferCylinder(item: CartItems, event, offerId): void {
+    item.offers.map((value) => {
+      if (offerId === value.id){
+        value.cylinder = event.target.value;
+      }
+    });
+    console.log(item);
+    this.cartObjectService.sendObject(this.cartItems);
+  }
+  changeOfferAxis(item: CartItems, event, offerId): void {
+    item.offers.map((value) => {
+      if (offerId === value.id){
+        value.axis = event.target.value;
+      }
+    });
+    console.log(item);
+    this.cartObjectService.sendObject(this.cartItems);
+  }
+
+  changeSolutionQuantity(item: CartItems, event, solutionId): void {
+    item.solutions.map(value => {
+      if (solutionId === value.id){
+        value.quantity = Number(event.target.value);
+      }
+    });
+    this.cartObjectService.sendObject(this.cartItems);
+  }
+
 
   checkOut(): void {
     console.log('-------');
@@ -178,13 +280,16 @@ export class CartComponent implements OnInit, OnDestroy {
         lastName: this.userDataForm.controls.userFirstName.value,
         firstName: this.userDataForm.controls.userLastName.value,
         phone: this.userDataForm.controls.userPhone.value,
+        delivery: {
+          cityName: this.userDataForm.controls.userCity.value,
+          warehouseNumber: this.userDataForm.controls.userWarehouseNumber.value,
+        },
         items: this.itemsToSend,
       };
     }
 
     console.log(this.itemsToSend);
-    // this.lensService.createOrder(order).subscribe(value => console.log(value));
+    console.log(order)
+    this.lensService.createOrder(order).subscribe(value => console.log(value));
   }
-
-
 }

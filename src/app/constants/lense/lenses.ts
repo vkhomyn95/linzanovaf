@@ -222,6 +222,94 @@ export const lenseDiopters = [
   }
 ];
 
+export const lensBCValues = [
+  {
+    id: 0,
+    value: 6.60
+  },
+  {
+    id: 1,
+    value: 8.40
+  }
+];
+
+export const lensCylinder = [
+  {
+    id: 0,
+    value: '-0.75'
+  },
+  {
+    id: 1,
+    value: '-1.25'
+  },
+  {
+    id: 2,
+    value: '-1.75'
+  },
+  {
+    id: 3,
+    value: '-2.25'
+  }
+];
+export const lensAxis = [
+  {
+    id: 0,
+    value: '10˚'
+  },
+  {
+    id: 1,
+    value: '20˚'
+  },
+  {
+    id: 2,
+    value: '30˚'
+  },
+  {
+    id: 3,
+    value: '40˚'
+  },
+  {
+    id: 4,
+    value: '50˚'
+  },
+  {
+    id: 5,
+    value: '60˚'
+  },
+  {
+    id: 6,
+    value: '70˚'
+  },
+  {
+    id: 7,
+    value: '80˚'
+  },
+  {
+    id: 8,
+    value: '90˚'
+  },
+  {
+    id: 9,
+    value: '100˚'
+  },
+  {
+    id: 10,
+    value: '110˚'
+  },
+  {
+    id: 11,
+    value: '120˚'
+  },
+  {
+    id: 12,
+    value: '130˚'
+  },
+  {
+    id: 13,
+    value: '140˚'
+  }
+];
+
 export const correctionType = [
   {
     id: 0,
