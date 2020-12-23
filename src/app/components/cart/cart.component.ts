@@ -22,7 +22,7 @@ import {of} from 'rxjs';
 })
 export class CartComponent implements OnInit, OnDestroy {
   orderStep = 0;
-  cartItems: CartItems[];
+  cartItems: CartItems[]; cartLensesValidation; cartLensDioptersValidation;
   totalPrice = 0;
   cartItemsQuantity = 0;
   authUserData;
@@ -89,7 +89,48 @@ export class CartComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
   }
 
-  nextStep(): void {
+  nextStep(cartItems: CartItems[]): void {
+    this.cartLensesValidation = false;
+    const boolArrayOfDiopters = [];
+    const boolArrayOfCylinders = [];
+    const boolArrayOfAxis = [];
+    const boolArrayOfBC = [];
+
+    cartItems[0].lenses.map((value, index) => {
+      if (value.diopters === 'Вибрати'){
+        boolArrayOfDiopters.push(true);
+      } else{
+        boolArrayOfDiopters.push(false);
+      }
+      if (value.hasCylinder && !value.cylinder || value.cylinder === 'Вибрати'){
+        boolArrayOfCylinders.push(true);
+      }else {
+        boolArrayOfCylinders.push(false);
+      }
+      if (value.hasAxis && !value.axis || value.axis === 'Вибрати'){
+        boolArrayOfAxis.push(true);
+      }else {
+        boolArrayOfAxis.push(false);
+      }
+      if (!value.hasDefaultBC && Number(value.defaultBC) === 0 || value.defaultBC === 'Вибрати'){
+        boolArrayOfBC.push(true);
+      }else {
+        boolArrayOfBC.push(false);
+      }
+      console.log(boolArrayOfBC);
+
+      if (!value.diopters || boolArrayOfDiopters.includes(true) ||
+          boolArrayOfCylinders.includes(true) || boolArrayOfAxis.includes(true) ||
+          boolArrayOfBC.includes(true)) {
+        this.cartLensesValidation = false;
+      }else {
+        this.cartLensesValidation = true;
+      }
+    });
+    if (!this.cartLensesValidation){
+      return;
+    }
+
     if (this.orderStep === 2) {
       return;
     }
@@ -167,7 +208,7 @@ export class CartComponent implements OnInit, OnDestroy {
   changeLensBc(item: CartItems, event, lensId): void {
     item.lenses.map((value) => {
       if (lensId === value.id){
-        value.defaultBC = Number(event.target.value);
+        value.defaultBC = event.target.value;
       }
     });
     console.log(item);
@@ -203,7 +244,7 @@ export class CartComponent implements OnInit, OnDestroy {
   changeOfferBc(item: CartItems, event, offerId): void {
     item.offers.map((value) => {
       if (offerId === value.id){
-        value.defaultBC = Number(event.target.value);
+        value.defaultBC = event.target.value;
       }
     });
     console.log(item);

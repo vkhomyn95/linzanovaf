@@ -26,7 +26,7 @@ interface Lenses {
   cylinder?: string;
   axis?: string;
   defaultDiameter: number;
-  defaultBC?: number;
+  defaultBC?: string;
   hasDefaultBC?: boolean;
   hasAxis?: boolean;
   hasCylinder?: boolean;
@@ -48,7 +48,7 @@ interface HotOffers {
   cylinder?: string;
   axis?: string;
   defaultDiameter: number;
-  defaultBC?: number;
+  defaultBC?: string;
   hasDefaultBC?: boolean;
   hasAxis?: boolean;
   hasCylinder?: boolean;
