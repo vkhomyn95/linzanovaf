@@ -19,7 +19,7 @@ import {Solution} from '../../models/solution/Solution';
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit, OnDestroy {
-  orderStep = 0;
+  orderStep = 1;
   cartItems: CartItems[]; cartLensesValidation; cartListErrors: string[] = []; cartErrorMsg = false;
   totalPrice = 0;
   cartItemsQuantity = 0;
@@ -31,6 +31,7 @@ export class CartComponent implements OnInit, OnDestroy {
   }];
   lenseQuantity; lenseDiopters; lensBC; lensCylinder; lensAxis;
   userDataForm: FormGroup;
+  deliveryForm: FormGroup;
 
 
   constructor(private cartObjectService: CartObjectService,
@@ -44,6 +45,13 @@ export class CartComponent implements OnInit, OnDestroy {
       userPhone: new FormControl('', [Validators.required]),
       userCity: new FormControl('', [Validators.required]),
       userWarehouseNumber: new FormControl('', [Validators.required]),
+      aboutWarehouse: new FormControl('')
+    });
+    this.deliveryForm = new FormGroup({
+      novaPoshta: new FormControl(false),
+      ukrPoshta: new FormControl(false),
+      inPost: new FormControl(false),
+      byCardPay: new FormControl(false)
     });
     this.cartObjectService.getObject().subscribe(value => {
       if (value){
@@ -91,9 +99,13 @@ export class CartComponent implements OnInit, OnDestroy {
     this.cartLensesValidation = false;
     this.cartListErrors.push('Заповніть усі параметри');
     const boolArrayOfDiopters = [];
+    const boolArrayOfDioptersOffer = [];
     const boolArrayOfCylinders = [];
+    const boolArrayOfCylindersOffer = [];
     const boolArrayOfAxis = [];
+    const boolArrayOfAxisOffer = [];
     const boolArrayOfBC = [];
+    const boolArrayOfBCOffer = [];
 
     cartItems[0].lenses.map((value, index) => {
       if (value.diopters === 'Вибрати'){
@@ -131,8 +143,59 @@ export class CartComponent implements OnInit, OnDestroy {
         this.cartLensesValidation = true;
       }
     });
+
+    cartItems[0].offers.map((value, index) => {
+      if (value.diopters === 'Вибрати'){
+        boolArrayOfDioptersOffer.push(true);
+      } else{
+        boolArrayOfDioptersOffer.push(false);
+      }
+      if (value.hasCylinder && !value.cylinder || value.cylinder === 'Вибрати'){
+        boolArrayOfCylindersOffer.push(true);
+      }else {
+        boolArrayOfCylindersOffer.push(false);
+      }
+      if (value.hasAxis && !value.axis || value.axis === 'Вибрати'){
+        boolArrayOfAxisOffer.push(true);
+      }else {
+        boolArrayOfAxisOffer.push(false);
+      }
+      if (!value.hasDefaultBC && Number(value.defaultBC) === 0 || value.defaultBC === 'Вибрати'){
+        boolArrayOfBCOffer.push(true);
+      }else {
+        boolArrayOfBCOffer.push(false);
+      }
+
+      if (!value.diopters || boolArrayOfDioptersOffer.includes(true) ||
+        boolArrayOfCylindersOffer.includes(true) || boolArrayOfAxisOffer.includes(true) ||
+        boolArrayOfBCOffer.includes(true)) {
+        this.cartLensesValidation = false;
+        this.cartErrorMsg = true;
+        setTimeout(() => {
+          this.cartErrorMsg = false;
+          this.cartListErrors.splice(-1, 1);
+        }, 5000);
+      }else {
+        this.cartLensesValidation = true;
+      }
+    });
+
     if (!this.cartLensesValidation){
       return;
+    }
+
+    if (this.orderStep === 1){
+      if (this.deliveryForm.controls.novaPoshta.value === true){
+        this.deliveryForm.get('ukrPoshta').setValue(false);
+      }else if (this.deliveryForm.controls.ukrPoshta.value === true){
+        this.deliveryForm.get('novaPoshta').setValue(false);
+      }
+      if (this.deliveryForm.controls.novaPoshta.value === false && this.deliveryForm.controls.ukrPoshta.value === false ||
+          this.deliveryForm.controls.inPost.value === false && this.deliveryForm.controls.byCardPay.value === false){
+        return;
+      }else {
+        this.orderStep += 1;
+      }
     }
 
     if (this.orderStep === 2) {
@@ -290,6 +353,25 @@ export class CartComponent implements OnInit, OnDestroy {
     });
     this.cartObjectService.sendObject(this.cartItems);
   }
+  changeSelectionOfDeliveryType(): void {
+    if (this.deliveryForm.controls.novaPoshta.value === false){
+      this.deliveryForm.get('ukrPoshta').setValue(false);
+      this.deliveryForm.get('novaPoshta').setValue(true);
+    }else if (this.deliveryForm.controls.ukrPoshta.value === false){
+      this.deliveryForm.get('ukrPoshta').setValue(true);
+      this.deliveryForm.get('novaPoshta').setValue(false);
+    }
+  }
+
+  changeSelectionOfPaymentType(): void {
+    if (this.deliveryForm.controls.inPost.value === false){
+      this.deliveryForm.get('byCardPay').setValue(false);
+      this.deliveryForm.get('inPost').setValue(true);
+    }else if (this.deliveryForm.controls.byCardPay.value === false){
+      this.deliveryForm.get('byCardPay').setValue(true);
+      this.deliveryForm.get('inPost').setValue(false);
+    }
+  }
 
 
   checkOut(): void {
@@ -301,7 +383,7 @@ export class CartComponent implements OnInit, OnDestroy {
       });
       items.lenses.map(lenses => {
         const properties = `Кількість: ${lenses.quantity} Діоптрії: ${lenses.diopters}`;
-        this.itemsToSend.map(itemOffer => itemOffer.lenses.push({lenseId: lenses.id, properties: properties}));
+        this.itemsToSend.map(itemOffer => itemOffer.lenses.push({lenseId: lenses.id, properties}));
       });
       items.drops.map(drops => {
         this.itemsToSend.map(itemOffer => itemOffer.drops.push({dropId: drops.id}));
@@ -334,7 +416,7 @@ export class CartComponent implements OnInit, OnDestroy {
     }
 
     console.log(this.itemsToSend);
-    console.log(order)
+    console.log(order);
     this.lensService.createOrder(order).subscribe(value => console.log(value));
   }
 }

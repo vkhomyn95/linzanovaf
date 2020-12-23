@@ -34,7 +34,7 @@
 }
 .checkout-basket-title {
   display: block;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   font-family: 'Roboto Medium';
   font-size: 13px;
   color: #253746;
@@ -43,7 +43,7 @@
 }
 .checkout-basket-separator {
   display: block;
-  height: 150px;
+  height: 80px;
 }
 .checkout-basket-prices {
   border-top: 1px solid #d9e5e8;
@@ -81,4 +81,24 @@
   &-new {
     margin-top: 10px;
   }
+}
+.product-basket-name {
+  color: #253746;
+}
+.price-line {
+  white-space: nowrap !important;
+}
+.full {
+  width: 100% !important;
+}
+table.scroll {
+  width: 100%;
+}
+
+table.scroll tbody,
+table.scroll thead { display: block; }
+
+.h-container {
+  height: 17rem;
+  max-height: 17rem;
 }

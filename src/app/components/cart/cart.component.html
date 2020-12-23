@@ -396,23 +396,21 @@
           <span class="deliveries-header font-sans">Оберіть спосіб доставки замовлення</span>
           <div class="deliveries-wrapper">
 
-            <form class="flex flex-col">
+            <form class="flex flex-col" [formGroup]="deliveryForm">
               <div class="flex flex-row items-center pb-6">
                 <label class="inline-flex items-center mt-3">
-                  <input type="checkbox" class="form-checkbox h-5 w-5 text-red-600 mr-2" checked>
+                  <input formControlName="novaPoshta" type="checkbox" (click)="changeSelectionOfDeliveryType()" class="form-checkbox h-5 w-5 text-red-600 mr-2">
                   <span><img class="w-16 h-6" src="../../../assets/nova-poshta-logo.png" alt="novaposhta"></span>
                   <span class="ml-2 text-gray-700 font-medium pr-4">У відділення Нової пошти</span>
                   <span class="text-sm flex items-center text-green-400">(3-5 робочих днів по прибуттю в Україну)</span>
-                  <span class="font-medium pl-4">60грн</span>
                 </label>
               </div>
               <div class="flex flex-row pb-10">
                 <label class="inline-flex items-center mt-3">
-                  <input type="checkbox" class="form-checkbox h-5 w-5 text-orange-600 mr-2" checked>
+                  <input formControlName="ukrPoshta" (click)="changeSelectionOfDeliveryType()" type="checkbox" class="form-checkbox h-5 w-5 text-orange-600 mr-2" >
                   <span><img class="w-20 h-6" src="../../../assets/ukposhta-logo.png" alt="ukrposhta"></span>
                   <span class="ml-2 text-gray-700 font-medium pr-4">У відділення Укрпошти</span>
                   <span class="text-sm text-green-400">(3-5 робочих днів по прибуттю в Україну)</span>
-                  <span class="font-medium pl-4">30грн</span>
                 </label>
               </div>
               <div class="orderDeliveryTime pb-4">
@@ -420,12 +418,12 @@
               </div>
               <span class="deliveries-header hr-line pt-4 font-sans">Оберіть спосіб оплати замовлення</span>
               <div class="flex flex-row pb-6">
-                <input type="checkbox" class="form-checkbox h-5 w-5 text-red-600" checked>
+                <input formControlName="inPost" (click)="changeSelectionOfPaymentType()" type="checkbox" class="form-checkbox h-5 w-5 text-red-600">
                 <span><img class="w-16 h-6" src="../../../assets/wallet.svg" alt="wallet"></span>
                 <span class="ml-2 text-gray-700 font-medium">Оплата при отрманні</span>
               </div>
               <div class="flex flex-row pb-6">
-                <input type="checkbox" class="form-checkbox h-5 w-5 text-red-600" checked>
+                <input formControlName="byCardPay" (click)="changeSelectionOfPaymentType()" type="checkbox" class="form-checkbox h-5 w-5 text-red-600" >
                 <span><img class="w-16 h-6" src="../../../assets/card.svg" alt="creditcard"></span>
                 <span class="ml-2 text-gray-700 font-medium">Оплата карткою</span>
               </div>
@@ -436,47 +434,75 @@
           <div id="snippet-basket">
             <div class="checkout-basket">
               <h2 class="checkout-basket-title">Кошик містить</h2>
-              <table class="table-auto">
+              <table class="table-auto scroll">
                 <thead>
-                <tr>
-                  <th class="pr-4 py-2 w-full">Товарна позиція</th>
-                  <th class="pr-4 py-2 w-1/4">Кількість</th>
-                  <th class="pr-4 py-2 w-1/4">Ціна</th>
-                </tr>
+                  <tr>
+                    <th class="pr-4 py-2 w-full font-semibold">Товарна позиція</th>
+                    <th class="pr-6 py-2 w-1/4 font-semibold">Кількість</th>
+                    <th class="pr-4 py-2 w-1/4 font-semibold">Ціна</th>
+                  </tr>
                 </thead>
-                <tbody>
-                <tr *ngFor="let care of item.drops">
-                  <td class="border-b pr-4 py-2 item-color text-left">
-                    {{care.name}}
-                    <div class="checkout-basket-product-info-params">Об'єм:: <b>{{care.cvalue}} ml</b></div>
-                  </td>
-                  <td class="border-b pr-4 py-2 text-center">{{care.quantity}}</td>
-                  <td class="border-b pr-4 py-2 checkout-basket-price text-sm whitespace-no-wrap">{{care.price}}грн
-                  </td>
-                </tr>
+                <tbody class="h-container w-full overflow-y-scroll">
+                  <tr *ngFor="let care of item.drops">
+                    <td class="border-b pr-4 py-2 item-color text-left w-3/5">
+                      <span class="product-basket-name text-sm font-medium">{{care.name}}</span>
+                      <div class="checkout-basket-product-info-params">Об'єм:: <b>{{care.cvalue}} ml</b></div>
+                    </td>
+                    <td class="border-b pr-4 py-2 text-center">{{care.quantity}}</td>
+                    <td class="border-b pr-4 py-2 checkout-basket-price text-sm whitespace-no-wrap font-medium">{{care.price}} грн</td>
+                  </tr>
+                  <tr *ngFor="let lens of item.lenses">
+                    <td class="border-b pr-4 py-2 item-color text-left w-3/5">
+                      <span class="product-basket-name text-sm font-medium">{{lens.name}}</span>
+                      <div class="checkout-basket-product-info-params">Діоптрії:: <b>{{lens.diopters}}</b></div>
+                      <div *ngIf="lens.hasCylinder" class="checkout-basket-product-info-params">Циліндр:: <b>{{lens.cylinder}}</b></div>
+                      <div *ngIf="lens.hasAxis" class="checkout-basket-product-info-params">Вісь:: <b>{{lens.axis}}</b></div>
+                      <div class="checkout-basket-product-info-params">Кривизна:: <b>{{lens.defaultBC}}</b></div>
+                      <div class="checkout-basket-product-info-params">Діаметр:: <b>{{lens.defaultDiameter}}</b></div>
+                    </td>
+                    <td class="border-b pr-4 py-2 text-center w-1/4">{{lens.quantity}}</td>
+                    <td class="border-b pr-4 py-2 checkout-basket-price text-sm whitespace-no-wrap font-medium w-1/4">{{lens.price}} грн</td>
+                  </tr>
+                  <tr *ngFor="let offer of item.offers">
+                    <td class="border-b pr-4 py-2 item-color text-left w-3/5">
+                      <span class="product-basket-name text-sm font-medium">{{offer.name}}</span>
+                      <div class="checkout-basket-product-info-params">Діоптрії:: <b>{{offer.diopters}}</b></div>
+                      <div *ngIf="offer.hasCylinder" class="checkout-basket-product-info-params">Циліндр:: <b>{{offer.cylinder}}</b></div>
+                      <div *ngIf="offer.hasAxis" class="checkout-basket-product-info-params">Вісь:: <b>{{offer.axis}}</b></div>
+                      <div class="checkout-basket-product-info-params">Кривизна:: <b>{{offer.defaultBC}}</b></div>
+                      <div class="checkout-basket-product-info-params">Діаметр:: <b>{{offer.defaultDiameter}}</b></div>
+                    </td>
+                    <td class="border-b pr-4 py-2 text-center w-1/4">{{offer.quantity}}</td>
+                    <td class="border-b pr-4 py-2 checkout-basket-price text-sm whitespace-no-wrap font-medium w-1/4">{{offer.price}} грн</td>
+                  </tr>
+                  <tr  *ngFor="let solution of item.solutions">
+                    <td class="border-b pr-4 py-2 item-color text-left w-3/5">
+                      <span class="product-basket-name text-sm font-medium">{{solution.name}}</span>
+                      <div class="checkout-basket-product-info-params">Об'єм:: <b>{{solution.solutionValue}} ml</b></div>
+                    </td>
+                    <td class="border-b pr-4 py-2 text-center w-1/4">{{solution.quantity}}</td>
+                    <td class="border-b pr-4 py-2 checkout-basket-price text-sm whitespace-no-wrap font-medium w-1/4">{{solution.price}} грн
+                    </td>
+                  </tr>
                 </tbody>
                 <tbody class="checkout-basket-separator">
-                <tr>
-                  <th colspan="3"></th>
-                </tr>
+                  <tr>
+                    <th colspan="3"></th>
+                  </tr>
                 </tbody>
                 <tbody class="checkout-basket-prices">
-                <tr class="py-4">
-                  <th colspan="2" class="text-left">Ціна товару</th>
-                  <th class="checkout-basket-price ">{{totalPrice}} грн.</th>
-                </tr>
-                <tr>
-                  <th colspan="2" class="text-left">Ціна доставки</th>
-                  <th class="checkout-basket-price">0 грн.</th>
-                </tr>
+                  <tr>
+                    <th colspan="2" class="text-left py-2">Ціна товару</th>
+                    <th class="checkout-basket-price price-line py-2">{{totalPrice}} грн.</th>
+                  </tr>
                 </tbody>
                 <tbody>
-                <tr>
-                  <th colspan="3">
-                    <span class="flex flex-row text-2xl justify-center mx-auto py-8">Загальна ціна <span
-                      class="text-red-500 pl-4">{{totalPrice}} грн.</span></span>
-                  </th>
-                </tr>
+                  <tr>
+                    <th colspan="3">
+                      <span class="flex flex-row text-2xl justify-center mx-auto py-8">Загальна ціна <span
+                        class="text-red-500 pl-4">{{totalPrice}} грн.</span></span>
+                    </th>
+                  </tr>
                 </tbody>
               </table>
 
