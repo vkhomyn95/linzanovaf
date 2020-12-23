@@ -12,8 +12,6 @@ import {lensAxis, lensBCValues, lensCylinder, lenseDiopters, lenseQuantity} from
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {SpecialOffer} from '../../models/special-offers/SpecialOffer';
 import {Solution} from '../../models/solution/Solution';
-import {log} from 'util';
-import {of} from 'rxjs';
 
 @Component({
   selector: 'app-cart',
@@ -22,7 +20,7 @@ import {of} from 'rxjs';
 })
 export class CartComponent implements OnInit, OnDestroy {
   orderStep = 0;
-  cartItems: CartItems[]; cartLensesValidation; cartLensDioptersValidation;
+  cartItems: CartItems[]; cartLensesValidation; cartListErrors: string[] = []; cartErrorMsg = false;
   totalPrice = 0;
   cartItemsQuantity = 0;
   authUserData;
@@ -91,6 +89,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   nextStep(cartItems: CartItems[]): void {
     this.cartLensesValidation = false;
+    this.cartListErrors.push('Заповніть усі параметри');
     const boolArrayOfDiopters = [];
     const boolArrayOfCylinders = [];
     const boolArrayOfAxis = [];
@@ -123,6 +122,11 @@ export class CartComponent implements OnInit, OnDestroy {
           boolArrayOfCylinders.includes(true) || boolArrayOfAxis.includes(true) ||
           boolArrayOfBC.includes(true)) {
         this.cartLensesValidation = false;
+        this.cartErrorMsg = true;
+        setTimeout(() => {
+          this.cartErrorMsg = false;
+          this.cartListErrors.splice(-1, 1);
+        }, 5000);
       }else {
         this.cartLensesValidation = true;
       }
