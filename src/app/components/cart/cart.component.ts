@@ -21,7 +21,7 @@ import {Solution} from '../../models/solution/Solution';
 export class CartComponent implements OnInit, OnDestroy {
   orderStep = 1;
   cartItems: CartItems[]; cartLensesValidation; cartListErrors: string[] = []; cartErrorMsg = false;
-  totalPrice = 0;
+  totalPrice = 0; priceToPayAfterDelivery = 0; priceToPayNow = 0;
   cartItemsQuantity = 0;
   authUserData;
   itemsToSend: Items[] = [{
@@ -45,7 +45,8 @@ export class CartComponent implements OnInit, OnDestroy {
       userPhone: new FormControl('', [Validators.required]),
       userCity: new FormControl('', [Validators.required]),
       userWarehouseNumber: new FormControl('', [Validators.required]),
-      aboutWarehouse: new FormControl('')
+      aboutWarehouse: new FormControl(''),
+      customerComment: new FormControl('')
     });
     this.deliveryForm = new FormGroup({
       novaPoshta: new FormControl(false),
@@ -367,9 +368,29 @@ export class CartComponent implements OnInit, OnDestroy {
     if (this.deliveryForm.controls.inPost.value === false){
       this.deliveryForm.get('byCardPay').setValue(false);
       this.deliveryForm.get('inPost').setValue(true);
+      this.priceToPayNow = 0;
+      this.priceToPayAfterDelivery = 0;
+      this.cartItems.map(value => {
+        value.lenses.map(lens => {
+          this.priceToPayNow += lens.price * lens.quantity;
+        });
+        value.offers.map(offer => {
+          this.priceToPayNow += offer.price * offer.quantity;
+        });
+      });
+      this.cartItems.map(value => {
+        value.drops.map(drop => {
+          this.priceToPayAfterDelivery += drop.price * drop.quantity;
+        });
+        value.solutions.map(solution => {
+          this.priceToPayAfterDelivery += solution.price * solution.quantity;
+        });
+      });
     }else if (this.deliveryForm.controls.byCardPay.value === false){
       this.deliveryForm.get('byCardPay').setValue(true);
       this.deliveryForm.get('inPost').setValue(false);
+      this.priceToPayAfterDelivery = 0;
+      this.priceToPayNow = this.totalPrice;
     }
   }
 

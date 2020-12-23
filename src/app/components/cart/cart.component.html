@@ -481,8 +481,7 @@
                       <div class="checkout-basket-product-info-params">Об'єм:: <b>{{solution.solutionValue}} ml</b></div>
                     </td>
                     <td class="border-b pr-4 py-2 text-center w-1/4">{{solution.quantity}}</td>
-                    <td class="border-b pr-4 py-2 checkout-basket-price text-sm whitespace-no-wrap font-medium w-1/4">{{solution.price}} грн
-                    </td>
+                    <td class="border-b pr-4 py-2 checkout-basket-price text-sm whitespace-no-wrap font-medium w-1/4">{{solution.price}} грн</td>
                   </tr>
                 </tbody>
                 <tbody class="checkout-basket-separator">
@@ -491,15 +490,19 @@
                   </tr>
                 </tbody>
                 <tbody class="checkout-basket-prices">
-                  <tr>
-                    <th colspan="2" class="text-left py-2">Ціна товару</th>
-                    <th class="checkout-basket-price price-line py-2">{{totalPrice}} грн.</th>
+                  <tr class="flex flex-row justify-between">
+                    <th class="text-left pt-2">Сплачуєте при отриманні</th>
+                    <th class="checkout-basket-price price-line pt-2">{{priceToPayAfterDelivery}} грн.</th>
+                  </tr>
+                  <tr class="flex flex-row justify-between">
+                    <th class="text-left pb-2">Сплачуєте зараз</th>
+                    <th class="checkout-basket-price price-line pb-2">{{priceToPayNow}} грн.</th>
                   </tr>
                 </tbody>
                 <tbody>
                   <tr>
                     <th colspan="3">
-                      <span class="flex flex-row text-2xl justify-center mx-auto py-8">Загальна ціна <span
+                      <span class="flex flex-row text-2xl justify-center mx-auto py-5">Загальна вартість <span
                         class="text-red-500 pl-4">{{totalPrice}} грн.</span></span>
                     </th>
                   </tr>
@@ -628,11 +631,11 @@
           </div>
         </div>
       </div>
-      <div *ngIf="!token.getToken()">
+      <div *ngIf="!token.getToken()" class="mb-4">
         <div class="bg-white shadow overflow-hidden sm:rounded-lg">
           <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
             <h3 class="text-lg leading-6 font-medium text-gray-900">
-              Applicant Information
+              Інформація про доставку
             </h3>
             <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 px-4 py-2 mt-1" role="alert">
               <p class="font-bold">Зверніть увагу</p>
@@ -643,7 +646,7 @@
             <dl [formGroup]="userDataForm">
               <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-sm leading-5 font-medium text-gray-500">
-                  Full name
+                  Повне ім'я
                 </dt>
                 <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-1 flex flex-row">
                   <input formControlName="userFirstName" class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="firstName" type="text" placeholder="Ваше ім'я">
@@ -660,7 +663,7 @@
               </div>
               <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-sm leading-5 font-medium text-gray-500">
-                  Email address
+                  Email
                 </dt>
                 <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-1">
                   <input class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="text" placeholder="Email">
@@ -676,7 +679,7 @@
 <!--              </div>-->
               <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-sm leading-5 font-medium text-gray-500">
-                  About
+                  Адреса
                 </dt>
                 <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-1 flex flex-row">
                   <input formControlName="userCity" class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="Населений пункт">
@@ -685,51 +688,18 @@
               </div>
               <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-sm leading-5 font-medium text-gray-500">
-                  Опис
+                  Деталі адреси
                 </dt>
                 <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-1 flex flex-row">
                   <textarea formControlName="aboutWarehouse"  class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-desc" type="text" placeholder="Не знайшли свого відділення?"></textarea>
                 </dd>
               </div>
-              <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-sm leading-5 font-medium text-gray-500">
-                  Attachments
+                  Коментар до замовлення
                 </dt>
-                <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                  <ul class="border border-gray-200 rounded-md">
-                    <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm leading-5">
-                      <div class="w-0 flex-1 flex items-center">
-                        <!-- Heroicon name: paper-clip -->
-                        <svg class="flex-shrink-0 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                          <path fill-rule="evenodd" d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z" clip-rule="evenodd" />
-                        </svg>
-                        <span class="ml-2 flex-1 w-0 truncate">
-                  resume_back_end_developer.pdf
-                </span>
-                      </div>
-                      <div class="ml-4 flex-shrink-0">
-                        <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500 transition duration-150 ease-in-out">
-                          Download
-                        </a>
-                      </div>
-                    </li>
-                    <li class="border-t border-gray-200 pl-3 pr-4 py-3 flex items-center justify-between text-sm leading-5">
-                      <div class="w-0 flex-1 flex items-center">
-                        <!-- Heroicon name: paper-clip -->
-                        <svg class="flex-shrink-0 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                          <path fill-rule="evenodd" d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z" clip-rule="evenodd" />
-                        </svg>
-                        <span class="ml-2 flex-1 w-0 truncate">
-                  coverletter_back_end_developer.pdf
-                </span>
-                      </div>
-                      <div class="ml-4 flex-shrink-0">
-                        <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500 transition duration-150 ease-in-out">
-                          Download
-                        </a>
-                      </div>
-                    </li>
-                  </ul>
+                <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-1 flex flex-row">
+                  <textarea formControlName="customerComment"  class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-comment" type="text" placeholder="Залиште уточнення..."></textarea>
                 </dd>
               </div>
             </dl>
@@ -737,7 +707,7 @@
         </div>
       </div>
     </div>
-    <div *ngIf="cartItems" class="flex justify-end my-4">
+    <div *ngIf="cartItems && orderStep === 0" class="flex justify-end my-4">
       <span class="md:text-xl">Загальна вартість: <span class="text-red-500 font-bold">{{totalPrice}} грн</span></span>
     </div>
     <div class="flex justify-between">

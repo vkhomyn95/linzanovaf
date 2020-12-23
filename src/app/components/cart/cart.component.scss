@@ -2,6 +2,7 @@
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
   flex-direction: row;
+  margin-bottom: 1rem;
   //border: 1px solid #d9e5e8;
 }
 .deliveries-payments-surcharges {
@@ -43,7 +44,7 @@
 }
 .checkout-basket-separator {
   display: block;
-  height: 80px;
+  height: 60px;
 }
 .checkout-basket-prices {
   border-top: 1px solid #d9e5e8;
