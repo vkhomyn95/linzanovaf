@@ -54,6 +54,7 @@ import { SessionModalComponent } from './components/session-modal/session-modal.
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
+import { CartDialogSuccessComponent } from './components/cart-dialog-success/cart-dialog-success.component';
 
 
 @NgModule({
@@ -102,7 +103,8 @@ import {MatButtonModule} from '@angular/material/button';
     SearchComponent,
     SolutionsComponent,
     DropsComponent,
-    SessionModalComponent
+    SessionModalComponent,
+    CartDialogSuccessComponent
   ],
   imports: [
     BrowserModule,

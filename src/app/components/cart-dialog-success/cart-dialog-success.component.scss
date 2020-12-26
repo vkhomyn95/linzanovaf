@@ -1,0 +1,12 @@
+.mat-button-success {
+  --tw-text-opacity: 1;
+  border-color: rgba(16, 185, 129, var(--tw-text-opacity));
+  background-color: rgba(16, 185, 129, var(--tw-text-opacity));
+  color: #ffffff;
+  border-radius: 0.375rem;
+  outline: none;
+  margin: 0.5rem;
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 500ms;
+}

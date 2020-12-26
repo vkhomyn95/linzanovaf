@@ -30,7 +30,7 @@ export class CartObjectService {
   }
 
   clearObjects(): void {
-    this.subject.next();
+    localStorage.removeItem('cart');
   }
 
   getObject(): Observable<CartItems[]> {

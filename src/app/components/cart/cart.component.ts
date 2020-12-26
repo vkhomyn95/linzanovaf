@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit} from '@angular/core';
 import {CartObjectService} from '../../services/components-data/cart-object.service';
 import {CartItems} from '../../models/order/CartItems';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Drops} from '../../models/drops/Drops';
 import {Lens} from '../../models/lense/Lens';
 import {TokenStorageService} from '../../services/token-storage.service';
@@ -12,6 +12,10 @@ import {lensAxis, lensBCValues, lensCylinder, lenseDiopters, lenseQuantity} from
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {SpecialOffer} from '../../models/special-offers/SpecialOffer';
 import {Solution} from '../../models/solution/Solution';
+import {SettlementsService} from '../../services/settlements.service';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {SessionModalComponent} from '../session-modal/session-modal.component';
+import {CartDialogSuccessComponent} from '../cart-dialog-success/cart-dialog-success.component';
 
 @Component({
   selector: 'app-cart',
@@ -19,7 +23,7 @@ import {Solution} from '../../models/solution/Solution';
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit, OnDestroy {
-  orderStep = 1;
+  orderStep = 0;
   cartItems: CartItems[]; cartLensesValidation; cartListErrors: string[] = []; cartErrorMsg = false;
   totalPrice = 0; priceToPayAfterDelivery = 0; priceToPayNow = 0;
   cartItemsQuantity = 0;
@@ -30,23 +34,34 @@ export class CartComponent implements OnInit, OnDestroy {
     lenses: []
   }];
   lenseQuantity; lenseDiopters; lensBC; lensCylinder; lensAxis;
-  userDataForm: FormGroup;
+  focusedLocation: boolean; focusedNumber: boolean; locationNPList: any[]; numberNPList: any[];
+  userDataForm: FormGroup;  authUserDataForm;
   deliveryForm: FormGroup;
+  dialogRef: MatDialogRef<CartDialogSuccessComponent>;
 
 
   constructor(private cartObjectService: CartObjectService,
               private activatedRoute: ActivatedRoute,
+              private router: Router,
               private token: TokenStorageService,
               private cabinetService: CabinetService,
-              private lensService: LensService) {
+              private lensService: LensService,
+              private settlementsService: SettlementsService,
+              private modal: MatDialog) {
     this.userDataForm = new FormGroup({
       userFirstName: new FormControl('', [Validators.required]),
       userLastName: new FormControl('', [Validators.required]),
       userPhone: new FormControl('', [Validators.required]),
+      userEmail: new FormControl('', [Validators.required]),
       userCity: new FormControl('', [Validators.required]),
       userWarehouseNumber: new FormControl('', [Validators.required]),
+      userPostIndex: new FormControl('', [Validators.required]),
       aboutWarehouse: new FormControl(''),
       customerComment: new FormControl('')
+    });
+    this.authUserDataForm = new FormGroup({
+      userAuthPostIndex: new FormControl('', [Validators.required]),
+      customerAuthComment: new FormControl('')
     });
     this.deliveryForm = new FormGroup({
       novaPoshta: new FormControl(false),
@@ -108,82 +123,92 @@ export class CartComponent implements OnInit, OnDestroy {
     const boolArrayOfBC = [];
     const boolArrayOfBCOffer = [];
 
-    cartItems[0].lenses.map((value, index) => {
-      if (value.diopters === 'Вибрати'){
-        boolArrayOfDiopters.push(true);
-      } else{
-        boolArrayOfDiopters.push(false);
-      }
-      if (value.hasCylinder && !value.cylinder || value.cylinder === 'Вибрати'){
-        boolArrayOfCylinders.push(true);
-      }else {
-        boolArrayOfCylinders.push(false);
-      }
-      if (value.hasAxis && !value.axis || value.axis === 'Вибрати'){
-        boolArrayOfAxis.push(true);
-      }else {
-        boolArrayOfAxis.push(false);
-      }
-      if (!value.hasDefaultBC && Number(value.defaultBC) === 0 || value.defaultBC === 'Вибрати'){
-        boolArrayOfBC.push(true);
-      }else {
-        boolArrayOfBC.push(false);
-      }
-      console.log(boolArrayOfBC);
+    if (cartItems[0].lenses.length !== 0){
+      cartItems[0].lenses.map((value, index) => {
+        if (value.diopters === 'Вибрати'){
+          boolArrayOfDiopters.push(true);
+        } else{
+          boolArrayOfDiopters.push(false);
+        }
+        if (value.hasCylinder && !value.cylinder || value.cylinder === 'Вибрати'){
+          boolArrayOfCylinders.push(true);
+        }else {
+          boolArrayOfCylinders.push(false);
+        }
+        if (value.hasAxis && !value.axis || value.axis === 'Вибрати'){
+          boolArrayOfAxis.push(true);
+        }else {
+          boolArrayOfAxis.push(false);
+        }
+        if (!value.hasDefaultBC && Number(value.defaultBC) === 0 || value.defaultBC === 'Вибрати'){
+          boolArrayOfBC.push(true);
+        }else {
+          boolArrayOfBC.push(false);
+        }
+        console.log(boolArrayOfBC);
 
-      if (!value.diopters || boolArrayOfDiopters.includes(true) ||
-          boolArrayOfCylinders.includes(true) || boolArrayOfAxis.includes(true) ||
-          boolArrayOfBC.includes(true)) {
-        this.cartLensesValidation = false;
-        this.cartErrorMsg = true;
-        setTimeout(() => {
-          this.cartErrorMsg = false;
-          this.cartListErrors.splice(-1, 1);
-        }, 5000);
-      }else {
-        this.cartLensesValidation = true;
-      }
-    });
-
-    cartItems[0].offers.map((value, index) => {
-      if (value.diopters === 'Вибрати'){
-        boolArrayOfDioptersOffer.push(true);
-      } else{
-        boolArrayOfDioptersOffer.push(false);
-      }
-      if (value.hasCylinder && !value.cylinder || value.cylinder === 'Вибрати'){
-        boolArrayOfCylindersOffer.push(true);
-      }else {
-        boolArrayOfCylindersOffer.push(false);
-      }
-      if (value.hasAxis && !value.axis || value.axis === 'Вибрати'){
-        boolArrayOfAxisOffer.push(true);
-      }else {
-        boolArrayOfAxisOffer.push(false);
-      }
-      if (!value.hasDefaultBC && Number(value.defaultBC) === 0 || value.defaultBC === 'Вибрати'){
-        boolArrayOfBCOffer.push(true);
-      }else {
-        boolArrayOfBCOffer.push(false);
-      }
-
-      if (!value.diopters || boolArrayOfDioptersOffer.includes(true) ||
-        boolArrayOfCylindersOffer.includes(true) || boolArrayOfAxisOffer.includes(true) ||
-        boolArrayOfBCOffer.includes(true)) {
-        this.cartLensesValidation = false;
-        this.cartErrorMsg = true;
-        setTimeout(() => {
-          this.cartErrorMsg = false;
-          this.cartListErrors.splice(-1, 1);
-        }, 5000);
-      }else {
-        this.cartLensesValidation = true;
-      }
-    });
-
-    if (!this.cartLensesValidation){
-      return;
+        if (!value.diopters || boolArrayOfDiopters.includes(true) ||
+            boolArrayOfCylinders.includes(true) || boolArrayOfAxis.includes(true) ||
+            boolArrayOfBC.includes(true)) {
+          this.cartLensesValidation = false;
+          this.cartErrorMsg = true;
+          setTimeout(() => {
+            this.cartErrorMsg = false;
+            this.cartListErrors.splice(-1, 1);
+          }, 5000);
+        }else {
+          this.cartLensesValidation = true;
+        }
+      });
     }
+
+    if (cartItems[0].offers.length !== 0){
+      cartItems[0].offers.map((value, index) => {
+        if (value.diopters === 'Вибрати'){
+          boolArrayOfDioptersOffer.push(true);
+        } else{
+          boolArrayOfDioptersOffer.push(false);
+        }
+        if (value.hasCylinder && !value.cylinder || value.cylinder === 'Вибрати'){
+          boolArrayOfCylindersOffer.push(true);
+        }else {
+          boolArrayOfCylindersOffer.push(false);
+        }
+        if (value.hasAxis && !value.axis || value.axis === 'Вибрати'){
+          boolArrayOfAxisOffer.push(true);
+        }else {
+          boolArrayOfAxisOffer.push(false);
+        }
+        if (!value.hasDefaultBC && Number(value.defaultBC) === 0 || value.defaultBC === 'Вибрати'){
+          boolArrayOfBCOffer.push(true);
+        }else {
+          boolArrayOfBCOffer.push(false);
+        }
+
+        if (!value.diopters || boolArrayOfDioptersOffer.includes(true) ||
+          boolArrayOfCylindersOffer.includes(true) || boolArrayOfAxisOffer.includes(true) ||
+          boolArrayOfBCOffer.includes(true)) {
+          this.cartLensesValidation = false;
+          this.cartErrorMsg = true;
+          setTimeout(() => {
+            this.cartErrorMsg = false;
+            this.cartListErrors.splice(-1, 1);
+          }, 5000);
+        }else {
+          this.cartLensesValidation = true;
+        }
+      });
+    }
+
+
+    if (cartItems[0].lenses.length !== 0 || cartItems[0].offers.length !== 0){
+      if (!this.cartLensesValidation){
+        return;
+      }
+    }else if (cartItems[0].solutions.length !== 0 || cartItems[0].drops.length !== 0) {
+      this.orderStep += 1;
+    }
+
 
     if (this.orderStep === 1){
       if (this.deliveryForm.controls.novaPoshta.value === true){
@@ -393,51 +418,127 @@ export class CartComponent implements OnInit, OnDestroy {
       this.priceToPayNow = this.totalPrice;
     }
   }
+  valueChangedLocation(target): void {
+    this.settlementsService.getSettlements(target.value).subscribe(value => {
+      if (value.data[0]){
+        this.locationNPList = value.data[0].Addresses;
+      }
+    });
+  }
+  setSettlements(): void {
+    setTimeout(() => {
+      this.focusedLocation = false;
+      this.focusedNumber = false;
+    }, 100);
+  }
+  addLocationToForm(location: any): void {
+    this.userDataForm.get('userCity').setValue(location.Present);
+    this.settlementsService.getWarehouses(location.DeliveryCity).subscribe(value => {
+      this.numberNPList = value.data;
+    });
+  }
+
+  addNumberToForm(location: any): void {
+    this.userDataForm.get('userWarehouseNumber').setValue(location.Number);
+    this.userDataForm.get('aboutWarehouse').setValue(location.ShortAddress + ' ' + location.Description);
+  }
+
+  setWarehouse(): void {
+    setTimeout(() => {
+      this.focusedNumber = false;
+    }, 100);
+  }
+  toUpdateUserNPDeliveryAddress(): void {
+    this.router.navigate(['cabinet/user']);
+  }
 
 
   checkOut(): void {
-    console.log('-------');
-    console.log(this.authUserData);
-    this.cartItems.map(items => {
-      items.offers.map(offers => {
-        this.itemsToSend.map(itemOffer => itemOffer.offers.push({offerId: offers.id}));
-      });
-      items.lenses.map(lenses => {
-        const properties = `Кількість: ${lenses.quantity} Діоптрії: ${lenses.diopters}`;
-        this.itemsToSend.map(itemOffer => itemOffer.lenses.push({lenseId: lenses.id, properties}));
-      });
-      items.drops.map(drops => {
-        this.itemsToSend.map(itemOffer => itemOffer.drops.push({dropId: drops.id}));
-      });
-    });
-    let order;
-    if (this.authUserData){
-       order = {
-        createdAt: '2020-09-01 12:18:51',
-        totalSumm: this.totalPrice,
-        lastName: this.authUserData.lastName,
-        firstName: this.authUserData.firstName,
-        phone: this.authUserData.phone,
-        items: this.itemsToSend,
-        user: this.authUserData.id
-      };
-    }else {
-      order = {
-        createdAt: '2020-09-01 12:18:51',
-        totalSumm: this.totalPrice,
-        lastName: this.userDataForm.controls.userFirstName.value,
-        firstName: this.userDataForm.controls.userLastName.value,
-        phone: this.userDataForm.controls.userPhone.value,
-        delivery: {
-          cityName: this.userDataForm.controls.userCity.value,
-          warehouseNumber: this.userDataForm.controls.userWarehouseNumber.value,
-        },
-        items: this.itemsToSend,
-      };
+    if (this.userDataForm.controls.userFirstName.valid && this.userDataForm.controls.userLastName.valid &&
+        this.userDataForm.controls.userPhone.valid && this.userDataForm.controls.userEmail.valid || this.authUserData){
+      if (this.deliveryForm.controls.novaPoshta.value === true && this.userDataForm.controls.userCity.valid &&
+          this.userDataForm.controls.userWarehouseNumber.valid ||
+          this.deliveryForm.controls.ukrPoshta.value === true && this.userDataForm.controls.userPostIndex.valid || this.authUserData){
+        this.cartItems.map(items => {
+          items.offers.map(offers => {
+            this.itemsToSend.map(itemOffer => itemOffer.offers.push({offerId: offers.id}));
+          });
+          items.lenses.map(lenses => {
+            const properties = `Кількість: ${lenses.quantity} Діоптрії: ${lenses.diopters}`;
+            this.itemsToSend.map(itemOffer => itemOffer.lenses.push({lenseId: lenses.id, properties}));
+          });
+          items.drops.map(drops => {
+            this.itemsToSend.map(itemOffer => itemOffer.drops.push({dropId: drops.id}));
+          });
+        });
+        let order;
+        if (this.authUserData){
+          order = {
+            createdAt: '2020-09-01 12:18:51',
+            totalSumm: this.totalPrice,
+            lastName: this.authUserData.lastName,
+            firstName: this.authUserData.firstName,
+            phone: this.authUserData.phone,
+            delivery: {
+              cityName: this.authUserData.location,
+              warehouseNumber: this.authUserData.number,
+            },
+            items: this.itemsToSend,
+            user: this.authUserData.id
+          };
+        }else {
+          order = {
+            createdAt: '2020-09-01 12:18:51',
+            totalSumm: this.totalPrice,
+            lastName: this.userDataForm.controls.userFirstName.value,
+            firstName: this.userDataForm.controls.userLastName.value,
+            phone: this.userDataForm.controls.userPhone.value,
+            delivery: {
+              cityName: this.userDataForm.controls.userCity.value,
+              warehouseNumber: this.userDataForm.controls.userWarehouseNumber.value,
+            },
+            items: this.itemsToSend,
+          };
+        }
+        console.log(order);
+        this.lensService.createOrder(order).toPromise()
+          .then((response) => {
+            if (response){
+              // this.dialog.open(CartDialogSuccess);
+              this.dialogRef = this.modal.open(CartDialogSuccessComponent, {
+                disableClose: true,
+                data: {
+                  // confirmMessage: userName.sub
+                }
+              });
+              this.dialogRef.afterClosed().subscribe(value => {
+                if (value){
+                  this.router.navigateByUrl('/').then(() => {
+                    this.cartObjectService.clearObjects();
+                    window.location.reload();
+                  });
+                }
+              });
+            }
+        })
+          .catch(err => this.handleError(err));
+      }else {
+        return;
+      }
     }
-
-    console.log(this.itemsToSend);
-    console.log(order);
-    this.lensService.createOrder(order).subscribe(value => console.log(value));
+  }
+  public handleError(error: any): Promise<never> {
+    if (error.status === 401) {
+      console.log(401);
+    } else if (error.status === 400) {
+      console.log(400);
+    }
+    return Promise.reject(error);
   }
 }
+
+// @Component({
+//   selector: 'app-cart-dialog-success',
+//   templateUrl: '../cart-dialog-success/cart-dialog-success.component.html',
+// })
+// export class CartDialogSuccess {}

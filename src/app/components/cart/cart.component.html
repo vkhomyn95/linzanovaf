@@ -449,7 +449,7 @@
                       <div class="checkout-basket-product-info-params">Об'єм:: <b>{{care.cvalue}} ml</b></div>
                     </td>
                     <td class="border-b pr-4 py-2 text-center">{{care.quantity}}</td>
-                    <td class="border-b pr-4 py-2 checkout-basket-price text-sm whitespace-no-wrap font-medium">{{care.price}} грн</td>
+                    <td class="border-b pr-4 py-2 checkout-basket-price text-sm whitespace-no-wrap font-medium">{{care.price * care.quantity}} грн</td>
                   </tr>
                   <tr *ngFor="let lens of item.lenses">
                     <td class="border-b pr-4 py-2 item-color text-left w-3/5">
@@ -461,7 +461,7 @@
                       <div class="checkout-basket-product-info-params">Діаметр:: <b>{{lens.defaultDiameter}}</b></div>
                     </td>
                     <td class="border-b pr-4 py-2 text-center w-1/4">{{lens.quantity}}</td>
-                    <td class="border-b pr-4 py-2 checkout-basket-price text-sm whitespace-no-wrap font-medium w-1/4">{{lens.price}} грн</td>
+                    <td class="border-b pr-4 py-2 checkout-basket-price text-sm whitespace-no-wrap font-medium w-1/4">{{lens.price * lens.quantity}} грн</td>
                   </tr>
                   <tr *ngFor="let offer of item.offers">
                     <td class="border-b pr-4 py-2 item-color text-left w-3/5">
@@ -473,7 +473,7 @@
                       <div class="checkout-basket-product-info-params">Діаметр:: <b>{{offer.defaultDiameter}}</b></div>
                     </td>
                     <td class="border-b pr-4 py-2 text-center w-1/4">{{offer.quantity}}</td>
-                    <td class="border-b pr-4 py-2 checkout-basket-price text-sm whitespace-no-wrap font-medium w-1/4">{{offer.price}} грн</td>
+                    <td class="border-b pr-4 py-2 checkout-basket-price text-sm whitespace-no-wrap font-medium w-1/4">{{offer.price * offer.quantity}} грн</td>
                   </tr>
                   <tr  *ngFor="let solution of item.solutions">
                     <td class="border-b pr-4 py-2 item-color text-left w-3/5">
@@ -481,7 +481,7 @@
                       <div class="checkout-basket-product-info-params">Об'єм:: <b>{{solution.solutionValue}} ml</b></div>
                     </td>
                     <td class="border-b pr-4 py-2 text-center w-1/4">{{solution.quantity}}</td>
-                    <td class="border-b pr-4 py-2 checkout-basket-price text-sm whitespace-no-wrap font-medium w-1/4">{{solution.price}} грн</td>
+                    <td class="border-b pr-4 py-2 checkout-basket-price text-sm whitespace-no-wrap font-medium w-1/4">{{solution.price * solution.quantity}} грн</td>
                   </tr>
                 </tbody>
                 <tbody class="checkout-basket-separator">
@@ -516,7 +516,7 @@
       </div>
     </div>
     <div *ngIf="orderStep === 2">
-      <div *ngIf="token.getToken()">
+      <div *ngIf="token.getToken()" class="mb-4" [formGroup]="authUserDataForm">
         <div class="bg-white shadow overflow-hidden sm:rounded-lg">
           <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
             <h3 class="text-lg leading-6 font-medium text-gray-900">
@@ -546,18 +546,18 @@
               </div>
               <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-sm leading-5 font-medium text-gray-500">
-                  Email address
+                  Email
                 </dt>
                 <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
                   {{authUserData?.email}}
                 </dd>
               </div>
-              <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6" *ngIf="deliveryForm.controls.ukrPoshta.value === true">
                 <dt class="text-sm leading-5 font-medium text-gray-500">
-                  Salary expectation
+                  Поштовий індекс
                 </dt>
-                <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                  $120,000
+                <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-1 sm:col-span-2 relative w-1/2">
+                  <input formControlName="userAuthPostIndex" class="shadow-sm appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  type="text" placeholder="Поштовий індекс" autocomplete="off">
                 </dd>
               </div>
               <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -567,64 +567,14 @@
                 <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-1">
                   {{authUserData?.location}}, {{authUserData?.warehouse}}, відділення № {{authUserData?.number}}
                 </dd>
-                <span class="mt-1 pr-4 text-sm leading-5 text-indigo-600 sm:mt-0 sm:col-span-1 text-right hover:text-indigo-500 transition duration-150 ease-in-out">Update</span>
+                <span class="mt-1 pr-4 text-sm leading-5 text-indigo-600 sm:mt-0 sm:col-span-1 text-right hover:text-indigo-500 transition duration-150 ease-in-out" (click)="toUpdateUserNPDeliveryAddress()">Update</span>
               </div>
               <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-sm leading-5 font-medium text-gray-500">
                   Коментар до замовлення
                 </dt>
-                <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                  <input class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="comment" type="text" placeholder="Покладіть...">
-                </dd>
-              </div>
-              <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt class="text-sm leading-5 font-medium text-gray-500">
-                  Attachments
-                </dt>
-                <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                  <ul class="border border-gray-200 rounded-md">
-                    <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm leading-5">
-                      <div class="w-0 flex-1 flex items-center">
-                        <!-- Heroicon name: paper-clip -->
-                        <svg class="flex-shrink-0 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg"
-                             viewBox="0 0 20 20" fill="currentColor">
-                          <path fill-rule="evenodd"
-                                d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z"
-                                clip-rule="evenodd"/>
-                        </svg>
-                        <span class="ml-2 flex-1 w-0 truncate">
-                  Оплата картою
-                  </span>
-                      </div>
-                      <div class="ml-4 flex-shrink-0">
-                        <a href="#"
-                           class="font-medium text-indigo-600 hover:text-indigo-500 transition duration-150 ease-in-out">
-                          Download
-                        </a>
-                      </div>
-                    </li>
-                    <li
-                      class="border-t border-gray-200 pl-3 pr-4 py-3 flex items-center justify-between text-sm leading-5">
-                      <div class="w-0 flex-1 flex items-center">
-                        <!-- Heroicon name: paper-clip -->
-                        <svg class="flex-shrink-0 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg"
-                             viewBox="0 0 20 20" fill="currentColor">
-                          <path fill-rule="evenodd"
-                                d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z"
-                                clip-rule="evenodd"/>
-                        </svg>
-                        <span class="ml-2 flex-1 w-0 truncate">
-                     coverletter_back_end_developer.pdf
-                   </span>
-                      </div>
-                      <div class="ml-4 flex-shrink-0">
-                        <a href="#"
-                           class="font-medium text-indigo-600 hover:text-indigo-500 transition duration-150 ease-in-out">
-                          Download
-                        </a>
-                      </div>
-                    </li>
-                  </ul>
+                <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-1 flex flex-row">
+                  <textarea formControlName="customerAuthComment"  class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-comment" type="text" placeholder="Залиште уточнення..."></textarea>
                 </dd>
               </div>
             </dl>
@@ -666,26 +616,37 @@
                   Email
                 </dt>
                 <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-1">
-                  <input class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="text" placeholder="Email">
+                  <input formControlName="userEmail" class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="text" placeholder="Email">
                 </dd>
               </div>
-<!--              <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">-->
-<!--                <dt class="text-sm leading-5 font-medium text-gray-500">-->
-<!--                  Salary expectation-->
-<!--                </dt>-->
-<!--                <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">-->
-<!--                  $120,000-->
-<!--                </dd>-->
-<!--              </div>-->
               <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-sm leading-5 font-medium text-gray-500">
                   Адреса
                 </dt>
-                <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-1 flex flex-row">
-                  <input formControlName="userCity" class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="Населений пункт">
-                  <input formControlName="userWarehouseNumber" class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  type="text" placeholder="Номер відділення">
-                </dd>
+                <div class="flex flex-col">
+                  <ng-container *ngIf="deliveryForm.controls.novaPoshta.value === true">
+                    <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-1 relative">
+                      <input formControlName="userCity" (input)="valueChangedLocation($event.target)" (focus)="focusedLocation = true" (blur)="setSettlements()" class="shadow-sm relative block appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="Населений пункт" autocomplete="off">
+                      <ul class="bg-white list-tips px-3 absolute" *ngIf="focusedLocation">
+                        <li class="text-sm hover:text-red-500 pt-1" *ngFor="let location of locationNPList" (click)="addLocationToForm(location)">{{location.Present}}</li>
+                      </ul>
+                    </dd>
+                    <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-1 sm:col-span-2 relative w-1/2">
+                      <input formControlName="userWarehouseNumber" (focus)="focusedNumber = true" (blur)="setWarehouse()" class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  type="text" placeholder="Номер відділення" autocomplete="off">
+                      <ul class="bg-white list-tips absolute px-3 py-2" *ngIf="focusedNumber">
+                        <li class="text-sm hover:text-red-500" *ngFor="let number of numberNPList" (click)="addNumberToForm(number)"><span>№</span> <span class="font-bold pl-2">{{number.Number}}</span> </li>
+                      </ul>
+                    </dd>
+                  </ng-container>
+                  <ng-container *ngIf="deliveryForm.controls.ukrPoshta.value === true">
+                    <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-1 sm:col-span-2 relative w-1/2">
+                      <input formControlName="userPostIndex" class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  type="text" placeholder="Поштовий індекс" autocomplete="off">
+                    </dd>
+                  </ng-container>
+                </div>
               </div>
+
+
               <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-sm leading-5 font-medium text-gray-500">
                   Деталі адреси
