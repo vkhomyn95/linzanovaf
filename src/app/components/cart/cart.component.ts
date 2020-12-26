@@ -122,100 +122,103 @@ export class CartComponent implements OnInit, OnDestroy {
     const boolArrayOfAxisOffer = [];
     const boolArrayOfBC = [];
     const boolArrayOfBCOffer = [];
+    if (this.orderStep === 0) {
+      if (cartItems[0].lenses.length !== 0){
+        cartItems[0].lenses.map((value, index) => {
+          if (value.diopters === 'Вибрати'){
+            boolArrayOfDiopters.push(true);
+          } else{
+            boolArrayOfDiopters.push(false);
+          }
+          if (value.hasCylinder && !value.cylinder || value.cylinder === 'Вибрати'){
+            boolArrayOfCylinders.push(true);
+          }else {
+            boolArrayOfCylinders.push(false);
+          }
+          if (value.hasAxis && !value.axis || value.axis === 'Вибрати'){
+            boolArrayOfAxis.push(true);
+          }else {
+            boolArrayOfAxis.push(false);
+          }
+          if (!value.hasDefaultBC && Number(value.defaultBC) === 0 || value.defaultBC === 'Вибрати'){
+            boolArrayOfBC.push(true);
+          }else {
+            boolArrayOfBC.push(false);
+          }
+          console.log(boolArrayOfBC);
 
-    if (cartItems[0].lenses.length !== 0){
-      cartItems[0].lenses.map((value, index) => {
-        if (value.diopters === 'Вибрати'){
-          boolArrayOfDiopters.push(true);
-        } else{
-          boolArrayOfDiopters.push(false);
-        }
-        if (value.hasCylinder && !value.cylinder || value.cylinder === 'Вибрати'){
-          boolArrayOfCylinders.push(true);
-        }else {
-          boolArrayOfCylinders.push(false);
-        }
-        if (value.hasAxis && !value.axis || value.axis === 'Вибрати'){
-          boolArrayOfAxis.push(true);
-        }else {
-          boolArrayOfAxis.push(false);
-        }
-        if (!value.hasDefaultBC && Number(value.defaultBC) === 0 || value.defaultBC === 'Вибрати'){
-          boolArrayOfBC.push(true);
-        }else {
-          boolArrayOfBC.push(false);
-        }
-        console.log(boolArrayOfBC);
-
-        if (!value.diopters || boolArrayOfDiopters.includes(true) ||
-            boolArrayOfCylinders.includes(true) || boolArrayOfAxis.includes(true) ||
-            boolArrayOfBC.includes(true)) {
-          this.cartLensesValidation = false;
-          this.cartErrorMsg = true;
-          setTimeout(() => {
-            this.cartErrorMsg = false;
-            this.cartListErrors.splice(-1, 1);
-          }, 5000);
-        }else {
-          this.cartLensesValidation = true;
-        }
-      });
-    }
-
-    if (cartItems[0].offers.length !== 0){
-      cartItems[0].offers.map((value, index) => {
-        if (value.diopters === 'Вибрати'){
-          boolArrayOfDioptersOffer.push(true);
-        } else{
-          boolArrayOfDioptersOffer.push(false);
-        }
-        if (value.hasCylinder && !value.cylinder || value.cylinder === 'Вибрати'){
-          boolArrayOfCylindersOffer.push(true);
-        }else {
-          boolArrayOfCylindersOffer.push(false);
-        }
-        if (value.hasAxis && !value.axis || value.axis === 'Вибрати'){
-          boolArrayOfAxisOffer.push(true);
-        }else {
-          boolArrayOfAxisOffer.push(false);
-        }
-        if (!value.hasDefaultBC && Number(value.defaultBC) === 0 || value.defaultBC === 'Вибрати'){
-          boolArrayOfBCOffer.push(true);
-        }else {
-          boolArrayOfBCOffer.push(false);
-        }
-
-        if (!value.diopters || boolArrayOfDioptersOffer.includes(true) ||
-          boolArrayOfCylindersOffer.includes(true) || boolArrayOfAxisOffer.includes(true) ||
-          boolArrayOfBCOffer.includes(true)) {
-          this.cartLensesValidation = false;
-          this.cartErrorMsg = true;
-          setTimeout(() => {
-            this.cartErrorMsg = false;
-            this.cartListErrors.splice(-1, 1);
-          }, 5000);
-        }else {
-          this.cartLensesValidation = true;
-        }
-      });
-    }
-
-
-    if (cartItems[0].lenses.length !== 0 || cartItems[0].offers.length !== 0){
-      if (!this.cartLensesValidation){
-        return;
+          if (!value.diopters || boolArrayOfDiopters.includes(true) ||
+              boolArrayOfCylinders.includes(true) || boolArrayOfAxis.includes(true) ||
+              boolArrayOfBC.includes(true)) {
+            this.cartLensesValidation = false;
+            this.cartErrorMsg = true;
+            setTimeout(() => {
+              this.cartErrorMsg = false;
+              this.cartListErrors.splice(-1, 1);
+            }, 5000);
+          }else {
+            this.cartLensesValidation = true;
+          }
+        });
       }
-    }else if (cartItems[0].solutions.length !== 0 || cartItems[0].drops.length !== 0) {
-      this.orderStep += 1;
-    }
 
+      if (cartItems[0].offers.length !== 0){
+        cartItems[0].offers.map((value, index) => {
+          if (value.diopters === 'Вибрати'){
+            boolArrayOfDioptersOffer.push(true);
+          } else{
+            boolArrayOfDioptersOffer.push(false);
+          }
+          if (value.hasCylinder && !value.cylinder || value.cylinder === 'Вибрати'){
+            boolArrayOfCylindersOffer.push(true);
+          }else {
+            boolArrayOfCylindersOffer.push(false);
+          }
+          if (value.hasAxis && !value.axis || value.axis === 'Вибрати'){
+            boolArrayOfAxisOffer.push(true);
+          }else {
+            boolArrayOfAxisOffer.push(false);
+          }
+          if (!value.hasDefaultBC && Number(value.defaultBC) === 0 || value.defaultBC === 'Вибрати'){
+            boolArrayOfBCOffer.push(true);
+          }else {
+            boolArrayOfBCOffer.push(false);
+          }
+
+          if (!value.diopters || boolArrayOfDioptersOffer.includes(true) ||
+            boolArrayOfCylindersOffer.includes(true) || boolArrayOfAxisOffer.includes(true) ||
+            boolArrayOfBCOffer.includes(true)) {
+            this.cartLensesValidation = false;
+            this.cartErrorMsg = true;
+            setTimeout(() => {
+              this.cartErrorMsg = false;
+              this.cartListErrors.splice(-1, 1);
+            }, 5000);
+          }else {
+            this.cartLensesValidation = true;
+          }
+        });
+      }
+      if (cartItems[0].lenses.length !== 0 || cartItems[0].offers.length !== 0){
+        if (!this.cartLensesValidation){
+          return;
+        }else {
+          this.orderStep += 1;
+        }
+      }else if (cartItems[0].solutions.length !== 0 || cartItems[0].drops.length !== 0) {
+        this.orderStep += 1;
+      }
+    }
 
     if (this.orderStep === 1){
+      console.log(this.deliveryForm.controls.byCardPay.value);
+      console.log(this.deliveryForm.controls.inPost.value);
       if (this.deliveryForm.controls.novaPoshta.value === true){
         this.deliveryForm.get('ukrPoshta').setValue(false);
       }else if (this.deliveryForm.controls.ukrPoshta.value === true){
         this.deliveryForm.get('novaPoshta').setValue(false);
       }
+
       if (this.deliveryForm.controls.novaPoshta.value === false && this.deliveryForm.controls.ukrPoshta.value === false ||
           this.deliveryForm.controls.inPost.value === false && this.deliveryForm.controls.byCardPay.value === false){
         return;
@@ -227,7 +230,6 @@ export class CartComponent implements OnInit, OnDestroy {
     if (this.orderStep === 2) {
       return;
     }
-    this.orderStep += 1;
   }
 
   prevStep(): void {
@@ -504,7 +506,8 @@ export class CartComponent implements OnInit, OnDestroy {
         this.lensService.createOrder(order).toPromise()
           .then((response) => {
             if (response){
-              // this.dialog.open(CartDialogSuccess);
+              this.cartObjectService.clearObjects();
+              this.cartObjectService.setObject();
               this.dialogRef = this.modal.open(CartDialogSuccessComponent, {
                 disableClose: true,
                 data: {
@@ -514,7 +517,6 @@ export class CartComponent implements OnInit, OnDestroy {
               this.dialogRef.afterClosed().subscribe(value => {
                 if (value){
                   this.router.navigateByUrl('/').then(() => {
-                    this.cartObjectService.clearObjects();
                     window.location.reload();
                   });
                 }
@@ -536,9 +538,3 @@ export class CartComponent implements OnInit, OnDestroy {
     return Promise.reject(error);
   }
 }
-
-// @Component({
-//   selector: 'app-cart-dialog-success',
-//   templateUrl: '../cart-dialog-success/cart-dialog-success.component.html',
-// })
-// export class CartDialogSuccess {}

@@ -39,4 +39,7 @@ export class CartObjectService {
     }
     return this.currentObject;
   }
+  setObject(): void {
+    localStorage.setItem('cart', JSON.stringify(this.items));
+  }
 }

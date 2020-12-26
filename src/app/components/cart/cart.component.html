@@ -31,7 +31,7 @@
       </a>
     </div>
     <ng-container *ngIf="orderStep === 0">
-      <div *ngIf="cartItems[0].offers.length === 0 && cartItems[0].solutions.length === 0 &&
+      <div *ngIf="!cartItems || cartItems[0].offers.length === 0 && cartItems[0].solutions.length === 0 &&
        cartItems[0].lenses.length === 0 && cartItems[0].drops.length === 0" class="flex flex-col">
         <div class="mx-auto">
           <img src="../../../assets/empty-cart.png" alt="empty-cart"/>
