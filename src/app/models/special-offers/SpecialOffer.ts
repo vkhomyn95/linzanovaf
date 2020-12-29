@@ -9,4 +9,9 @@ export interface SpecialOffer {
   secondItemQuanity: string;
   activeStatus?: boolean;
   avgPriceInUkraine?: number;
+  defaultBC?: number;
+  defaultDiameter?: number;
+  hasDefaultBC: boolean;
+  hasAxis: boolean;
+  hasCylinder: boolean;
 }

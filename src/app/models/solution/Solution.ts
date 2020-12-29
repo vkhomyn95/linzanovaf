@@ -11,6 +11,7 @@ export interface Solution {
   stdt: number;
   boolHyaluronate: boolean;
   avgPriceInUkraine: number;
+  availability: boolean;
 }
 export interface UpdateSolution {
   name: string;

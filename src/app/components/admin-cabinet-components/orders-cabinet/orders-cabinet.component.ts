@@ -69,11 +69,7 @@ export class OrdersCabinetComponent implements OnInit {
 
   getItemsByName(): boolean {
     if (this.itemName) {
-      this.cabinetService.searchOrdersByName(this.itemName, this.currentPage, this.currentSize).subscribe(value => {
-        this.orders = value.orders;
-        this.totalElements = value.totalElements;
-        this.totalPages = value.totalPages;
-      });
+      this.router.navigate(['admin/order', Number(this.itemName)]);
     }
     return !(this.itemName === '' || this.itemName === undefined);
   }

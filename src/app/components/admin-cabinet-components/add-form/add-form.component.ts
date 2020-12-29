@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {navOption} from '../../../constants/nav/navOptions';
 import {solutionBrand, solutionValue, solutionProducer, solutionType} from '../../../constants/solution/solution';
 import {lensesType, lensesProducer, lensesBrand, lenseQuantity, correctionType, lenseMaterial} from '../../../constants/lense/lenses';
@@ -9,6 +9,7 @@ import {Solution} from '../../../models/solution/Solution';
 import {Lens} from '../../../models/lense/Lens';
 import {Drops} from '../../../models/drops/Drops';
 import {SpecialOffer} from '../../../models/special-offers/SpecialOffer';
+import {BroadcastService} from '../../../services/components-data/broadcast.service';
 
 @Component({
   selector: 'app-add-form',
@@ -20,8 +21,9 @@ export class AddFormComponent implements OnInit {
   navOptions; currentOption;
   sTypeList; sProducerList; sBrandList; sValueList; lTypeList; lProducerList; lBrandList; lQuantityList; lCorrectionList; lMaterialList;
   cProducerList;
-  errorResponse = [];
-  constructor(private lensService: LensService) {
+  errorResponse = []; successResponse = false;
+  constructor(private lensService: LensService,
+              private broadcastService: BroadcastService) {
     this.navOptions = navOption;
     this.addSolutionForm = new FormGroup({
       pName: new FormControl(''),
@@ -43,6 +45,9 @@ export class AddFormComponent implements OnInit {
       lSleep: new FormControl(''),
       lDiametr: new FormControl(),
       lWater: new FormControl(),
+      lHasDefaultCurvature: new FormControl(false, [Validators.required]),
+      lHasAxis: new FormControl(false),
+      lHasCylinder: new FormControl(false),
       lCurvature: new FormControl(),
       ukrPrice: new FormControl(),
       lCylF: new FormControl(),
@@ -50,14 +55,14 @@ export class AddFormComponent implements OnInit {
       lAxisF: new FormControl(),
       lAxisT: new FormControl(),
       cValue: new FormControl(''),
-      offerLink: new FormControl(''),
       offerFirstItemName: new FormControl(''),
       offerSecondItemName: new FormControl(''),
       offerFirstItemQuantity: new FormControl(''),
       offerSecondItemQuantity: new FormControl(''),
       activeStatus: new FormControl(),
       cproducer: new FormControl(''),
-      description: new FormControl('')
+      description: new FormControl(''),
+      availability: new FormControl(false)
     });
     this.sTypeList = solutionType;
     this.sProducerList = solutionProducer;
@@ -108,14 +113,32 @@ export class AddFormComponent implements OnInit {
         lenseSleep: this.addSolutionForm.controls.lSleep.value,
         sdate: this.addSolutionForm.controls.sDate.value,
         stdt: this.addSolutionForm.controls.sTdt.value,
+        hasDefaultBC: this.addSolutionForm.controls.lHasDefaultCurvature.value,
         defaultBC: this.addSolutionForm.controls.lCurvature.value,
+        hasAxis: this.addSolutionForm.controls.lHasAxis.value,
+        hasCylinder: this.addSolutionForm.controls.lHasCylinder.value,
         defaultDiameter: this.addSolutionForm.controls.lDiametr.value,
-        avgPriceInUkraine: this.addSolutionForm.controls.ukrPrice.value
+        avgPriceInUkraine: this.addSolutionForm.controls.ukrPrice.value,
+        availability: this.addSolutionForm.controls.availability.value
       };
-      return this.lensService.addLens(lens).subscribe(value => console.log(value), error => {
-        this.errorResponse.push(error.error);
-        this.removeError();
-      });
+      console.log(lens);
+      return this.lensService.addLens(lens).toPromise()
+        .then((response) => {
+          if (response){
+            setTimeout(() => {
+              this.successResponse = true;
+            }, 3000);
+            this.successResponse = false;
+            this.addSolutionForm.reset();
+          }else {
+            this.broadcastService.http404.asObservable().subscribe(value => {
+              if (value === true){
+                this.errorResponse.push('Повторіть спробу пізніше');
+                this.removeError();
+              }
+            });
+          }
+        });
     }else {
       this.errorResponse.push('Заповніть усі поля коректно!');
       this.removeError();
@@ -123,7 +146,6 @@ export class AddFormComponent implements OnInit {
   }
 
   addSolution(): object {
-    console.log(this.addSolutionForm);
     if (this.addSolutionForm.controls.pName.value !== ''
       && this.addSolutionForm.controls.pPrice.value !== ''
       && this.addSolutionForm.controls.sType.value.name !== ''
@@ -133,6 +155,7 @@ export class AddFormComponent implements OnInit {
       const solution: Solution = {
         name: this.addSolutionForm.controls.pName.value,
         price: this.addSolutionForm.controls.pPrice.value,
+        avgPriceInUkraine: this.addSolutionForm.controls.ukrPrice.value,
         solutionType: this.addSolutionForm.controls.sType.value.name,
         solutionProducer: this.addSolutionForm.controls.sProducer.value.name,
         solutionBrand: this.addSolutionForm.controls.sBrand.value.name,
@@ -141,15 +164,27 @@ export class AddFormComponent implements OnInit {
         sdate: this.addSolutionForm.controls.sDate.value,
         stdt: this.addSolutionForm.controls.sTdt.value,
         boolHyaluronate: this.addSolutionForm.controls.sZip.value,
-        avgPriceInUkraine: this.addSolutionForm.controls.ukrPrice.value
+        availability: this.addSolutionForm.controls.availability.value
       };
-      return this.lensService.addSolution(solution).subscribe(value => console.log(value), error => {
-        this.errorResponse.push(error.error);
-        this.removeError();
-      });
+      return this.lensService.addSolution(solution).toPromise()
+        .then((response) => {
+          if (response){
+            setTimeout(() => {
+              this.successResponse = true;
+            }, 3000);
+            this.successResponse = false;
+            this.addSolutionForm.reset();
+          }else {
+            this.broadcastService.http404.asObservable().subscribe(value => {
+              if (value === true){
+                this.errorResponse.push('Повторіть спробу пізніше');
+                this.removeError();
+              }
+            });
+          }
+        });
     }else {
       this.errorResponse.push('Заповніть усі поля коректно!');
-      console.log(this.errorResponse);
       this.removeError();
     }
   }
@@ -169,12 +204,23 @@ export class AddFormComponent implements OnInit {
         stdt: this.addSolutionForm.controls.sTdt.value,
         avgPriceInUkraine: this.addSolutionForm.controls.ukrPrice.value
       };
-      console.log(drops)
-      return this.lensService.addLensDrops(drops).subscribe(value => console.log(value), error => {
-        console.log(drops)
-        this.errorResponse.push(error.error);
-        this.removeError();
-      });
+      return this.lensService.addLensDrops(drops).toPromise()
+        .then((response) => {
+          if (response){
+            setTimeout(() => {
+              this.successResponse = true;
+            }, 3000);
+            this.successResponse = false;
+            this.addSolutionForm.reset();
+          }else {
+            this.broadcastService.http404.asObservable().subscribe(value => {
+              if (value === true){
+                this.errorResponse.push('Повторіть спробу пізніше');
+                this.removeError();
+              }
+            });
+          }
+        });
     }else {
       this.errorResponse.push('Заповніть усі поля коректно!');
       this.removeError();
@@ -184,7 +230,6 @@ export class AddFormComponent implements OnInit {
   addHotProposition(): object {
     if (this.addSolutionForm.controls.pName.value !== ''
       && this.addSolutionForm.controls.pPrice.value !== ''
-      && this.addSolutionForm.controls.offerLink.value.name !== ''
       && this.addSolutionForm.controls.offerFirstItemName.value !== ''
       && this.addSolutionForm.controls.offerSecondItemName.value !== ''
       && this.addSolutionForm.controls.offerFirstItemQuantity.value !== ''
@@ -192,19 +237,35 @@ export class AddFormComponent implements OnInit {
       const offer: SpecialOffer = {
         name: this.addSolutionForm.controls.pName.value,
         price: this.addSolutionForm.controls.pPrice.value,
-        alensaLink: this.addSolutionForm.controls.offerLink.value,
+        avgPriceInUkraine: this.addSolutionForm.controls.ukrPrice.value,
         firstItemName: this.addSolutionForm.controls.offerFirstItemName.value,
         secondItemName: this.addSolutionForm.controls.offerSecondItemName.value,
         firstItemQuanity: this.addSolutionForm.controls.offerFirstItemQuantity.value,
         secondItemQuanity: this.addSolutionForm.controls.offerSecondItemQuantity.value,
-        activeStatus: this.addSolutionForm.controls.activeStatus.value,
-        avgPriceInUkraine: this.addSolutionForm.controls.ukrPrice.value
+        hasDefaultBC: this.addSolutionForm.controls.lHasDefaultCurvature.value,
+        defaultBC: this.addSolutionForm.controls.lCurvature.value,
+        hasAxis: this.addSolutionForm.controls.lHasAxis.value,
+        hasCylinder: this.addSolutionForm.controls.lHasCylinder.value,
+        defaultDiameter: this.addSolutionForm.controls.lDiametr.value,
+        activeStatus: this.addSolutionForm.controls.activeStatus.value
       };
-      console.log(offer)
-      return this.lensService.addSpecialOffer(offer).subscribe(value => console.log(value), error => {
-        this.errorResponse.push(error.error);
-        this.removeError();
-      });
+      return this.lensService.addSpecialOffer(offer).toPromise()
+        .then((response) => {
+          if (response){
+            setTimeout(() => {
+              this.successResponse = true;
+            }, 3000);
+            this.successResponse = false;
+            this.addSolutionForm.reset();
+          }else {
+            this.broadcastService.http404.asObservable().subscribe(value => {
+              if (value === true){
+                this.errorResponse.push('Повторіть спробу пізніше');
+                this.removeError();
+              }
+            });
+          }
+        });
     }else {
       this.errorResponse.push('Заповніть усі поля коректно!');
       this.removeError();
@@ -216,5 +277,19 @@ export class AddFormComponent implements OnInit {
       this.errorResponse.splice(-1, 1);
       console.log(this.errorResponse);
     }, 5000);
+  }
+
+  public handleError(error: any): Promise<never> {
+    if (error.status === 401) {
+        this.errorResponse.push(error.error);
+        this.removeError();
+    } else if (error.status === 400) {
+        this.errorResponse.push(error.error);
+        this.removeError();
+    }else if (error.status === 500) {
+      this.errorResponse.push(error.error);
+      // this.removeError();
+    }
+    return Promise.reject(error);
   }
 }

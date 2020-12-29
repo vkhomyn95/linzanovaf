@@ -55,6 +55,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import { CartDialogSuccessComponent } from './components/cart-dialog-success/cart-dialog-success.component';
+import {backendInterceptorProviders} from './interceptors/backend.interceptor';
 
 
 @NgModule({
@@ -118,7 +119,7 @@ import { CartDialogSuccessComponent } from './components/cart-dialog-success/car
     MatDialogModule,
     MatButtonModule
   ],
-  providers: [authInterceptorProviders],
+  providers: [authInterceptorProviders, backendInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

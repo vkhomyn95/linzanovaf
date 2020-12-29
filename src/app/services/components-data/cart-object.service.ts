@@ -6,7 +6,6 @@ import {CartItems} from '../../models/order/CartItems';
   providedIn: 'root'
 })
 export class CartObjectService {
-  private subject = new Subject();
   items = [{
     drops: [],
     lenses: [],
@@ -14,15 +13,9 @@ export class CartObjectService {
     offers: []
   }];
   private objectSource = new BehaviorSubject<CartItems[]>(JSON.parse(localStorage.getItem('cart')));
-  // constructor() {
-  //   if (localStorage.getItem('cart')){
-  //     this.objectSource = JSON.parse(localStorage.getItem('cart'));
-  //   }
-  // }
 
   currentObject = this.objectSource.asObservable();
 
-  // currentObject = localStorage.getItem('cart');
 
   sendObject(message: CartItems[]): void {
     localStorage.setItem('cart', JSON.stringify(message));

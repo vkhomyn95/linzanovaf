@@ -16,6 +16,10 @@ export interface Lens {
   defaultBC?: number;
   defaultDiameter?: number;
   avgPriceInUkraine: number;
+  hasDefaultBC: boolean;
+  hasAxis: boolean;
+  hasCylinder: boolean;
+  availability: boolean;
 }
 
 export interface UpdateLens {

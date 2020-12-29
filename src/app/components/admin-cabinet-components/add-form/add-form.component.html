@@ -106,13 +106,7 @@
         </div>
       </div>
     </div>
-    <div *ngIf="currentOption === 3" class="flex flex-wrap -mx-3 mb-6">
-      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-offerLink">
-          Посилання на товар
-        </label>
-        <input formControlName="offerLink" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-offerLink" type="text" placeholder="link...">
-      </div>
+    <div *ngIf="currentOption === 3" class="flex flex-wrap -mx-3 mb-2">
       <div class="w-full md:w-1/2 px-3">
         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-firstitemname">
           Ім'я першого товару
@@ -125,19 +119,19 @@
         </label>
         <input formControlName="offerSecondItemName" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-seconditemname" type="text" placeholder="Name">
       </div>
-      <div class="w-full md:w-1/2 px-3">
+      <div class="w-full md:w-1/2 px-3 md:mb-0 py-1">
         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-firstitemquantity">
           Кількість першого товару
         </label>
         <input formControlName="offerFirstItemQuantity" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-firstitemquantity" type="number" placeholder="1">
       </div>
-      <div class="w-full md:w-1/2 px-3 py-2">
+      <div class="w-full md:w-1/2 px-3 md:mb-0 py-1">
         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-seconditemquantity">
           Кількість другого товару
         </label>
         <input formControlName="offerSecondItemQuantity" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-seconditemquantity" type="number" placeholder="1">
       </div>
-      <div class="w-full md:w-1/2 px-3 py-2">
+      <div class="w-full md:w-1/2 px-3 py-1">
         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-seconditemquantity">
           Відображати на сайті?
         </label>
@@ -246,7 +240,7 @@
       </div>
     </div>
 
-    <div *ngIf="currentOption === 1" class="flex flex-wrap -mx-3 mb-2">
+    <div *ngIf="currentOption === 1 || currentOption === 3" class="flex flex-wrap -mx-3 mb-2">
       <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
         <label class="xxs-text block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-diametr">
           Діаметр(default)
@@ -254,17 +248,43 @@
         <input formControlName="lDiametr" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-diametr" type="number" placeholder="14.0">
       </div>
       <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+        <label class="xxs-text block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-hasDefaultBc">
+          Чи мають одну кривизну?
+        </label>
+        <div class="relative">
+          <input formControlName="lHasDefaultCurvature" id="grid-hasDefaultBc" type="checkbox">
+        </div>
+      </div>
+      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0" *ngIf="addSolutionForm.controls.lHasDefaultCurvature.value === true">
         <label class="xxs-text block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-zip">
           Кривизна(BC)(default)
         </label>
-        <input formControlName="lCurvature" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-curvature" type="text" placeholder="8.70">
+        <input formControlName="lCurvature" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-curvature" type="number" placeholder="8.70">
       </div>
-      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+    </div>
+    <div *ngIf="currentOption === 1 || currentOption === 3" class="flex flex-wrap -mx-3 mb-2">
+      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0" *ngIf="currentOption === 1">
         <label class="xxs-text block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-water">
           Вміст води
         </label>
         <div class="relative">
           <input formControlName="lWater" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-water" type="number" placeholder="45%">
+        </div>
+      </div>
+      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+        <label class="xxs-text block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-hasAxis">
+          Чи мають вісь?
+        </label>
+        <div class="relative">
+          <input formControlName="lHasAxis" id="grid-hasAxis" type="checkbox">
+        </div>
+      </div>
+      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+        <label class="xxs-text block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-hasCylinder">
+          Чи мають циліндр?
+        </label>
+        <div class="relative">
+          <input formControlName="lHasCylinder" id="grid-hasCylinder" type="checkbox">
         </div>
       </div>
     </div>
@@ -280,7 +300,7 @@
           термін використання
         </label>
         <div class="relative">
-          <input formControlName="sTdt" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-tdt" type="number" placeholder="3 міс">
+          <input formControlName="sTdt" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-tdt" type="number" placeholder="14 днів">
         </div>
       </div>
       <div *ngIf="currentOption === 0" class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
@@ -294,6 +314,14 @@
           Чи можна спати
         </label>
         <input formControlName="lSleep"  id="grid-sleep" type="checkbox">
+      </div>
+    </div>
+    <div class="flex flex-wrap -mx-3 mb-2">
+      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+        <label class="xxs-text block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-availability">
+          Чи є в наявності?
+        </label>
+        <input formControlName="availability"  id="grid-availability" type="checkbox">
       </div>
     </div>
     <button *ngIf="currentOption === 0" (click)="addSolution()" class="my-2 bg-yellow-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -316,6 +344,15 @@
       <span class="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></span>
       <span *ngIf="error.message" class="font-semibold mr-2 text-left flex-auto">{{error.message}}</span>
       <span  class="font-semibold mr-2 text-left flex-auto">{{error}}</span>
+      <svg class="fill-current opacity-75 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/></svg>
+    </div>
+  </div>
+</div>
+<div *ngIf="successResponse" class="alert-message-column">
+  <div class="text-center py-4 lg:px-4 alert-message">
+    <div class="p-2 bg-green-400 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex alert-message-new" role="alert">
+      <span class="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></span>
+      <span class="font-semibold mr-2 text-left flex-auto">Контент добавлено</span>
       <svg class="fill-current opacity-75 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/></svg>
     </div>
   </div>
