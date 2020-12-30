@@ -25,7 +25,7 @@ export class AdminAuthGuardService implements CanActivate{
        return true;
      }else {
        if (!this.token.getToken() || !this.isAdmin){
-         await this.router.navigate(['cabinet']);
+         await this.router.navigate(['login']);
        }
        return false;
      }

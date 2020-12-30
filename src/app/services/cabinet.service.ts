@@ -106,7 +106,7 @@ export class CabinetService {
   updateOrder(orderId, userId, order): Observable<any> {
     return this.httpClient.post<any>(`/api/order/${orderId}`, order);
   }
-  searchOrdersByName(orderId, page, size): Observable<any> {
+  searchOrdersByName(orderId): Observable<any> {
     return this.httpClient.get<any>(`/api/order/${orderId}`);
   }
   setUserTrackId(trackingId, orderNumber): Observable<any> {

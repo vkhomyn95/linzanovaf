@@ -34,7 +34,7 @@ export class OrdersCabinetComponent implements OnInit {
   prevPage(): void {
     if (this.getItemsByName() !== false){
       if (this.currentPage >= 1) {
-        this.cabinetService.searchOrdersByName(this.itemName, this.currentPage -= 1, this.currentSize)
+        this.cabinetService.searchOrdersByName(this.itemName)
           .subscribe(value => this.orders = value.orders);
       }
     }else {
@@ -48,7 +48,7 @@ export class OrdersCabinetComponent implements OnInit {
   nextPage(): void {
     if (this.getItemsByName() !== false){
       if (this.currentPage < this.totalPages - 1) {
-        this.cabinetService.searchOrdersByName(this.itemName, this.currentPage += 1, this.currentSize)
+        this.cabinetService.searchOrdersByName(this.itemName)
           .subscribe(value => this.orders = value.orders);
       }
     }else {

@@ -22,7 +22,6 @@ import { CabinetStatisticComponent } from './components/user-cabinet-components/
 import { CabinetFutureComponent } from './components/user-cabinet-components/cabinet-future/cabinet-future.component';
 import { HttpClientModule} from '@angular/common/http';
 import { UsersCabinetComponent } from './components/admin-cabinet-components/users-cabinet/users-cabinet.component';
-import { SingleUserCabinetComponent } from './components/admin-cabinet-components/single-user-cabinet/single-user-cabinet.component';
 import { SingleUserEditComponent } from './components/admin-cabinet-components/single-user-edit/single-user-edit.component';
 import { ProductsCabinetComponent } from './components/admin-cabinet-components/products-cabinet/products-cabinet.component';
 import { LensesCabinetComponent } from './components/admin-cabinet-components/lenses-cabinet/lenses-cabinet.component';
@@ -78,7 +77,6 @@ import {backendInterceptorProviders} from './interceptors/backend.interceptor';
     CabinetStatisticComponent,
     CabinetFutureComponent,
     UsersCabinetComponent,
-    SingleUserCabinetComponent,
     SingleUserEditComponent,
     ProductsCabinetComponent,
     LensesCabinetComponent,

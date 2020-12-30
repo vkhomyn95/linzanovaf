@@ -14,11 +14,19 @@
     </div>
   </div>
   <div class="flex flex-wrap -mx-3 mb-6">
-    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+    <div class="w-full px-3">
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-email">
-        Date created
+        Customer Email
       </label>
-      <input formControlName="createdAt" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-email" type="text" placeholder="Jane">
+      <input formControlName="email" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-email" type="text">
+    </div>
+  </div>
+  <div class="flex flex-wrap -mx-3 mb-6">
+    <div class="w-full md:w-1/2 px-3">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
+        Patronymic
+      </label>
+      <input formControlName="patronymic" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text">
     </div>
     <div class="w-full md:w-1/2 px-3">
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-phone">
@@ -34,11 +42,11 @@
       </label>
       <input formControlName="totalSumm" class="appearance-none w-full block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-number" type="text">
     </div>
-    <div class="w-full md:w-1/2 px-3">
-      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
-        Patronymic
+    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-createdAt">
+        Date created
       </label>
-      <input formControlName="patronymic" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text">
+      <input formControlName="createdAt" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-createdAt" type="text" placeholder="Jane">
     </div>
   </div>
   <div class="flex flex-wrap -mx-3 mb-6">
@@ -57,27 +65,76 @@
       <input formControlName="meestTrackingId" class="appearance-none w-full block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-meest" type="text">
     </div>
     <div class="w-full md:w-1/2 px-3">
-      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-dpd">
-        dpdTrackingId
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-novaPoshtaTTN">
+        novaPoshtaTTN
       </label>
-      <input formControlName="dpdTrackingId" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-dpd" type="text">
+      <input formControlName="novaPoshtaTTN" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-novaPoshtaTTN" type="text">
     </div>
   </div>
   <div class="flex flex-wrap -mx-3 mb-6">
     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-novaposhta">
-        novaPoshtaTTN
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-priceToPayAfterDelivery">
+        PriceToPayAfterDelivery
       </label>
-      <input formControlName="novaPoshtaTTN" class="appearance-none w-full block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-novaposhta" type="text">
+      <input formControlName="priceToPayAfterDelivery" class="appearance-none w-full block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-priceToPayAfterDelivery" type="number">
     </div>
     <div class="w-full md:w-1/2 px-3">
-      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-alensa">
-        alensaId
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-priceToPayNow">
+        priceToPayNow
       </label>
-      <input formControlName="alensaId" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-alensa" type="text">
+      <input formControlName="priceToPayNow" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-priceToPayNow" type="number">
     </div>
   </div>
+  <h2 class="text-center pb-3">Доставка</h2>
+  <div class="flex flex-wrap -mx-3 mb-6">
+    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-deliveryType">
+        Тип доставки
+      </label>
+      <input formControlName="deliveryType" class="appearance-none w-full block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-deliveryType" type="text">
+    </div>
+    <div class="w-full md:w-1/2 px-3">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-paymentType">
+        Тип оплати
+      </label>
+      <input formControlName="paymentType" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-paymentType" type="text">
+    </div>
+  </div>
+  <div class="flex flex-wrap -mx-3 mb-6">
+    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-cityName">
+        Місто
+      </label>
+      <input formControlName="cityName" class="appearance-none w-full block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-cityName" type="text">
+    </div>
+    <div class="w-full md:w-1/2 px-3">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-warehouseNumber">
+        Номер відділення
+      </label>
+      <input formControlName="warehouseNumber" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-warehouseNumber" type="text">
+    </div>
+  </div>
+  <div class="flex flex-wrap -mx-3 mb-6">
+    <div class="w-full px-3">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-warehouseDescription">
+        Опис відділення
+      </label>
+      <input formControlName="description" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-warehouseDescription" type="text">
+    </div>
+  </div>
+  <div class="flex flex-wrap -mx-3 mb-6">
+    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-postIndex">
+        Поштовий індекс
+      </label>
+      <input formControlName="postIndex" class="appearance-none w-full block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-postIndex" type="text">
+    </div>
+  </div>
+  <pre>
+    {{items}}
+  </pre>
+
   <button (click)="updateOrder()" class="my-2 bg-yellow-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-    Оновити
+    Скасувати
   </button>
 </form>

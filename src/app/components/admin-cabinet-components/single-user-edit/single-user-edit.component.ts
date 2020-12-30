@@ -3,6 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {CabinetService} from '../../../services/cabinet.service';
 import {FormControl, FormGroup} from '@angular/forms';
 import {UpdateUser} from '../../../models/user/User';
+import {log} from 'util';
 
 @Component({
   selector: 'app-single-user-edit',
@@ -22,13 +23,17 @@ export class SingleUserEditComponent implements OnInit {
       number: new FormControl(''),
       warehouse: new FormControl(''),
       password: new FormControl(''),
-      userRole: new FormControl('')
+      role: new FormControl(''),
+      bonusesQuantity: new FormControl(''),
+      shoppingQuantity: new FormControl(''),
+      deliveredShopsQuantity: new FormControl('')
     });
   }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(userId => {
       this.cabinetService.getUser(userId.id).subscribe(value => {
+        console.log(value);
         for (const param of Object.keys(this.updateForm.controls)) {
           for (const user in value) {
             if (param === user){

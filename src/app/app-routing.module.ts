@@ -29,7 +29,6 @@ import {UserCabinetSingleOrderComponent} from './components/user-cabinet-compone
 import {LensesComponent} from './components/tab-components/lenses/lenses.component';
 import {SolutionsComponent} from './components/tab-components/solutions/solutions.component';
 import {DropsComponent} from './components/tab-components/drops/drops.component';
-import {CartDialogSuccessComponent} from './components/cart-dialog-success/cart-dialog-success.component';
 
 const routes: Routes = [
   {

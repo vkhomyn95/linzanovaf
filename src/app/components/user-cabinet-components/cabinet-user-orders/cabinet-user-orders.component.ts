@@ -14,7 +14,6 @@ export class CabinetUserOrdersComponent implements OnInit {
   currentSize = 4;
   totalElements: number;
   totalPages: number;
-  itemName: string;
 
   constructor(private cabinetService: CabinetService,
               private router: Router) { }
@@ -35,30 +34,17 @@ export class CabinetUserOrdersComponent implements OnInit {
   }
 
   prevPage(): void {
-    if (this.getItemsByName() !== false){
-      if (this.currentPage >= 1) {
-        this.cabinetService.searchOrdersByName(this.itemName, this.currentPage -= 1, this.currentSize)
-          .subscribe(value => this.orders = value.orders);
-      }
-    }else {
-      if (this.currentPage >= 1){
-        this.cabinetService.getAllOrders(this.currentPage -= 1, this.currentSize)
-          .subscribe(value => this.orders = value.orders);
-      }
+    if (this.currentPage >= 1){
+      this.cabinetService.getAllOrdersByUsername(this.currentPage -= 1, this.currentSize)
+        .subscribe(value => this.orders = value.orders);
     }
+
   }
 
   nextPage(): void {
-    if (this.getItemsByName() !== false){
-      if (this.currentPage < this.totalPages - 1) {
-        this.cabinetService.searchOrdersByName(this.itemName, this.currentPage += 1, this.currentSize)
-          .subscribe(value => this.orders = value.orders);
-      }
-    }else {
-      if (this.currentPage < this.totalPages - 1){
-        this.cabinetService.getAllOrders(this.currentPage += 1, this.currentSize)
-          .subscribe(value => this.orders = value.orders);
-      }
+    if (this.currentPage < this.totalPages - 1){
+      this.cabinetService.getAllOrdersByUsername(this.currentPage += 1, this.currentSize)
+        .subscribe(value => this.orders = value.orders);
     }
   }
 
@@ -68,17 +54,6 @@ export class CabinetUserOrdersComponent implements OnInit {
       this.orders = values.orders;
       this.totalPages = values.totalPages;
     });
-  }
-
-  getItemsByName(): boolean {
-    if (this.itemName) {
-      this.cabinetService.searchOrdersByName(this.itemName, this.currentPage, this.currentSize).subscribe(value => {
-        this.orders = value.orders;
-        this.totalElements = value.totalElements;
-        this.totalPages = value.totalPages;
-      });
-    }
-    return !(this.itemName === '' || this.itemName === undefined);
   }
 
     disableRouter($event: MouseEvent): void {

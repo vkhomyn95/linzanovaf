@@ -466,7 +466,7 @@ export class CartComponent implements OnInit, OnDestroy {
             this.itemsToSend.map(itemOffer => itemOffer.offers.push({offerId: offers.id}));
           });
           items.lenses.map(lenses => {
-            const properties = `Кількість: ${lenses.quantity} Діоптрії: ${lenses.diopters}`;
+            const properties = `Кількість: ${lenses.quantity} Діоптрії: ${lenses.diopters}` + (lenses.hasCylinder ? `Циліндр: ${lenses.cylinder}` : ' ') + (lenses.hasAxis ? `Вісь: ${lenses.axis}` : ' ') + `Кривизна: ${lenses.defaultBC} Діаметр: ${lenses.defaultDiameter} \n`;
             this.itemsToSend.map(itemOffer => itemOffer.lenses.push({lenseId: lenses.id, properties}));
           });
           items.drops.map(drops => {
