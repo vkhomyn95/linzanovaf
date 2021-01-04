@@ -18,14 +18,14 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
             </path>
           </svg>
-          <h2 class="title-font font-medium text-3xl text-gray-900">1.3K</h2>
+          <h2 class="title-font font-medium text-3xl text-gray-900">{{ordersCount}}</h2>
           <p class="leading-relaxed">Orders</p>
         </div>
       </div>
       <div class="p-4 md:w-1/4 sm:w-1/2 w-full" (click)="getProductsView()">
         <div class="border-2 border-gray-200 px-4 py-6 rounded-lg">
           <svg class="text-indigo-500 w-12 h-12 mb-3 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-          <h2 class="title-font font-medium text-3xl text-gray-900">74</h2>
+          <h2 class="title-font font-medium text-3xl text-gray-900">GO</h2>
           <p class="leading-relaxed">Products</p>
         </div>
       </div>
@@ -34,7 +34,15 @@
           <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="text-indigo-500 w-12 h-12 mb-3 inline-block" viewBox="0 0 24 24">
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
           </svg>
-          <h2 class="title-font font-medium text-3xl text-gray-900">46</h2>
+          <h2 class="title-font font-medium text-3xl text-gray-900 text-center">
+            <svg class="inf-w mx-auto" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 60 60" style="enable-background:new 0 0 60 60;" xml:space="preserve">
+              <path style="fill:none;stroke:#424A60;stroke-width:5;stroke-linecap:round;stroke-miterlimit:10;" d="M30,30
+                c0,8.008-6.492,14.5-14.5,14.5S1,38.008,1,30s6.492-14.5,14.5-14.5c2.983,0,5.757,0.901,8.062,2.446
+                c0.796,0.533,1.536,1.143,2.21,1.82"/>
+              <path style="fill:none;stroke:#424A60;stroke-width:5;stroke-linecap:round;stroke-miterlimit:10;" d="M30,30
+                c0-8.008,6.492-14.5,14.5-14.5S59,21.992,59,30s-6.492,14.5-14.5,14.5c-4.003,0-7.627-1.622-10.251-4.245"/>
+            </svg>
+          </h2>
           <p class="leading-relaxed">In transit</p>
         </div>
       </div>

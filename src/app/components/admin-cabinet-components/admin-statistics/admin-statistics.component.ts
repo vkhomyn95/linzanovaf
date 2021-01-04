@@ -12,6 +12,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 })
 export class AdminStatisticsComponent implements OnInit {
   usersCount: number;
+  ordersCount: number;
   isLoggedIn = false;
   setTrackingNumberForm: FormGroup;
 
@@ -28,6 +29,7 @@ export class AdminStatisticsComponent implements OnInit {
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
     this.cabinetService.getUsersCount().subscribe(value => this.usersCount = value);
+    this.cabinetService.getOrdersCount().subscribe(value => this.ordersCount = value);
   }
 
   getAllUsers(): void {

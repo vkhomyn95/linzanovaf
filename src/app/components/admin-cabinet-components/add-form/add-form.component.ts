@@ -278,18 +278,4 @@ export class AddFormComponent implements OnInit {
       console.log(this.errorResponse);
     }, 5000);
   }
-
-  public handleError(error: any): Promise<never> {
-    if (error.status === 401) {
-        this.errorResponse.push(error.error);
-        this.removeError();
-    } else if (error.status === 400) {
-        this.errorResponse.push(error.error);
-        this.removeError();
-    }else if (error.status === 500) {
-      this.errorResponse.push(error.error);
-      // this.removeError();
-    }
-    return Promise.reject(error);
-  }
 }

@@ -2,28 +2,28 @@ export interface UpdateOrder {
   createdAt: string;
   totalSumm: number;
   lastName: string;
+  email: string;
+  cityName: string;
   firstName: string;
   patronymic: string;
   phone: string;
   customerComment: string;
   delivery: Delivery;
-  items: Item;
-
   meestTrackingId: string;
-  dpdTrackingId: string;
   novaPoshtaTTN: string;
-  alensaId: string;
-  receivedInMesstPoland: string;
+  receivedInMesstPoland: boolean;
+  priceToPayAfterDelivery: number;
+  priceToPayNow: number;
+  userEmail: string;
+  userId: number;
+  canceled: boolean;
 }
 
 export interface Delivery {
-  street: string;
-  city: string;
-}
-
-export interface Item {
-  drops: [Drop];
-}
-export interface Drop {
-  dropId: number;
+  cityName: string;
+  deliveryType: string;
+  paymentType: string;
+  warehouseNumber: string;
+  description: string;
+  postIndex: number;
 }

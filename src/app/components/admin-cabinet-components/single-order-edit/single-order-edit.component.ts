@@ -3,6 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {CabinetService} from '../../../services/cabinet.service';
 import {FormControl, FormGroup} from '@angular/forms';
 import {UpdateOrder} from '../../../models/order/Order';
+import {BroadcastService} from '../../../services/components-data/broadcast.service';
 
 @Component({
   selector: 'app-single-order-edit',
@@ -11,10 +12,12 @@ import {UpdateOrder} from '../../../models/order/Order';
 })
 export class SingleOrderEditComponent implements OnInit {
   updateForm: FormGroup;
+  errorResponse = []; successResponse = false;
   items: any;
 
   constructor(private activatedRoute: ActivatedRoute,
-              private cabinetService: CabinetService) {
+              private cabinetService: CabinetService,
+              private broadcastService: BroadcastService) {
     this.updateForm = new FormGroup({
       createdAt: new FormControl(''),
       totalSumm: new FormControl(''),
@@ -35,13 +38,15 @@ export class SingleOrderEditComponent implements OnInit {
       receivedInMesstPoland: new FormControl(),
       priceToPayAfterDelivery: new FormControl(0),
       priceToPayNow: new FormControl(0),
+      userEmail: new FormControl(''),
+      userId: new FormControl(''),
+      canceled: new FormControl('')
     });
   }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(orderId => {
       this.cabinetService.getOrder(orderId.id).subscribe(value => {
-        console.log(value.properties);
         this.items = value.properties;
         for (const param of Object.keys(this.updateForm.controls)) {
           for (const order in value) {
@@ -57,17 +62,37 @@ export class SingleOrderEditComponent implements OnInit {
         this.updateForm.get('warehouseNumber').setValue(value.delivery.warehouseNumber);
         this.updateForm.get('description').setValue(value.delivery.description);
         this.updateForm.get('postIndex').setValue(value.delivery.postIndex);
-        console.log(value);
       });
     });
   }
 
   updateOrder(): void {
     const order: UpdateOrder = this.updateForm.value;
-    console.log(order);
-    // this.activatedRoute.params.subscribe(orderId => {
-    //   return this.cabinetService.updateUser(orderId.id, order).subscribe(value => console.log(value));
-    // });
+    this.activatedRoute.params.subscribe(orderId => {
+      return this.cabinetService.updateOrder(orderId.id, order).toPromise()
+        .then((response) => {
+          if (response){
+            setTimeout(() => {
+              this.successResponse = true;
+            }, 3000);
+            this.successResponse = false;
+          }else {
+            this.broadcastService.http404.asObservable().subscribe(value => {
+              if (value === true){
+                this.errorResponse.push('Повторіть спробу пізніше');
+                this.removeError();
+              }
+            });
+          }
+        });
+    });
+  }
+
+  removeError(): void {
+    setTimeout(() => {
+      this.errorResponse.splice(-1, 1);
+      console.log(this.errorResponse);
+    }, 5000);
   }
 
 }

@@ -85,6 +85,20 @@
       <input formControlName="priceToPayNow" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-priceToPayNow" type="number">
     </div>
   </div>
+  <div class="flex flex-wrap -mx-3 mb-6">
+    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-priceToPayAfterDelivery">
+        AuthUserEmail
+      </label>
+      <input formControlName="userEmail" class="appearance-none w-full block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-userEmail" type="text">
+    </div>
+    <div class="w-full md:w-1/2 px-3">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-priceToPayNow">
+        AuthUserId
+      </label>
+      <input formControlName="userId" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-userId" type="number">
+    </div>
+  </div>
   <h2 class="text-center pb-3">Доставка</h2>
   <div class="flex flex-wrap -mx-3 mb-6">
     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
@@ -129,12 +143,36 @@
       </label>
       <input formControlName="postIndex" class="appearance-none w-full block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-postIndex" type="text">
     </div>
+    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-postIndex">
+        Статус(скасовано)
+      </label>
+      <input formControlName="canceled" class="appearance-none w-full block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-status" type="text">
+    </div>
   </div>
-  <pre>
+  <pre class="w-10/12 flex justify-center">
     {{items}}
   </pre>
-
   <button (click)="updateOrder()" class="my-2 bg-yellow-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-    Скасувати
+    Оновити
   </button>
 </form>
+<div *ngIf="errorResponse" class="alert-message-column">
+  <div class="text-center py-4 lg:px-4 alert-message">
+    <div class="p-2 bg-red-400 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex alert-message-new" role="alert" *ngFor="let error of errorResponse">
+      <span class="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></span>
+      <span *ngIf="error.message" class="font-semibold mr-2 text-left flex-auto">{{error.message}}</span>
+      <span  class="font-semibold mr-2 text-left flex-auto">{{error}}</span>
+      <svg class="fill-current opacity-75 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/></svg>
+    </div>
+  </div>
+</div>
+<div *ngIf="successResponse" class="alert-message-column">
+  <div class="text-center py-4 lg:px-4 alert-message">
+    <div class="p-2 bg-green-400 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex alert-message-new" role="alert">
+      <span class="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></span>
+      <span class="font-semibold mr-2 text-left flex-auto">Інформацію оновлено</span>
+      <svg class="fill-current opacity-75 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/></svg>
+    </div>
+  </div>
+</div>

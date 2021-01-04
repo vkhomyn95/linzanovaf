@@ -3,8 +3,8 @@ import {ActivatedRoute} from '@angular/router';
 import {FormControl, FormGroup} from '@angular/forms';
 import {CabinetService} from '../../../services/cabinet.service';
 import {solutionBrand, solutionProducer, solutionType, solutionValue} from '../../../constants/solution/solution';
-import {UpdateLens} from '../../../models/lense/Lens';
 import {UpdateSolution} from '../../../models/solution/Solution';
+import {BroadcastService} from '../../../services/components-data/broadcast.service';
 
 @Component({
   selector: 'app-single-solution-edit',
@@ -14,12 +14,15 @@ import {UpdateSolution} from '../../../models/solution/Solution';
 export class SingleSolutionEditComponent implements OnInit {
   updateForm: FormGroup;
   sTypeList; sProducerList; sBrandList; sValueList;
+  errorResponse = []; successResponse = false;
 
   constructor(private activatedRoute: ActivatedRoute,
-              private cabinetService: CabinetService) {
+              private cabinetService: CabinetService,
+              private broadcastService: BroadcastService) {
     this.updateForm = new FormGroup({
       name: new FormControl(''),
       price: new FormControl(''),
+      avgPriceInUkraine: new FormControl(''),
       solutionBrand: new FormControl(''),
       solutionProducer: new FormControl(''),
       solutionType: new FormControl(''),
@@ -27,7 +30,8 @@ export class SingleSolutionEditComponent implements OnInit {
       stdt: new FormControl(''),
       sdate: new FormControl(''),
       description: new FormControl(''),
-      boolHyaluronate: new FormControl('')
+      boolHyaluronate: new FormControl(''),
+      availability: new FormControl(false),
     });
     this.sTypeList = solutionType;
     this.sProducerList = solutionProducer;
@@ -52,8 +56,29 @@ export class SingleSolutionEditComponent implements OnInit {
   updateSolution(): void {
     const solution: UpdateSolution = this.updateForm.value;
     this.activatedRoute.params.subscribe(solutionId => {
-      return this.cabinetService.updateSolution(solutionId.id, 1, solution).subscribe(value => console.log(value));
+      return this.cabinetService.updateSolution(solutionId.id, solution).toPromise()
+        .then((response) => {
+          if (response){
+            setTimeout(() => {
+              this.successResponse = true;
+            }, 3000);
+            this.successResponse = false;
+          }else {
+            this.broadcastService.http404.asObservable().subscribe(value => {
+              if (value === true){
+                this.errorResponse.push('Повторіть спробу пізніше');
+                this.removeError();
+              }
+            });
+          }
+        });
     });
   }
 
+  removeError(): void {
+    setTimeout(() => {
+      this.errorResponse.splice(-1, 1);
+      console.log(this.errorResponse);
+    }, 5000);
+  }
 }

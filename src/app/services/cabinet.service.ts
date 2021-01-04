@@ -64,8 +64,8 @@ export class CabinetService {
   getSolution(solutionId): Observable<any> {
     return this.httpClient.get<any>(`api/solution/${solutionId}`);
   }
-  updateSolution(solutionId, userId, solution): Observable<any> {
-    return this.httpClient.post<any>(`/api/solution/${solutionId}/user/${userId}`, solution);
+  updateSolution(solutionId, solution): Observable<any> {
+    return this.httpClient.post<any>(`/api/solution/${solutionId}`, solution);
   }
   searchSolutionsByName(solutionName, page, size): Observable<any> {
     return this.httpClient.get<any>(`/api/solution/name?name=${solutionName}&page=${page}&size=${size}`);
@@ -79,8 +79,8 @@ export class CabinetService {
   getCare(careId): Observable<any> {
     return this.httpClient.get<any>(`/api/drops/${careId}`, {headers: {skip: 'true'}});
   }
-  updateCare(careId, userId, care): Observable<any> {
-    return this.httpClient.post<any>(`/api/drops/${careId}/user/${userId}`, care);
+  updateCare(careId, care): Observable<any> {
+    return this.httpClient.post<any>(`/api/drops/${careId}`, care);
   }
   searchCaresByName(careName, page, size): Observable<any> {
     return this.httpClient.get<any>(`/api/drops/name?name=${careName}&page=${page}&size=${size}`);
@@ -94,6 +94,9 @@ export class CabinetService {
   updateSpecialOffer(offerId, userId, special): Observable<any> {
     return this.httpClient.post<any>(`/api/special/${offerId}/user/${userId}`, special);
   }
+  getOrdersCount(): Observable<any> {
+    return this.httpClient.get<any>('/api/order/count');
+  }
   getAllOrders(page, size): Observable<any> {
     return this.httpClient.get<any>(`/api/order?page=${page}&size=${size}`);
   }
@@ -103,7 +106,7 @@ export class CabinetService {
   getAllOrdersByUsername(page, size): Observable<any>{
     return this.httpClient.get<any>(`/api/order/user?page=${page}&size=${size}`);
   }
-  updateOrder(orderId, userId, order): Observable<any> {
+  updateOrder(orderId, order): Observable<any> {
     return this.httpClient.post<any>(`/api/order/${orderId}`, order);
   }
   searchOrdersByName(orderId): Observable<any> {

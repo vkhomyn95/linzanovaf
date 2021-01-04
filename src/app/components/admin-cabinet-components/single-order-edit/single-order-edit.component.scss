@@ -1,0 +1,18 @@
+.alert-message {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  &-column {
+    display: flex;
+    flex-direction: column;
+  }
+  &-new {
+    margin-top: 10px;
+  }
+}
+pre {
+  white-space:pre-wrap;
+}
