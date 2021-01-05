@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CabinetService} from '../../services/cabinet.service';
+import {CabinetService} from '../../../services/cabinet.service';
 
 @Component({
   selector: 'app-tracking-modal',

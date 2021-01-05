@@ -5,7 +5,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AdminComponent} from './components/admin/admin.component';
 import {AddFormComponent} from './components/add-form/add-form.component';
 import {UsersCabinetComponent} from './components/users-cabinet/users-cabinet.component';
@@ -24,7 +23,6 @@ import {SingleCareEditComponent} from './components/single-care-edit/single-care
 import {AdminStatisticsComponent} from './components/admin-statistics/admin-statistics.component';
 import {authInterceptorProviders} from '../interceptors/auth.interceptor';
 import {backendInterceptorProviders} from '../interceptors/backend.interceptor';
-import {AppRoutingModule} from '../app-routing.module';
 
 
 
