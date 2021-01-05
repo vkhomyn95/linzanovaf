@@ -25,6 +25,7 @@ export interface Lens {
 export interface UpdateLens {
   name: string;
   price: number;
+  avgPriceInUkraine: number;
   lenseType: string;
   lenseProducer: string;
   lenseBrand: string;
@@ -37,5 +38,10 @@ export interface UpdateLens {
   sdate: number;
   stdt: number;
   lenseShelfLife: number;
-  // userId: number;
+  hasDefaultBC: boolean;
+  hasAxis: boolean;
+  defaultDiameter: number;
+  hasCylinder: boolean;
+  defaultBC: number;
+  availability: boolean;
 }

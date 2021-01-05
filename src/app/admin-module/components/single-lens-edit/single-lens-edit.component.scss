@@ -1,0 +1,20 @@
+.xxs-text {
+  font-size: 0.32rem;
+  white-space: nowrap;
+}
+.alert-message {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  &-column {
+    display: flex;
+    flex-direction: column;
+  }
+  &-new {
+    margin-top: 10px;
+  }
+}
+

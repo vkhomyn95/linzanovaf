@@ -15,3 +15,18 @@ export interface SpecialOffer {
   hasAxis: boolean;
   hasCylinder: boolean;
 }
+export interface UpdateOffer {
+  name: string;
+  price: number;
+  avgPriceInUkraine: number;
+  firstItemName: string;
+  secondItemName: string;
+  firstItemQuanity: number;
+  secondItemQuanity: number;
+  hasDefaultBC: boolean;
+  hasAxis: boolean;
+  defaultDiameter: number;
+  hasCylinder: boolean;
+  defaultBC: number;
+  activeStatus: boolean;
+}

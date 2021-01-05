@@ -49,8 +49,8 @@ export class CabinetService {
   getLens(lensId): Observable<any> {
     return this.httpClient.get<any>(`/api/lenses/${lensId}`);
   }
-  updateLens(lensId, userId, lens): Observable<any> {
-    return this.httpClient.post<any>(`/api/lenses/${lensId}/user/${userId}`, lens);
+  updateLens(lensId, lens): Observable<any> {
+    return this.httpClient.post<any>(`/api/lenses/${lensId}`, lens);
   }
   searchLensesByName(lensName, page, size): Observable<any> {
     return this.httpClient.get<any>(`/api/lenses/name?name=${lensName}&page=${page}&size=${size}`);
@@ -85,14 +85,17 @@ export class CabinetService {
   searchCaresByName(careName, page, size): Observable<any> {
     return this.httpClient.get<any>(`/api/drops/name?name=${careName}&page=${page}&size=${size}`);
   }
+  getOffer(offerId): Observable<any> {
+    return this.httpClient.get<any>(`/api/special/${offerId}`);
+  }
   getSpecialOfferCount(): Observable<any> {
     return this.httpClient.get<any>(`/api/special/count`);
   }
   getAllSpecialOffers(page, size): Observable<any> {
     return this.httpClient.get<any>(`/api/special?page=${page}&size=${size}`, {headers: {skip: 'true'}});
   }
-  updateSpecialOffer(offerId, userId, special): Observable<any> {
-    return this.httpClient.post<any>(`/api/special/${offerId}/user/${userId}`, special);
+  updateSpecialOffer(offerId, special): Observable<any> {
+    return this.httpClient.post<any>(`/api/special/${offerId}`, special);
   }
   getOrdersCount(): Observable<any> {
     return this.httpClient.get<any>('/api/order/count');

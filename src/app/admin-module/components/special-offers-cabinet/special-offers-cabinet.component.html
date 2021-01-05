@@ -16,7 +16,7 @@
                 Status
               </th>
               <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                Link
+                Price
               </th>
               <th class="px-6 py-3 bg-gray-50"></th>
             </tr>
@@ -30,10 +30,10 @@
                   </div>
                   <div class="ml-4">
                     <div class="text-sm leading-5 font-medium text-gray-900">
-                      Jane Cooper
+                      {{offer.firstItemName}}
                     </div>
                     <div class="text-sm leading-5 text-gray-500">
-                      jane.cooper@example.com
+                      {{offer.secondItemName}}
                     </div>
                   </div>
                 </div>
@@ -48,14 +48,12 @@
                 </span>
               </td>
               <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-                <a href="{{offer.alensaLink}}" target="_blank">link</a>
+                <span>{{offer.price}} &#8372;</span>
               </td>
               <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
-                <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                <a (click)="goEditOffer(offer.id)" class="text-indigo-600 hover:text-indigo-900">Edit</a>
               </td>
             </tr>
-
-            <!-- More rows... -->
             </tbody>
           </table>
         </div>

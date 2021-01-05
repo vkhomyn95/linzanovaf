@@ -14,19 +14,19 @@ export class LensService {
   constructor(private httpClient: HttpClient) { }
 
   addLens(lens: Lens): Observable<Lens> {
-    return this.httpClient.post<Lens>('/api/lens/user/1', lens);
+    return this.httpClient.post<Lens>('/api/lens', lens);
   }
 
   addSolution(solution: Solution): Observable<Solution> {
-    return this.httpClient.post<Solution>('/api/solution/user/1', solution);
+    return this.httpClient.post<Solution>('/api/solution', solution);
   }
 
   addLensDrops(drops: Drops): Observable<Drops> {
-    return this.httpClient.post<Drops>('/api/drops/user/1', drops);
+    return this.httpClient.post<Drops>('/api/drops', drops);
   }
 
   addSpecialOffer(offer: SpecialOffer): Observable<SpecialOffer> {
-    return this.httpClient.post<SpecialOffer>('/api/special/user/1', offer);
+    return this.httpClient.post<SpecialOffer>('/api/special', offer);
   }
 
   createOrder(order): Observable<any> {
