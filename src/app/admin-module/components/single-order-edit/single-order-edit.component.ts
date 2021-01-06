@@ -13,7 +13,7 @@ import {BroadcastService} from '../../../services/components-data/broadcast.serv
 export class SingleOrderEditComponent implements OnInit {
   updateForm: FormGroup;
   errorResponse = []; successResponse = false;
-  items: any;
+  properties;
 
   constructor(private activatedRoute: ActivatedRoute,
               private cabinetService: CabinetService,
@@ -47,7 +47,8 @@ export class SingleOrderEditComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(orderId => {
       this.cabinetService.getOrder(orderId.id).subscribe(value => {
-        this.items = value.properties;
+        this.properties = value.properties.split('\n');
+        this.properties.splice(-1, 1);
         for (const param of Object.keys(this.updateForm.controls)) {
           for (const order in value) {
             if (param === order){

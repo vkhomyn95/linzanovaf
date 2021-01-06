@@ -150,9 +150,16 @@
       <input formControlName="canceled" class="appearance-none w-full block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-status" type="text">
     </div>
   </div>
-  <pre class="w-10/12 flex justify-center">
-    {{items}}
-  </pre>
+  <div class=" flex justify-center">
+    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+      <div class="py-3 text-sm">
+        <div *ngFor="let prop of properties" class="flex justify-start items-center cursor-pointer text-gray-700 hover:text-blue-400 hover:bg-blue-100 rounded-md px-2 py-2 my-2">
+          <span class="bg-gray-400 h-2 w-2 m-2 rounded-full"></span>
+          <div class="flex-grow font-medium px-2">{{prop}}</div>
+        </div>
+      </div>
+    </dd>
+  </div>
   <button (click)="updateOrder()" class="my-2 bg-yellow-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
     Оновити
   </button>

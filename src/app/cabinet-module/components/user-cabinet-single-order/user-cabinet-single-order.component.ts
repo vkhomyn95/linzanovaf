@@ -10,6 +10,7 @@ import {CabinetService} from '../../../services/cabinet.service';
 export class UserCabinetSingleOrderComponent implements OnInit {
   currentOrder;
   loader = true;
+  properties;
 
   constructor(private activatedRoute: ActivatedRoute,
               private cabinetService: CabinetService) { }
@@ -18,8 +19,10 @@ export class UserCabinetSingleOrderComponent implements OnInit {
     this.activatedRoute.params.subscribe(orderId => {
       this.cabinetService.getOrder(orderId.id).subscribe(value => {
         this.currentOrder = value;
-        this.loader = false;
         console.log(value);
+        this.properties = value.properties.split('\n');
+        this.properties.splice(-1, 1);
+        this.loader = false;
       });
     });
   }
