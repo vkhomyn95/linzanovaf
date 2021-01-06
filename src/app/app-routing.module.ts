@@ -11,6 +11,7 @@ import {NotFoundComponent} from './components/not-found/not-found.component';
 import {LensesComponent} from './components/tab-components/lenses/lenses.component';
 import {SolutionsComponent} from './components/tab-components/solutions/solutions.component';
 import {DropsComponent} from './components/tab-components/drops/drops.component';
+import {CabinetAuthGuardService} from './services/cabinet-auth-guard.service';
 
 const routes: Routes = [
   {
@@ -45,7 +46,8 @@ const routes: Routes = [
   },
   {
    path: 'cabinet',
-   loadChildren: () => import('./cabinet-module/cabinet.module').then(c => c.CabinetModule)
+   loadChildren: () => import('./cabinet-module/cabinet.module').then(c => c.CabinetModule),
+    canActivate: [CabinetAuthGuardService]
   },
   {
     path: 'admin',
