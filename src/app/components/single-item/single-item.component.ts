@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CabinetService} from '../../services/cabinet.service';
 import {Drops} from '../../models/drops/Drops';
+import {Lens} from '../../models/lense/Lens';
 
 @Component({
   selector: 'app-single-item',
@@ -11,6 +12,7 @@ import {Drops} from '../../models/drops/Drops';
 export class SingleItemComponent implements OnInit {
   loader = true;
   care: Drops;
+  lens: Lens;
 
   constructor(private activatedRoute: ActivatedRoute,
               private cabinetService: CabinetService,
@@ -18,12 +20,21 @@ export class SingleItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(urlId => {
-      this.cabinetService.getCare(history.state.stateId).subscribe(careValue => {
-          this.care = careValue;
-          this.loader = false;
-          console.log(this.care);
-        }
-      );
+      if (history.state.stateCategory === 0){
+        this.cabinetService.getCare(history.state.stateId).subscribe(careValue => {
+            this.care = careValue;
+            this.loader = false;
+            console.log(this.care);
+          }
+        );
+      }else if (history.state.stateCategory === 1){
+        this.cabinetService.getLens(history.state.stateId).subscribe(lensValue => {
+            this.lens = lensValue;
+            this.loader = false;
+            console.log(this.lens);
+          }
+        );
+      }
     });
   }
 

@@ -1,4 +1,5 @@
 <section class="text-gray-700 body-font" *ngIf="loader">
+  <ngx-skeleton-loader class="flex justify-center mb-8 mt-1" count="1" [theme]="{ height: '40px', width:'20rem', margin: '5px' }"></ngx-skeleton-loader>
   <div class="container px-5  mx-auto">
     <div class="flex flex-wrap -m-4">
       <div class="lg:w-1/3 md:w-1/2 p-4 w-full" *ngFor="let item of [].constructor(12)">
@@ -13,18 +14,28 @@
   </div>
   <app-pagination [loader]="loader"></app-pagination>
 </section>
-
 <section class="text-gray-700 body-font" *ngIf="!loader">
+  <app-search class="flex mb-8 mt-2"></app-search>
   <div class="container px-5  mx-auto">
     <div class="flex flex-wrap -m-4">
       <div class="lg:w-1/3 md:w-1/2 p-4 w-full" *ngFor="let item of values">
         <a class="block relative h-48 rounded overflow-hidden" (click)="viewDetails(item.category, item.id, item.name)">
-          <img alt="ecommerce" class="object-cover object-center w-full h-full block" src="https://dummyimage.com/420x260">
+          <img alt="ecommerce" class="object-cover object-center w-full h-full block cursor-pointer-hover" src="https://dummyimage.com/420x260">
         </a>
         <div class="mt-4">
-          <h3 class="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
-          <h2 class="text-gray-900 title-font text-lg font-medium">{{item.name}}</h2>
-          <p class="mt-1">${{item.price}}</p> <button (click)="addToCartItem(item)">add</button>
+          <h3 class="text-gray-500 text-xs tracking-widest title-font uppercase mb-1">{{itemCategoryName}}</h3>
+          <h2 class="text-gray-900 title-font leading-6 text-lg font-medium item-title mb-2">{{item.name}}</h2>
+          <div>
+            <p [ngClass]="(item.availability === true) ? 'c-green':'c-grey'">{{item.availability ? 'В наявності в Україні' : 'Під замовлення'}}</p>
+          </div>
+          <div class="text-sm mt-1">
+            <p class="line-through text-gray-600" *ngIf="item.avgPriceInUkraine">{{item.avgPriceInUkraine}} <span>&#8372;</span></p>
+          </div>
+          <div class="flex flex-row flex-wrap justify-between">
+            <p class="text-lg font-bold price-color">{{item.price}} <span class="text-base">&#8372;</span></p>
+            <button class="inline-block px-4 py-2 text-xs font-medium leading-4 text-center text-blue-700 uppercase transition
+              bg-transparent border border-blue-600 rounded ripple hover:bg-blue-100 focus:outline-none" (click)="addToCartItem(item)">У корзину</button>
+          </div>
         </div>
       </div>
     </div>

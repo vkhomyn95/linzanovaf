@@ -16,7 +16,7 @@ export class ItemsComponent implements OnInit, OnChanges {
   currentPage = 0; itemsSize = 1; allPagesSize = 12;
 
   values = [];
-  items: CartItems[];
+  items: CartItems[]; itemCategoryName: string;
 
 
   constructor(private router: Router,
@@ -31,6 +31,7 @@ export class ItemsComponent implements OnInit, OnChanges {
         this.values = value.lenses;
         this.totalElements = value.totalElements;
         this.totalPages = value.totalPages;
+        this.itemCategoryName = 'Контактні лінзи';
         console.log(value);
         this.loader = false;
       });
@@ -39,6 +40,7 @@ export class ItemsComponent implements OnInit, OnChanges {
         this.values = value.solutions;
         this.totalElements = value.totalElements;
         this.totalPages = value.totalPages;
+        this.itemCategoryName = 'Розчини';
         console.log(value);
         this.loader = false;
       });
@@ -47,6 +49,7 @@ export class ItemsComponent implements OnInit, OnChanges {
         this.values = value.drops;
         this.totalElements = value.totalElements;
         this.totalPages = value.totalPages;
+        this.itemCategoryName = 'Догляд за очима';
         console.log(value);
         this.loader = false;
       });
@@ -55,6 +58,7 @@ export class ItemsComponent implements OnInit, OnChanges {
         this.values = value.drops;
         this.totalElements = value.totalElements;
         this.totalPages = value.totalPages;
+        this.itemCategoryName = 'Догляд за очима';
         console.log(value);
         this.loader = false;
       });
