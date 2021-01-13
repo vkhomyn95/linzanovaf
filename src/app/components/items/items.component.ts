@@ -75,9 +75,14 @@ export class ItemsComponent implements OnInit, OnChanges {
     console.log(this.currentPage);
   }
 
-  viewDetails(category, id, name): void {
-    const replacedName = name.replace(/ /g, '-');
-    this.router.navigate(['product', replacedName], {state: {stateCategory: category, stateId: id }});
+  viewDetails(category, id): void {
+    if (category === 0){
+      this.router.navigate(['cares', id], {state: { stateId: id }});
+    }else if (category === 1) {
+     this.router.navigate(['lenses', id], {state: { stateId: id }});
+    }else if (category === 2) {
+      this.router.navigate(['solutions', id], {state: { stateId: id }});
+    }
   }
 
   addToCartItem(item): void {

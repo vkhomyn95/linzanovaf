@@ -24,13 +24,19 @@ const routes: Routes = [
     path: 'lenses', component: LensesComponent,
   },
   {
+    path: 'lenses/:id', component: SingleItemComponent
+  },
+  {
     path: 'solutions', component: SolutionsComponent,
+  },
+  {
+    path: 'solutions/:id', component: SingleItemComponent
   },
   {
     path: 'cares', component: DropsComponent,
   },
   {
-    path: 'product/:name', component: SingleItemComponent
+    path: 'cares/:id', component: SingleItemComponent
   },
   {
     path: 'login', component: LoginComponent
