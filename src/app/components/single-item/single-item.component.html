@@ -38,17 +38,18 @@
     <div class="lg:w-4/5 mx-auto flex flex-wrap">
       <img alt="ecommerce" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="https://dummyimage.com/400x400">
       <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-        <h2 class="text-sm title-font uppercase text-gray-500 tracking-widest">{{lens?.lenseBrand}}</h2>
-        <h1 class="text-gray-900 text-2xl title-font font-medium mb-1">{{lens?.name}}</h1>
+        <h2 class="text-sm title-font uppercase text-gray-500 tracking-widest">{{lens?.lenseBrand}}{{solution?.solutionBrand}}</h2>
+        <h1 class="text-gray-900 text-2xl title-font font-medium mb-1">{{lens?.name}}{{solution?.name}}</h1>
         <div class="flex mb-4" bis_skin_checked="1">
-          <a class="flex-grow border-b-2 py-2 text-lg px-1" [ngClass]="(tab === 0) ? 'text-indigo-500 border-indigo-500': 'border-gray-300'" (click)="changeTabView(0)">Інформація</a>
-          <a class="flex-grow border-b-2 py-2 text-lg px-1" [ngClass]="(tab === 1) ? 'text-indigo-500 border-indigo-500': 'border-gray-300'" (click)="changeTabView(1)">Характеристики</a>
-          <a class="flex-grow border-b-2 py-2 text-lg px-1" [ngClass]="(tab === 2) ? 'text-indigo-500 border-indigo-500': 'border-gray-300'" (click)="changeTabView(2)">Огляд</a>
+          <a class="flex-grow border-b-2 py-2 text-lg px-1 cursor-p" [ngClass]="(tab === 0) ? 'text-indigo-500 border-indigo-500': 'border-gray-300'" (click)="changeTabView(0)">Інформація</a>
+          <a class="flex-grow border-b-2 py-2 text-lg px-1 cursor-p" [ngClass]="(tab === 1) ? 'text-indigo-500 border-indigo-500': 'border-gray-300'" (click)="changeTabView(1)">Характеристики</a>
+          <a class="flex-grow border-b-2 py-2 text-lg px-1 cursor-p" [ngClass]="(tab === 2) ? 'text-indigo-500 border-indigo-500': 'border-gray-300'" (click)="changeTabView(2)">Огляд</a>
         </div>
         <div *ngIf="tab === 0">
-          <p class="leading-relaxed text-sm fon-semibold">{{lens?.description}}</p>
+          <p class="leading-relaxed text-sm fon-semibold">{{lens?.description}}{{solution?.description}}</p>
           <div class="flex mt-5 items-center pb-4 border-b-2 border-gray-200 mb-5">
-            <p [ngClass]="(lens.availability === true) ? 'c-green':'c-grey'">{{lens.availability ? 'В наявності в Україні' : 'Під замовлення'}}</p>
+            <p *ngIf="lens" [ngClass]="(lens?.availability === true) ? 'c-green':'c-grey'">{{lens?.availability ? 'В наявності в Україні' : 'Під замовлення'}}</p>
+            <p *ngIf="solution" [ngClass]="(solution?.availability === true) ? 'c-green':'c-grey'">{{solution?.availability ? 'В наявності в Україні' : 'Під замовлення'}}</p>
           </div>
           <div  class="flex flex-wrap flex-col mb-2">
             <div class="flex flex-row items-center mb-2">
@@ -69,31 +70,47 @@
         <div *ngIf="tab === 1">
           <div class="flex border-gray-200 py-2" bis_skin_checked="1">
             <span class="text-gray-500">Виробник</span>
-            <span class="ml-auto text-gray-900">{{lens?.lenseProducer}}</span>
+            <span class="ml-auto text-gray-900">{{lens?.lenseProducer}}{{solution?.solutionProducer}}</span>
           </div>
-          <div class="flex border-t border-gray-200 py-2" bis_skin_checked="1">
+          <div *ngIf="lens" class="flex border-t border-gray-200 py-2" bis_skin_checked="1">
             <span class="text-gray-500">Тип корекції</span>
             <span class="ml-auto text-gray-900">{{lens?.lenseCorrection}}</span>
           </div>
-          <div class="flex border-t border-gray-200 py-2" bis_skin_checked="1">
+          <div *ngIf="solution" class="flex border-t border-gray-200 py-2" bis_skin_checked="1">
+            <span class="text-gray-500">Тип розчину</span>
+            <span class="ml-auto text-gray-900">{{solution?.solutionType}}</span>
+          </div>
+          <div *ngIf="solution" class="flex border-t border-gray-200 py-2" bis_skin_checked="1">
+            <span class="text-gray-500">Об'єм</span>
+            <span class="ml-auto text-gray-900">{{solution?.solutionValue}} ml</span>
+          </div>
+          <div *ngIf="lens" class="flex border-t border-gray-200 py-2" bis_skin_checked="1">
             <span class="text-gray-500">Як часто міняти?</span>
             <span class="ml-auto text-gray-900">{{lens?.lenseType}}</span>
           </div>
-          <div class="flex border-t border-gray-200 py-2" bis_skin_checked="1">
+          <div *ngIf="lens" class="flex border-t border-gray-200 py-2" bis_skin_checked="1">
             <span class="text-gray-500">Матеріал лінзи</span>
             <span class="ml-auto text-gray-900">{{lens?.lenseMaterial}}</span>
           </div>
-          <div class="flex border-t border-gray-200 py-2" bis_skin_checked="1">
+          <div *ngIf="lens" class="flex border-t border-gray-200 py-2" bis_skin_checked="1">
             <span class="text-gray-500">Вміст води</span>
             <span class="ml-auto text-gray-900">{{lens?.lenseWater}} %</span>
           </div>
-          <div class="flex border-t border-gray-200 py-2" bis_skin_checked="1">
+          <div *ngIf="lens" class="flex border-t border-gray-200 py-2" bis_skin_checked="1">
             <span class="text-gray-500">Чи можна спати?</span>
             <span class="ml-auto text-gray-900">{{lens?.lenseSleep ? 'Так': 'Ні'}}</span>
           </div>
+          <div *ngIf="solution" class="flex border-t border-gray-200 py-2" bis_skin_checked="1">
+            <span class="text-gray-500">Містить гіалуронат натрію</span>
+            <span class="ml-auto text-gray-900">{{solution?.boolHyaluronate ? 'Так': 'Ні'}}</span>
+          </div>
+          <div *ngIf="solution" class="flex border-t border-gray-200 py-2" bis_skin_checked="1">
+            <span class="text-gray-500">Використати після відкритття</span>
+            <span class="ml-auto text-gray-900">{{solution?.stdt}} днів</span>
+          </div>
           <div class="flex border-t border-b border-gray-200 py-2 mb-4" bis_skin_checked="1">
             <span class="text-gray-500">Термін придатності</span>
-            <span class="ml-auto text-gray-900">{{lens?.sdate}} місяців і більше</span>
+            <span class="ml-auto text-gray-900">{{lens?.sdate}}{{solution?.sdate}} місяців і більше</span>
           </div>
         </div>
         <div *ngIf="tab === 2">
@@ -108,8 +125,8 @@
         </div>
         <div class="flex">
           <div class="flex flex-row items-center">
-            <span class="title-font font-medium text-2xl text-gray-900 price-color">{{lens?.price}} &#8372;</span>
-            <span class="line-through text-gray-600 ml-3"> {{lens?.avgPriceInUkraine}} &#8372;</span>
+            <span class="title-font font-medium text-2xl text-gray-900 price-color">{{lens?.price}}{{solution?.price}} &#8372;</span>
+            <span class="line-through text-gray-600 ml-3"> {{lens?.avgPriceInUkraine}}{{solution?.avgPriceInUkraine}} &#8372;</span>
           </div>
           <button class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">У корзину</button>
           <button class="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4" (mouseover)="changeText=true" (mouseout)="changeText=false">
