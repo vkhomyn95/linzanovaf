@@ -38,6 +38,7 @@ export class SingleItemComponent implements OnInit {
             console.log(this.care);
           }
         );
+
       }else if (this.router.url.indexOf('/solutions') > -1){
         this.cabinetService.getSolution(urlId.id).subscribe(solutionValue => {
             this.solution = solutionValue;
