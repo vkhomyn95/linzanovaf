@@ -10,7 +10,8 @@ import {Router} from '@angular/router';
 })
 export class SearchComponent implements OnInit {
   @Input() itemCategoryId;
-  searchForm: FormGroup;
+  searchForm: FormGroup; focusedSearch: boolean;
+  targetValues = [];
 
   constructor(private cabinetService: CabinetService,
               private router: Router) {
@@ -22,12 +23,54 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {}
 
   searchResults(): void {
+    if (this.targetValues.length !== 0){
+      if (this.itemCategoryId === 0){
+        this.router.navigate(['/care/search'], {queryParams: { name: this.searchForm.controls.searchInput.value}});
+      }else if (this.itemCategoryId === 1){
+        this.router.navigate(['/lens/search'], {queryParams: { name: this.searchForm.controls.searchInput.value}});
+      }else if (this.itemCategoryId === 2){
+        this.router.navigate(['/solution/search'], {queryParams: { name: this.searchForm.controls.searchInput.value}});
+      }
+    }
+  }
+
+
+  valueChangedSearch(target): void {
+    const specialChars = /[!@#$%^&*_+\-=\[\]{};':"\\|,.<>\/?]+/;
+    if (!specialChars.test(target.value)){
+      if (this.itemCategoryId === 0){
+        this.cabinetService.searchCaresByName(target.value, 0, 10).subscribe(value => {
+          this.targetValues = value.drops;
+          console.log(value)
+        });
+      }else if (this.itemCategoryId === 1){
+        this.cabinetService.searchLensesByName(target.value, 0, 10).subscribe(value => {
+          this.targetValues = value.lenses;
+          console.log(value)
+        });
+      }
+      else if (this.itemCategoryId === 2){
+        this.cabinetService.searchSolutionsByName(target.value, 0, 10).subscribe(value => {
+          this.targetValues = value.solutions;
+          console.log(value)
+        });
+      }
+    }
+  }
+
+  setSearchValue(): void {
+    setTimeout(() => {
+      this.focusedSearch = false;
+    }, 100);
+  }
+
+  goSearchResult(searchResult: any): void {
     if (this.itemCategoryId === 0){
-      this.router.navigate(['/care/search'], {queryParams: { name: this.searchForm.controls.searchInput.value}});
+      this.router.navigate(['cares', searchResult.id]);
     }else if (this.itemCategoryId === 1){
-      this.router.navigate(['/lens/search'], {queryParams: { name: this.searchForm.controls.searchInput.value}});
+      this.router.navigate(['lenses', searchResult.id]);
     }else if (this.itemCategoryId === 2){
-      this.router.navigate(['/solution/search'], {queryParams: { name: this.searchForm.controls.searchInput.value}});
+      this.router.navigate(['solutions', searchResult.id]);
     }
   }
 }
