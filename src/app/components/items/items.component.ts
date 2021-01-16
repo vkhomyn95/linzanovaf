@@ -38,7 +38,7 @@ export class ItemsComponent implements OnInit, OnChanges {
       });
     }else if (this.router.url.indexOf('/lens/search') > -1){
       this.activatedRoute.queryParams.subscribe(params => {
-        this.cabinetService.searchLensesByName(params.name, 0, 9).subscribe(value => {
+        this.cabinetService.searchLensesByName(params.name, this.currentPage, this.allPagesSize).subscribe(value => {
           this.values = value.lenses;
           this.totalElements = value.totalElements;
           this.totalPages = value.totalPages;
@@ -47,6 +47,18 @@ export class ItemsComponent implements OnInit, OnChanges {
           console.log(value);
           this.loader = false;
           });
+      });
+    }else if (this.router.url.indexOf('/lens/filter') > -1){
+      this.activatedRoute.queryParams.subscribe(params => {
+        this.cabinetService.getLensesByFilter(this.currentPage, this.allPagesSize, params.colName, params.name).subscribe(value => {
+          this.values = value.lenses;
+          this.totalElements = value.totalElements;
+          this.totalPages = value.totalPages;
+          this.itemCategoryName = 'Контактні лінзи';
+          this.itemCategoryId = 1;
+          console.log(value);
+          this.loader = false;
+        });
       });
     }else if (this.router.url.indexOf('/solutions') > -1){
       this.cabinetService.getAllSolutions(this.currentPage, this.allPagesSize).subscribe(value => {
@@ -60,7 +72,7 @@ export class ItemsComponent implements OnInit, OnChanges {
       });
     }else if (this.router.url.indexOf('/solution/search') > -1){
       this.activatedRoute.queryParams.subscribe(params => {
-        this.cabinetService.searchSolutionsByName(params.name, 0, 9).subscribe(value => {
+        this.cabinetService.searchSolutionsByName(params.name, this.currentPage, this.allPagesSize).subscribe(value => {
           this.values = value.solutions;
           this.totalElements = value.totalElements;
           this.totalPages = value.totalPages;
@@ -82,7 +94,7 @@ export class ItemsComponent implements OnInit, OnChanges {
       });
     }else if (this.router.url.indexOf('/care/search') > -1){
       this.activatedRoute.queryParams.subscribe(params => {
-        this.cabinetService.searchCaresByName(params.name, 0, 9).subscribe(value => {
+        this.cabinetService.searchCaresByName(params.name, this.currentPage, this.allPagesSize).subscribe(value => {
           this.values = value.drops;
           this.totalElements = value.totalElements;
           this.totalPages = value.totalPages;

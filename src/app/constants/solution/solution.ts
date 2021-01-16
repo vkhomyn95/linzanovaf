@@ -65,7 +65,7 @@ export const solutionBrand = [
   {
     id: 13,
     name: 'Solocare'
-  },
+  }
 ];
 
 export const solutionProducer = [
@@ -151,5 +151,5 @@ export const solutionValue = [
   {
     id: 7,
     value: 400
-  },
+  }
 ];

@@ -55,6 +55,9 @@ export class CabinetService {
   searchLensesByName(lensName, page, size): Observable<any> {
     return this.httpClient.get<any>(`/api/lenses/name?name=${lensName}&page=${page}&size=${size}`);
   }
+  getLensesByFilter(page, size, colName, nameValue): Observable<any> {
+    return this.httpClient.get<any>(`/api/lenses/filter?page=${page}&size=${size}&colName=${colName}&name=${nameValue}`);
+  }
   getSolutionsCount(): Observable<any> {
     return this.httpClient.get<any>('/api/solution/count');
   }

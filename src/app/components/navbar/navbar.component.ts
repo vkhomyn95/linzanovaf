@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {navListLensBrand, navListLensFilterCorrection,
   navListLensFilterType, navListLensMaterial, navListLensProducer, navListLensQuantity} from '../../constants/nav-filter/lensFilter';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -11,7 +12,7 @@ export class NavbarComponent implements OnInit {
   @Input() category;
   navListLensBrand; navListLensFilterCorrection; navListLensFilterType; navListLensMaterial; navListLensProducer; navListLensQuantity;
 
-  constructor() {
+  constructor(private router: Router) {
     this.navListLensBrand = navListLensBrand; this.navListLensFilterCorrection = navListLensFilterCorrection;
     this.navListLensFilterType = navListLensFilterType; this.navListLensMaterial = navListLensMaterial;
     this.navListLensProducer = navListLensProducer; this.navListLensQuantity = navListLensQuantity;
@@ -20,4 +21,9 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  filterLens(params: any): void {
+    if (params.category === 1){
+      this.router.navigate(['lens/filter'], {queryParams: {colName: params.col, name: params.name}});
+    }
+  }
 }

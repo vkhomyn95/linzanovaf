@@ -24,6 +24,9 @@ const routes: Routes = [
     path: 'lenses', component: LensesComponent,
   },
   {
+    path: 'lens/filter', component: LensesComponent,
+  },
+  {
     path: 'lens/search', component: LensesComponent,
   },
   {
