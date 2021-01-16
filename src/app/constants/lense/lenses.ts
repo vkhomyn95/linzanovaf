@@ -57,8 +57,7 @@ export const lensesProducer = [
   {
     id: 9,
     name: 'Gelflex'
-  },
-
+  }
 ];
 
 export const lensesBrand = [
@@ -84,7 +83,7 @@ export const lensesBrand = [
   },
   {
     id: 5,
-    name: 'Air optix'
+    name: 'Air Optix'
   },
   {
     id: 6,
@@ -108,7 +107,7 @@ export const lensesBrand = [
   },
   {
     id: 11,
-    name: 'Clariri'
+    name: 'Clariti'
   },
   {
     id: 12,
@@ -141,6 +140,10 @@ export const lensesBrand = [
   {
     id: 19,
     name: 'Soflens'
+  },
+  {
+    id: 20,
+    name: 'Світяться'
   },
 ];
 
@@ -184,6 +187,14 @@ export const lenseQuantity = [
   {
     id: 9,
     value: 30
+  },
+  {
+    id: 10,
+    value: 90
+  },
+  {
+    id: 11,
+    value: 180
   }
 ];
 

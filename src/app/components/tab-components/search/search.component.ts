@@ -41,18 +41,15 @@ export class SearchComponent implements OnInit {
       if (this.itemCategoryId === 0){
         this.cabinetService.searchCaresByName(target.value, 0, 10).subscribe(value => {
           this.targetValues = value.drops;
-          console.log(value)
         });
       }else if (this.itemCategoryId === 1){
         this.cabinetService.searchLensesByName(target.value, 0, 10).subscribe(value => {
           this.targetValues = value.lenses;
-          console.log(value)
         });
       }
       else if (this.itemCategoryId === 2){
         this.cabinetService.searchSolutionsByName(target.value, 0, 10).subscribe(value => {
           this.targetValues = value.solutions;
-          console.log(value)
         });
       }
     }

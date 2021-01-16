@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./lenses.component.scss']
 })
 export class LensesComponent implements OnInit {
+  category = 1;
 
   constructor() { }
 
