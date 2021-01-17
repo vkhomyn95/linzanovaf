@@ -73,6 +73,9 @@ export class CabinetService {
   searchSolutionsByName(solutionName, page, size): Observable<any> {
     return this.httpClient.get<any>(`/api/solution/name?name=${solutionName}&page=${page}&size=${size}`);
   }
+  getSolutionsByFilter(page, size, colName, nameValue): Observable<any> {
+    return this.httpClient.get<any>(`/api/solution/filter?page=${page}&size=${size}&colName=${colName}&name=${nameValue}`);
+  }
   getCareCount(): Observable<any> {
     return this.httpClient.get<any>('/api/drops/count');
   }
@@ -87,6 +90,9 @@ export class CabinetService {
   }
   searchCaresByName(careName, page, size): Observable<any> {
     return this.httpClient.get<any>(`/api/drops/name?name=${careName}&page=${page}&size=${size}`);
+  }
+  getCaresByFilter(page, size, colName, nameValue): Observable<any> {
+    return this.httpClient.get<any>(`/api/drops/filter?page=${page}&size=${size}&colName=${colName}&name=${nameValue}`);
   }
   getOffer(offerId): Observable<any> {
     return this.httpClient.get<any>(`/api/special/${offerId}`);

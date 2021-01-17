@@ -36,6 +36,9 @@ const routes: Routes = [
     path: 'solutions', component: SolutionsComponent,
   },
   {
+    path: 'solution/filter', component: SolutionsComponent,
+  },
+  {
     path: 'solution/search', component: SolutionsComponent,
   },
   {
@@ -43,6 +46,9 @@ const routes: Routes = [
   },
   {
     path: 'cares', component: DropsComponent,
+  },
+  {
+    path: 'care/filter', component: DropsComponent,
   },
   {
     path: 'care/search', component: DropsComponent,

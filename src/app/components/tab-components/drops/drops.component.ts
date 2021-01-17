@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./drops.component.scss']
 })
 export class DropsComponent implements OnInit {
+  category = 0;
 
   constructor() { }
 

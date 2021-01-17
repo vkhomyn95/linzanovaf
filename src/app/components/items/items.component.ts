@@ -82,6 +82,18 @@ export class ItemsComponent implements OnInit, OnChanges {
           this.loader = false;
           });
       });
+    }else if (this.router.url.indexOf('/solution/filter') > -1){
+      this.activatedRoute.queryParams.subscribe(params => {
+        this.cabinetService.getSolutionsByFilter(this.currentPage, this.allPagesSize, params.colName, params.name).subscribe(value => {
+          this.values = value.solutions;
+          this.totalElements = value.totalElements;
+          this.totalPages = value.totalPages;
+          this.itemCategoryName = 'Розчини';
+          this.itemCategoryId = 2;
+          console.log(value);
+          this.loader = false;
+        });
+      });
     }else if (this.router.url.indexOf('/cares') > -1) {
       this.cabinetService.getAllCares(this.currentPage, this.allPagesSize).subscribe(value => {
         this.values = value.drops;
@@ -102,7 +114,19 @@ export class ItemsComponent implements OnInit, OnChanges {
           this.itemCategoryId = 0;
           console.log(value);
           this.loader = false;
-          });
+        });
+      });
+    }else if (this.router.url.indexOf('/care/filter') > -1){
+      this.activatedRoute.queryParams.subscribe(params => {
+        this.cabinetService.getCaresByFilter(this.currentPage, this.allPagesSize, params.colName, params.name).subscribe(value => {
+          this.values = value.drops;
+          this.totalElements = value.totalElements;
+          this.totalPages = value.totalPages;
+          this.itemCategoryName = 'Догляд за очима';
+          this.itemCategoryId = 0;
+          console.log(value);
+          this.loader = false;
+        });
       });
     }else {
       this.cabinetService.getAllCares(this.currentPage, this.itemsSize).subscribe(value => {

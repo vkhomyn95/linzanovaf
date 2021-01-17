@@ -30,5 +30,13 @@ export const careproducer = [
   {
     id: 7,
     name: 'Ursapharm'
+  },
+  {
+    id: 8,
+    name: 'Johnson and Johnson'
+  },
+  {
+    id: 9,
+    name: 'Dermacol'
   }
 ];

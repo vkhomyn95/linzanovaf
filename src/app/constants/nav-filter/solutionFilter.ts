@@ -101,43 +101,43 @@ export const navListSolutionType = [
 export const navListSolutionValue = [
   {
     id: 0,
-    value: 120,
+    name: 120,
     col: 'solutionValue',
     category: 2
   },
   {
     id: 1,
-    value: 150,
+    name: 150,
     col: 'solutionValue',
     category: 2
   },
   {
     id: 2,
-    value: 300,
+    name: 300,
     col: 'solutionValue',
     category: 2
   },
   {
     id: 3,
-    value: 350,
+    name: 350,
     col: 'solutionValue',
     category: 2
   },
   {
     id: 4,
-    value: 355,
+    name: 355,
     col: 'solutionValue',
     category: 2
   },
   {
     id: 5,
-    value: 360,
+    name: 360,
     col: 'solutionValue',
     category: 2
   },
   {
     id: 6,
-    value: 400,
+    name: 400,
     col: 'solutionValue',
     category: 2
   }
@@ -147,7 +147,7 @@ export const navListBool = [
     id: 0,
     displayName: 'Гіалуронат натрію',
     col: 'boolHyaluronate',
-    name: true,
+    name: 'true',
     category: 2
   }
 ];
