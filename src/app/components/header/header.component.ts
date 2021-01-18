@@ -10,6 +10,7 @@ import {TokenStorageService} from '../../services/token-storage.service';
 })
 export class HeaderComponent implements OnInit {
   isLoggedIn = false;
+  isOpen = false;
 
   constructor(private router: Router,
               private token: TokenStorageService) {

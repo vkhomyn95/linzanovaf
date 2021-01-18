@@ -1,5 +1,5 @@
 <div id="navWrapper" class="h-full overflow-y-auto scrolling-touch lg:h-auto lg:relative lg:sticky lg:bg-transparent overflow-hidden bg-white">
-  <nav *ngIf="category === 1" class="px-6 pt-6 overflow-y-auto text-base lg:text-sm lg:py-0 lg:pl-6 lg:pr-8 sticky?lg:h-(screen-16) sm:flex-wrap sm:flex sm:flex-row sm:justify-between nav-query">
+  <nav *ngIf="category === 1 || category === 3" class="px-6 pt-6 overflow-y-auto text-base lg:text-sm lg:py-0 lg:pl-6 lg:pr-8 sticky?lg:h-(screen-16) sm:flex-wrap sm:flex sm:flex-row sm:justify-between nav-query">
     <div class="mb-6 sm:w-1/2 lg:w-auto xl:w-auto">
       <h5 class="mb-3 lg:mb-2 uppercase tracking-wide font-bold text-sm lg:text-xs text-gray-500">Типи контактних лінз</h5>
       <a *ngFor="let lensType of navListLensFilterType" class="flex items-center px-2 -mx-2 py-1 transition-colors duration-200 hover:text-gray-900 font-medium text-gray-600">
@@ -14,7 +14,7 @@
         <span class="ml-3 text-xs" (click)="filterLens(lensCorrection)">{{lensCorrection.name}}</span>
       </a>
     </div>
-    <div *ngIf="category === 1" class="mb-6 sm:w-1/2 lg:w-auto xl:w-auto">
+    <div *ngIf="category === 1 || category === 3" class="mb-6 sm:w-1/2 lg:w-auto xl:w-auto">
       <h5 class="mb-3 lg:mb-2 uppercase tracking-wide font-bold text-sm lg:text-xs text-gray-500">Бренди контактних лінз</h5>
       <a *ngFor="let lensBrand of navListLensBrand" class="flex items-center px-2 -mx-2 py-1 transition-colors duration-200 hover:text-gray-900 font-medium text-gray-600">
         <svg class="h-5 w-5" viewBox="0 0 24 24"><path class="text-gray-400 fill-current" d="M12 21a2 2 0 0 1-1.41-.59l-.83-.82A2 2 0 0 0 8.34 19H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h4a5 5 0 0 1 4 2v16z"></path><path class="text-gray-700 fill-current" d="M12 21V5a5 5 0 0 1 4-2h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-4.34a2 2 0 0 0-1.42.59l-.83.82A2 2 0 0 1 12 21z"></path></svg>

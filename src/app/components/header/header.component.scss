@@ -5,3 +5,23 @@
   top: 20%;
   position: absolute;;
 }
+@media (max-width: 767px) {
+  .header {
+    &-links {
+      flex-direction: column;
+    }
+  }
+  .header-resp {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .header-resp-mob{
+    display: none;
+  }
+}
+.out-none {
+  outline: none;
+}
+

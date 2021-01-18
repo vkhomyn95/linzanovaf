@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {CartObjectService} from '../../services/components-data/cart-object.service';
 import {of, Subscription} from 'rxjs';
@@ -15,6 +15,7 @@ import {log} from 'util';
   styleUrls: ['./cart-modal.component.scss']
 })
 export class CartModalComponent implements OnInit {
+  @Input() mbWidth;
   cartVisisbility = false;
   cartItems: CartItems[];
   cartItemsQuantity = 0;

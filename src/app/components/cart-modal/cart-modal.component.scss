@@ -95,3 +95,8 @@
 .relative-pos {
   position: relative!important;
 }
+@media (min-width: 768px) {
+  .header-resp-mob{
+    display: none;
+  }
+}

@@ -10,10 +10,11 @@ import {CartItems} from '../../models/order/CartItems';
   styleUrls: ['./items.component.scss']
 })
 export class ItemsComponent implements OnInit, OnChanges {
+  @Input() isHomePage;
   range = 12;
   loader = true;
   totalElements = 0; totalPages = 0;
-  currentPage = 0; itemsSize = 1; allPagesSize = 12;
+  currentPage = 0; itemsSize = 9; allPagesSize = 12;
 
   values = [];
   items: CartItems[]; itemCategoryName: string; itemCategoryId: number;
@@ -129,11 +130,12 @@ export class ItemsComponent implements OnInit, OnChanges {
         });
       });
     }else {
-      this.cabinetService.getAllCares(this.currentPage, this.itemsSize).subscribe(value => {
-        this.values = value.drops;
+      this.cabinetService.getAllLenses(this.currentPage, this.itemsSize).subscribe(value => {
+        this.values = value.lenses;
         this.totalElements = value.totalElements;
         this.totalPages = value.totalPages;
-        this.itemCategoryName = 'Догляд за очима';
+        this.itemCategoryName = 'Контактні лінзи';
+        this.itemCategoryId = 1;
         console.log(value);
         this.loader = false;
       });

@@ -6,7 +6,8 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  testdata: any;
+  category = 3;
+  isHomePage = true;
   constructor() { }
 
   ngOnInit(): void {
