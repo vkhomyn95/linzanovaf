@@ -19,6 +19,10 @@
 .cursor-pointer-hover:hover {
   cursor: pointer;
 }
+.indigo {
+  --tw-text-opacity: 1;
+  color: rgba(99, 102, 241, var(--tw-text-opacity));
+}
 
 @media screen and (min-width: 1283px){
   .nav-resp {

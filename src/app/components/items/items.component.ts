@@ -10,7 +10,7 @@ import {CartItems} from '../../models/order/CartItems';
   styleUrls: ['./items.component.scss']
 })
 export class ItemsComponent implements OnInit, OnChanges {
-  @Input() isHomePage;
+  @Input() isHomePage; currentStateTab: number;
   range = 12;
   loader = true;
   totalElements = 0; totalPages = 0;
@@ -220,6 +220,23 @@ export class ItemsComponent implements OnInit, OnChanges {
         console.log(value);
         this.loader = false;
       });
+    }
+  }
+
+  changeTabOption(number): void {
+    if (this.isHomePage){
+      this.currentStateTab = number
+    }else {
+      this.currentStateTab = number;
+    }
+    console.log(this.currentStateTab);
+  }
+
+  deleteCheckpoints(): void {
+    if (this.isHomePage){
+      this.currentStateTab = undefined;
+    }else {
+      this.currentStateTab = 0;
     }
   }
 }

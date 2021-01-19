@@ -1,5 +1,5 @@
 <div class="relative text-gray-600 mx-auto" [formGroup]="searchForm">
-  <input type="search" (input)="valueChangedSearch($event.target)" (focus)="focusedSearch = true" (blur)="setSearchValue()" formControlName="searchInput" name="serch" placeholder="Пошук" class="relative bg-white search-height px-5 pr-56 rounded-full focus:outline-none shadow-md border" autocomplete="off">
+  <input type="search" (input)="valueChangedSearch($event.target)" (focus)="focusedSearch = true" (blur)="setSearchValue()" formControlName="searchInput" name="serch" placeholder="Пошук" class="search-width relative bg-white search-height px-5 pr-56 rounded-full focus:outline-none shadow-md border" autocomplete="off">
   <ul class="bg-white list-tips px-3 absolute" *ngIf="focusedSearch && targetValues.length !== 0">
     <li class="text-sm hover:text-red-500 pt-1" *ngFor="let searchResult of targetValues" (click)="goSearchResult(searchResult)">{{searchResult.name}}</li>
   </ul>
