@@ -7,3 +7,16 @@
   flex-basis: 33.33333333%;
   max-width: 33.33333333%;
 }
+
+@media screen and (min-width: 1281px) {
+  .nav-resp {
+    margin-top: 5rem;
+  }
+}
+
+@media screen and (max-width: 1282px){
+  .nav-resp-mob {
+    display: none;
+  }
+
+}

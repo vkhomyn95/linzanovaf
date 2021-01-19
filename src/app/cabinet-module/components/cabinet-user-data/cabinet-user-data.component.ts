@@ -10,16 +10,21 @@ import {UpdateUser} from '../../../models/user/User';
 })
 export class CabinetUserDataComponent implements OnInit {
   updateForm: FormGroup;
+  isFieldHidden = true;
 
   constructor(private cabinetService: CabinetService) {
     this.updateForm = new FormGroup({
       firstName: new FormControl(''),
       lastName: new FormControl(''),
+      patronymic: new FormControl(''),
       email: new FormControl(''),
       phone: new FormControl(''),
       location: new FormControl(''),
       number: new FormControl(''),
-      warehouse: new FormControl('')
+      warehouse: new FormControl(''),
+      newOneFirst: new FormControl(''),
+      newOneSecond: new FormControl(''),
+      oldOne: new FormControl('')
     });
   }
 

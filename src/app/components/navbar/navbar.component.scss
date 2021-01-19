@@ -4,3 +4,20 @@
     white-space: nowrap;
   }
 }
+@media screen and (max-width: 1282px) {
+  .nav {
+    &-blocks {
+      flex-direction: column;
+    }
+  }
+  .nav-resp {
+    display: none;
+  }
+}
+@media screen and (min-width: 1283px){
+  .nav {
+    &-resp-mob {
+      display: none;
+    }
+  }
+}
