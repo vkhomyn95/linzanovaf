@@ -61,7 +61,7 @@
         </button>
       </div>
     </div>
-    <nav [ngClass]="(isOpen) ? 'block shadow-md rounded': 'hidden'" class="md:ml-auto flex flex-col items-center text-base justify-center header-resp-mob">
+    <nav [ngClass]="(isOpen) ? 'block shadow-md rounded': 'hidden'" class="md:ml-auto absolute w-full bg-white z-10 flex flex-col items-center text-base justify-center header-resp-mob">
       <a class="hover:text-gray-900 cursor-pointer" (click)="goContactLenses()">Контактні лінзи</a>
       <a class="pt-2 hover:text-gray-900 cursor-pointer" (click)="goSolutions()">Розчини</a>
       <a class="py-2 hover:text-gray-900 cursor-pointer" (click)="goCares()">Догляд за очима</a>

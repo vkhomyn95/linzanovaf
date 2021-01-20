@@ -37,8 +37,6 @@ export class HotPropositionComponent implements OnInit {
       }
     });
     // this.items = this.cartObjectService.getObject();
-    console.log('------');
-    console.log(this.items);
   }
 
   addToCart(offer: any): void {

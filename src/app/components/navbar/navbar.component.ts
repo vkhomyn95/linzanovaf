@@ -11,7 +11,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  @Input() category;
+  @Input() category; isFilterCategory = false;
   navListLensBrand; navListLensFilterCorrection; navListLensFilterType; navListLensMaterial; navListLensProducer; navListLensQuantity;
   navListSolutionBrand; navListBool; navListSolutionProducer; navListSolutionType; navListSolutionValue;
   careListProducer;
@@ -38,5 +38,9 @@ export class NavbarComponent implements OnInit {
     }else if (params.category === 0) {
       this.router.navigate(['care/filter'], {queryParams: {colName: params.col, name: params.name}});
     }
+  }
+
+  selectCategoryFilter(): void {
+    this.isFilterCategory = !this.isFilterCategory;
   }
 }
