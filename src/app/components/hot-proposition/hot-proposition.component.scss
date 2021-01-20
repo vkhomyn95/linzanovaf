@@ -2,3 +2,51 @@
   padding-bottom: 83%;
 }
 
+@media screen and (max-width: 1035px){
+  .md-w {
+    display: flex;
+    flex-direction: column;
+    &-card {
+      margin: 0 auto;
+      width: 60%;
+    }
+  }
+}
+@media screen and (max-width: 767px) {
+  .md-w {
+    &-card {
+      margin: 0 auto;
+      width: 80%;
+      padding-right: 0;
+    }
+  }
+  .offer {
+    margin-bottom: 3.5rem;
+    &-title {
+      font-size: 1.85rem;
+    }
+  }
+}
+
+@media screen and (max-width: 637px){
+  .md-w {
+    &-card {
+      padding-right: 0;
+      &-name {
+        font-size: 0.875rem;
+      }
+    }
+  }
+}
+@media screen and (max-width: 450px){
+  .button-block {
+    display: flex;
+    justify-content: space-between;
+  }
+  .button-row {
+    display: block;
+  }
+  .button-hidden {
+    display: none;
+  }
+}

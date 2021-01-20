@@ -42,8 +42,8 @@
   </div>
   <app-search *ngIf="currentStateTab === 0 || currentStateTab === undefined && !isHomePage" [itemCategoryId]="itemCategoryId" class="flex mb-8 mt-2 search-mob"></app-search>
   <app-navbar *ngIf="currentStateTab === 1" [category]="itemCategoryId" class="nav-resp"></app-navbar>
-  <div class="container px-5  mx-auto">
-    <div class="flex flex-wrap w-full -m-4">
+  <div class="container px-5 mx-auto">
+    <div class="flex flex-wrap w-full -m-4 center-card">
       <div class="lg:w-1/3 md:w-1/2 p-4 w-full" *ngFor="let item of values">
         <a class="block relative h-48 rounded overflow-hidden" (click)="viewDetails(item.category, item.id)">
           <img alt="ecommerce" class="object-cover object-center w-full h-full block cursor-pointer-hover" src="https://dummyimage.com/420x260">
