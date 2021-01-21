@@ -11,7 +11,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  @Input() category; isFilterCategory = false;
+  @Input() category; isFilterCategory = false; isFilterSybCategory; isFilterSubVisible = false;
   navListLensBrand; navListLensFilterCorrection; navListLensFilterType; navListLensMaterial; navListLensProducer; navListLensQuantity;
   navListSolutionBrand; navListBool; navListSolutionProducer; navListSolutionType; navListSolutionValue;
   careListProducer;
@@ -33,14 +33,22 @@ export class NavbarComponent implements OnInit {
   filterLens(params: any): void {
     if (params.category === 1){
       this.router.navigate(['lens/filter'], {queryParams: {colName: params.col, name: params.name}});
+      this.isFilterCategory = !this.isFilterCategory;
     }else if (params.category === 2) {
       this.router.navigate(['solution/filter'], {queryParams: {colName: params.col, name: params.name}});
+      this.isFilterCategory = !this.isFilterCategory;
     }else if (params.category === 0) {
       this.router.navigate(['care/filter'], {queryParams: {colName: params.col, name: params.name}});
+      this.isFilterCategory = !this.isFilterCategory;
     }
   }
 
   selectCategoryFilter(): void {
     this.isFilterCategory = !this.isFilterCategory;
+  }
+
+  showSubFilter(lenseType: string): void {
+    this.isFilterSybCategory = lenseType;
+    this.isFilterSubVisible = !this.isFilterSubVisible;
   }
 }

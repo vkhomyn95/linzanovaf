@@ -7,24 +7,110 @@
       </svg>
     </div>
     <div *ngIf="isFilterCategory" class="bg-gray-100 rounded">
-      <div class="py-1 pl-4 border-t">
-        <span class="text-base">Типи контактних лінз</span>
-      </div>
-      <div class="py-1 pl-4 border-t">
-        <span>Типи корекції</span>
-      </div>
-      <div class="py-1 pl-4 border-t">
-        <span>Бренди контактних лінз</span>
-      </div>
-      <div class="py-1 pl-4 border-t">
-        <span>Кількість в упаковці</span>
-      </div>
-      <div class="py-1 pl-4 border-t">
-        <span>Матеріал лінзи</span>
-      </div>
-      <div class="py-1 pl-4 border-t">
-        <span>Виробник</span>
-      </div>
+      <ng-container *ngIf="category === 1 || category === 3">
+        <div class="py-1 pl-4 border-t">
+          <span class="text-base pb-1" (click)="showSubFilter('lenseType')">Типи контактних лінз</span>
+          <div *ngIf="isFilterSybCategory === 'lenseType' && isFilterSubVisible" class="flex flex-col mt-1">
+            <span *ngFor="let lensType of navListLensFilterType" (click)="filterLens(lensType)" class="pl-2 border-t py-1">
+              {{lensType.name}}
+            </span>
+          </div>
+        </div>
+        <div class="py-1 pl-4 border-t">
+          <span class="text-base pb-1" (click)="showSubFilter('lenseCorrection')">Типи корекції</span>
+          <div *ngIf="isFilterSybCategory === 'lenseCorrection' && isFilterSubVisible" class="flex flex-col mt-1">
+            <span *ngFor="let lensCorrection of navListLensFilterCorrection" (click)="filterLens(lensCorrection)" class="pl-2 border-t py-1">
+              {{lensCorrection.name}}
+            </span>
+          </div>
+        </div>
+        <div class="py-1 pl-4 border-t">
+          <span class="text-base pb-1" (click)="showSubFilter('lenseBrand')">Бренд</span>
+          <div *ngIf="isFilterSybCategory === 'lenseBrand' && isFilterSubVisible" class="flex flex-col mt-1">
+            <span *ngFor="let lensBrand of navListLensBrand" (click)="filterLens(lensBrand)" class="pl-2 border-t py-1">
+              {{lensBrand.name}}
+            </span>
+          </div>
+        </div>
+        <div class="py-1 pl-4 border-t">
+          <span class="text-base pb-1" (click)="showSubFilter('quantity')">Кількість в упаковці</span>
+          <div *ngIf="isFilterSybCategory === 'quantity' && isFilterSubVisible" class="flex flex-col mt-1">
+            <span *ngFor="let lensQuantity of navListLensQuantity" (click)="filterLens(lensQuantity)" class="pl-2 border-t py-1">
+              {{lensQuantity.name}}
+            </span>
+          </div>
+        </div>
+
+        <div class="py-1 pl-4 border-t">
+          <span class="text-base pb-1" (click)="showSubFilter('lenseMaterial')">Матеріал лінзи</span>
+          <div *ngIf="isFilterSybCategory === 'lenseMaterial' && isFilterSubVisible" class="flex flex-col mt-1">
+            <span *ngFor="let lensMaterial of navListLensMaterial" (click)="filterLens(lensMaterial)" class="pl-2 border-t py-1">
+              {{lensMaterial.name}}
+            </span>
+          </div>
+        </div>
+        <div class="py-1 pl-4 border-t">
+          <span class="text-base pb-1" (click)="showSubFilter('lenseProducer')">Виробник</span>
+          <div *ngIf="isFilterSybCategory === 'lenseProducer' && isFilterSubVisible" class="flex flex-col mt-1">
+            <span *ngFor="let lensProducer of navListLensProducer" (click)="filterLens(lensProducer)" class="pl-2 border-t py-1">
+              {{lensProducer.name}}
+            </span>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="category === 2">
+        <div class="py-1 pl-4 border-t">
+          <span class="text-base pb-1" (click)="showSubFilter('solutionBrand')">Бренд</span>
+          <div *ngIf="isFilterSybCategory === 'solutionBrand' && isFilterSubVisible" class="flex flex-col mt-1">
+            <span *ngFor="let solutionBrand of navListSolutionBrand" (click)="filterLens(solutionBrand)" class="pl-2 border-t py-1">
+              {{solutionBrand.name}}
+            </span>
+          </div>
+        </div>
+        <div class="py-1 pl-4 border-t">
+          <span class="text-base pb-1" (click)="showSubFilter('solutionType')">Тип розчину</span>
+          <div *ngIf="isFilterSybCategory === 'solutionType' && isFilterSubVisible" class="flex flex-col mt-1">
+            <span *ngFor="let solutionType of navListSolutionType" (click)="filterLens(solutionType)" class="pl-2 border-t py-1">
+              {{solutionType.name}}
+            </span>
+          </div>
+        </div>
+        <div class="py-1 pl-4 border-t">
+          <span class="text-base pb-1" (click)="showSubFilter('solutionValue')">Об'єм розчину</span>
+          <div *ngIf="isFilterSybCategory === 'solutionValue' && isFilterSubVisible" class="flex flex-col mt-1">
+            <span *ngFor="let solutionValue of navListSolutionValue" (click)="filterLens(solutionValue)" class="pl-2 border-t py-1">
+              {{solutionValue.name}}
+            </span>
+          </div>
+        </div>
+        <div class="py-1 pl-4 border-t">
+          <span class="text-base pb-1" (click)="showSubFilter('boolHyaluronate')">Містить</span>
+          <div *ngIf="isFilterSybCategory === 'boolHyaluronate' && isFilterSubVisible" class="flex flex-col mt-1">
+            <span *ngFor="let bool of navListBool" (click)="filterLens(bool)" class="pl-2 border-t py-1">
+              {{bool.displayName}}
+            </span>
+          </div>
+        </div>
+        <div class="py-1 pl-4 border-t">
+          <span class="text-base pb-1" (click)="showSubFilter('solutionProducer')">Виробник</span>
+          <div *ngIf="isFilterSybCategory === 'solutionProducer' && isFilterSubVisible" class="flex flex-col mt-1">
+            <span *ngFor="let solutionProducer of navListSolutionProducer" (click)="filterLens(solutionProducer)" class="pl-2 border-t py-1">
+              {{solutionProducer.name}}
+            </span>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="category === 0">
+        <div class="py-1 pl-4 border-t">
+          <span class="text-base pb-1" (click)="showSubFilter('cProducer')">Виробник</span>
+          <div *ngIf="isFilterSybCategory === 'cProducer' && isFilterSubVisible" class="flex flex-col mt-1">
+            <span *ngFor="let careProducer of careListProducer" (click)="filterLens(careProducer)" class="pl-2 border-t py-1">
+              {{careProducer.name}}
+            </span>
+          </div>
+        </div>
+      </ng-container>
+
     </div>
   </div>
 
@@ -73,7 +159,7 @@
     </div>
   </nav>
 
-  <nav *ngIf="category === 2" class="px-6 pt-6 overflow-y-auto text-base lg:text-sm lg:py-0 lg:pl-6 lg:pr-8 sticky?lg:h-(screen-16) sm:flex-wrap sm:flex sm:flex-row sm:justify-between nav-query">
+  <nav *ngIf="category === 2" class="px-6 pt-6 overflow-y-auto text-base lg:text-sm lg:py-0 lg:pl-6 lg:pr-8 sticky?lg:h-(screen-16) sm:flex-wrap sm:flex sm:flex-row sm:justify-between nav-query nav-resp">
     <div class="mb-6 sm:w-1/2 lg:w-auto xl:w-auto">
       <h5 class="mb-3 lg:mb-2 uppercase tracking-wide font-bold text-sm lg:text-xs text-gray-500">Бренд</h5>
       <a *ngFor="let solutionBrand of navListSolutionBrand" class="flex items-center px-2 -mx-2 py-1 transition-colors duration-200 hover:text-gray-900 font-medium text-gray-600">
@@ -110,7 +196,7 @@
       </a>
     </div>
   </nav>
-  <nav *ngIf="category === 0" class="px-6 pt-6 overflow-y-auto text-base lg:text-sm lg:py-0 lg:pl-6 lg:pr-8 sticky?lg:h-(screen-16) sm:flex-wrap sm:flex sm:flex-row sm:justify-between nav-query">
+  <nav *ngIf="category === 0" class="px-6 pt-6 overflow-y-auto text-base lg:text-sm lg:py-0 lg:pl-6 lg:pr-8 sticky?lg:h-(screen-16) sm:flex-wrap sm:flex sm:flex-row sm:justify-between nav-query nav-resp">
     <div class="mb-6 sm:w-1/2 lg:w-auto xl:w-auto">
       <h5 class="mb-3 lg:mb-2 uppercase tracking-wide font-bold text-sm lg:text-xs text-gray-500">Виробник</h5>
       <a *ngFor="let careProducer of careListProducer" class="flex items-center px-2 -mx-2 py-1 transition-colors duration-200 hover:text-gray-900 font-medium text-gray-600">
