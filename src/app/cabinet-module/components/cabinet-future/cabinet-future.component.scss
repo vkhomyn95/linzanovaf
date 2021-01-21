@@ -1,0 +1,29 @@
+@media screen and (max-width: 1024px) {
+  .future {
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+    &-top {
+      margin-top: 1rem;
+    }
+  }
+}
+@media screen and (max-width: 767px) {
+  .future {
+    width: 100%;
+    margin: 0 auto;
+    &-top {
+      margin-top: 1rem;
+    }
+    &-bottom {
+      &-icons {
+        margin-right: 0.80rem;
+      }
+    }
+  }
+}
+@media screen and (max-width: 639px){
+  .icon-center {
+    margin: 0 auto;
+  }
+}

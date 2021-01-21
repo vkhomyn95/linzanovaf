@@ -37,18 +37,34 @@ export class AuthInterceptor implements HttpInterceptor{
         });
         // this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete?';
 
-        this.dialogRef.afterClosed().subscribe(result => {
-          if (result) {
-            this.userService.refreshToken().subscribe(value => {
-              this.token.saveToken(value.token);
-            });
-            window.location.reload();
-          }else {
-            this.token.signOut();
-            this.router.navigateByUrl(`/login`);
-          }
-          this.dialogRef = null;
-        });
+        // this.dialogRef.afterClosed().subscribe(result => {
+        //   if (result) {
+        //     this.userService.refreshToken().subscribe(value => {
+        //       this.token.saveToken(value.token);
+        //     });
+        //     window.location.reload();
+        //   }else {
+        //     this.token.signOut();
+        //     this.router.navigateByUrl(`/login`);
+        //   }
+        //   this.dialogRef = null;
+        // });
+        this.dialogRef.afterClosed().toPromise()
+          .then(result => {
+            if (result) {
+              this.userService.refreshToken().subscribe(tokenFromResponse => {
+                this.token.saveToken(tokenFromResponse.token);
+                window.location.reload();
+              });
+              // setTimeout(() => {
+              // window.location.reload();
+              // }, 10);
+            }else {
+              this.token.signOut();
+              this.router.navigateByUrl('/login');
+            }
+            this.dialogRef = null;
+          });
         // const confirmStatus = confirm('Your session is old? Would you like to renew?');
         // if (confirmStatus === true){
         //   this.userService.refreshToken().subscribe(value => {

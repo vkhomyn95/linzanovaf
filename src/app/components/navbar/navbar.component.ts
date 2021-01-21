@@ -3,7 +3,7 @@ import {navListLensBrand, navListLensFilterCorrection,
   navListLensFilterType, navListLensMaterial, navListLensProducer, navListLensQuantity} from '../../constants/nav-filter/lensFilter';
 import {navListSolutionBrand, navListBool, navListSolutionProducer, navListSolutionType, navListSolutionValue} from '../../constants/nav-filter/solutionFilter';
 import {careListProducer} from '../../constants/nav-filter/careFilter';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -11,12 +11,13 @@ import {Router} from '@angular/router';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  @Input() category; isFilterCategory = false; isFilterSybCategory; isFilterSubVisible = false;
+  @Input() category; isFilterCategory = false; isFilterSybCategory; isFilterSubVisible = false; isFilterActiveToClear = false;
   navListLensBrand; navListLensFilterCorrection; navListLensFilterType; navListLensMaterial; navListLensProducer; navListLensQuantity;
   navListSolutionBrand; navListBool; navListSolutionProducer; navListSolutionType; navListSolutionValue;
   careListProducer;
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              private activatedRoute: ActivatedRoute) {
     this.navListLensBrand = navListLensBrand; this.navListLensFilterCorrection = navListLensFilterCorrection;
     this.navListLensFilterType = navListLensFilterType; this.navListLensMaterial = navListLensMaterial;
     this.navListLensProducer = navListLensProducer; this.navListLensQuantity = navListLensQuantity;
@@ -28,6 +29,9 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.activatedRoute.snapshot.queryParams['colName']) {
+      this.isFilterActiveToClear = true;
+    }
   }
 
   filterLens(params: any): void {
@@ -50,5 +54,15 @@ export class NavbarComponent implements OnInit {
   showSubFilter(lenseType: string): void {
     this.isFilterSybCategory = lenseType;
     this.isFilterSubVisible = !this.isFilterSubVisible;
+  }
+
+  clearFilter(): void {
+    if (this.category === 0){
+      this.router.navigate(['cares']);
+    }else if(this.category === 1){
+      this.router.navigate(['lenses']);
+    }else if(this.category === 2){
+      this.router.navigate(['solutions']);
+    }
   }
 }

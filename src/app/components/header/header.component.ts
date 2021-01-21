@@ -31,14 +31,17 @@ export class HeaderComponent implements OnInit {
   }
 
   goContactLenses(): void {
+    this.isOpen = !this.isOpen;
     this.router.navigate(['lenses']);
   }
 
   goSolutions(): void {
+    this.isOpen = !this.isOpen;
     this.router.navigate(['solutions']);
   }
 
   goCares(): void {
+    this.isOpen = !this.isOpen;
     this.router.navigate(['cares']);
   }
 }

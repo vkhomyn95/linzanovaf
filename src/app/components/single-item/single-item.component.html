@@ -1,19 +1,19 @@
 <section class="text-gray-700 body-font overflow-hidden" *ngIf="loader">
-  <div class="container px-5 py-24 mx-auto">
+  <div class="container px-5 py-24 mx-auto content-indent">
     <div class="lg:w-4/5 mx-auto flex flex-wrap">
       <ngx-skeleton-loader class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" [theme]="{'height':'100%'}"></ngx-skeleton-loader>
       <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
         <ngx-skeleton-loader [theme]="{'width': '25%'}"></ngx-skeleton-loader>
         <h1 class="text-gray-900 text-3xl title-font font-medium mb-1"></h1>
-        <div class="flex mb-4">
+        <div class="flex mb-3">
           <ngx-skeleton-loader class="w-1/2" ></ngx-skeleton-loader>
           <ngx-skeleton-loader class="w-1/2 ml-2" ></ngx-skeleton-loader>
         </div>
         <p class="leading-relaxed"></p>
-        <div class="flex flex-wrap mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
-          <ngx-skeleton-loader class="w-1/4" [theme]="{'height':'2.25rem'}"></ngx-skeleton-loader>
-          <ngx-skeleton-loader class="w-1/4 ml-2" [theme]="{'height':'2.25rem'}"></ngx-skeleton-loader>
-          <ngx-skeleton-loader class="w-1/4 ml-2" [theme]="{'height':'2.25rem'}"></ngx-skeleton-loader>
+        <div class="flex flex-wrap mt-6 items-center pb-3 border-b-2 border-gray-200 mb-5">
+          <ngx-skeleton-loader class="w-1/4" [theme]="{'height':'2.25rem', 'margin-bottom': '0px'}"></ngx-skeleton-loader>
+          <ngx-skeleton-loader class="w-1/4 ml-2" [theme]="{'height':'2.25rem', 'margin-bottom': '0px'}"></ngx-skeleton-loader>
+          <ngx-skeleton-loader class="w-1/4 ml-2" [theme]="{'height':'2.25rem', 'margin-bottom': '0px'}"></ngx-skeleton-loader>
         </div>
         <div  class="flex flex-wrap mb-2">
           <ngx-skeleton-loader class="w-1/4" [theme]="{'height':'2.25rem'}"></ngx-skeleton-loader>
@@ -27,14 +27,13 @@
         <div class="flex items-center">
           <ngx-skeleton-loader class="w-1/4 h-auto mt-2" [theme]="{'height':'2.25rem'}"></ngx-skeleton-loader>
           <ngx-skeleton-loader class="w-1/4 h-auto mt-2 ml-2" [theme]="{'height':'2.25rem'}"></ngx-skeleton-loader>
-          <ngx-skeleton-loader class="w-6 h-auto ml-2" appearance="circle" [theme]="{'height':'2.25rem'}"></ngx-skeleton-loader>
         </div>
       </div>
     </div>
   </div>
 </section>
 <section class="text-gray-700 body-font overflow-hidden" *ngIf="!loader">
-  <div class="container px-5 py-24 mx-auto">
+  <div class="container px-5 py-24 mx-auto content-indent">
     <div class="lg:w-4/5 mx-auto flex flex-wrap">
       <img alt="ecommerce" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="https://dummyimage.com/400x400">
       <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
@@ -134,7 +133,7 @@
             <svg class="w-6 h-6 relative" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
-            <span class="absolute text-bold shadow rounded bg-white border text-gray-700 text-xs w36 m28" *ngIf="changeText">
+            <span class="absolute text-bold shadow rounded bg-white border text-gray-700 text-xs w36 m28 tip" *ngIf="changeText">
               Обирайте параметри товару безпосередньо у самій корзині*
             </span>
           </button>
