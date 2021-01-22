@@ -14,11 +14,30 @@ export interface UpdateUser {
   phone: string;
   firstName: string;
   lastName: string;
+  patronymic: string;
   location: string;
   number: string;
   warehouse: string;
+  postIndex: string;
   userRole: string;
   password: string;
+}
+
+export interface UpdateCurrentUser {
+  email: string;
+  phone: string;
+  firstName: string;
+  lastName: string;
+  patronymic: string;
+  location: string;
+  number: string;
+  warehouse: string;
+  postIndex: string;
+}
+
+export interface PasswordData {
+  oldPassword: string;
+  newPassword: string;
 }
 
 export interface LoginUser {

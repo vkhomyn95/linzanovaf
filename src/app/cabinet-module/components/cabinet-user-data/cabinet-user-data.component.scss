@@ -1,0 +1,35 @@
+@media screen and (max-width: 767px){
+  .form-top {
+    padding-top: 4rem;
+  }
+}
+@media screen and (max-width: 650px){
+  .form-top {
+    padding-top: 2rem;
+  }
+  .form-mob {
+    width: 90%;
+    margin: 0 auto;
+    &-input {
+      margin-bottom: 1rem;
+    }
+    &-button {
+      margin-left: 2rem;
+    }
+  }
+}
+.alert-message {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  &-column {
+    display: flex;
+    flex-direction: column;
+  }
+  &-new {
+    margin-top: 10px;
+  }
+}

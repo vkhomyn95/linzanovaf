@@ -1,97 +1,177 @@
-<form class="w-full max-w-lg m-auto md:py-24 xs:py-12" [formGroup]="updateForm">
-  <div class="flex flex-wrap -mx-3 mb-6">
-    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
-        First Name
-      </label>
-      <input formControlName="firstName" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Jane">
+<form class="w-full max-w-lg m-auto md:py-24 xs:py-12 form-top" [formGroup]="updateForm">
+  <ng-container *ngIf="loader">
+    <div class="flex flex-wrap -mx-3 mb-6 form-mob">
+      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+        <ngx-skeleton-loader [theme]="{'height':'2.2rem'}"></ngx-skeleton-loader>
+      </div>
+      <div class="w-full md:w-1/2 px-3 form-mob-input">
+        <ngx-skeleton-loader [theme]="{'height':'2.2rem'}"></ngx-skeleton-loader>
+      </div>
     </div>
-    <div class="w-full md:w-1/2 px-3">
-      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
-        Last Name
-      </label>
-      <input formControlName="lastName" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe">
+    <div class="flex flex-wrap -mx-3 mb-6 form-mob">
+      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+        <ngx-skeleton-loader [theme]="{'height':'2.2rem'}"></ngx-skeleton-loader>
+      </div>
     </div>
-  </div>
-  <div class="flex flex-wrap -mx-3 mb-6">
-    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-patronymic-name">
-        Patronymic
-      </label>
-      <input formControlName="patronymic" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-patronymic-name" type="text" placeholder="Jane">
+    <div class="flex flex-wrap -mx-3 mb-6 form-mob">
+      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+        <ngx-skeleton-loader [theme]="{'height':'2.2rem'}"></ngx-skeleton-loader>
+      </div>
+      <div class="w-full md:w-1/2 px-3 form-mob-input">
+        <ngx-skeleton-loader [theme]="{'height':'2.2rem'}"></ngx-skeleton-loader>
+      </div>
     </div>
-  </div>
-  <div class="flex flex-wrap -mx-3 mb-6">
-    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-email">
-        Email
-      </label>
-      <input formControlName="email" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-email" type="text" placeholder="Jane">
+    <div class="flex flex-wrap -mx-3 mb-6 form-mob">
+      <div class="w-full px-3">
+        <ngx-skeleton-loader [theme]="{'height':'2.2rem'}"></ngx-skeleton-loader>
+      </div>
     </div>
-    <div class="w-full md:w-1/2 px-3">
-      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-phone">
-        Phone
-      </label>
-      <input formControlName="phone" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-phone" type="text" placeholder="Doe">
+    <div class="flex flex-wrap -mx-3 mb-6 form-mob">
+      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+        <ngx-skeleton-loader [theme]="{'height':'2.2rem'}"></ngx-skeleton-loader>
+      </div>
+      <div class="w-full md:w-1/2 px-3 form-mob-input">
+        <ngx-skeleton-loader [theme]="{'height':'2.2rem'}"></ngx-skeleton-loader>
+      </div>
     </div>
-  </div>
-  <div class="flex flex-wrap -mx-3 mb-6">
-    <div class="w-full px-3">
-      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-location">
-        Location
-      </label>
-      <input formControlName="location" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-location" type="text">
+    <div class="flex flex-wrap -mx-3 mb-6 form-mob">
+      <div class="w-full px-3">
+        <ngx-skeleton-loader [theme]="{'height':'2.2rem'}"></ngx-skeleton-loader>
+      </div>
     </div>
-  </div>
-  <div class="flex flex-wrap -mx-3 mb-6">
-    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-number">
-        Number
-      </label>
-      <input formControlName="number" class="appearance-none w-full block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-number" type="text">
+  </ng-container>
+  <ng-container *ngIf="!loader">
+    <div class="flex flex-wrap -mx-3 mb-6 form-mob">
+      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+          Прізвище
+        </label>
+        <input formControlName="lastName" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe">
+      </div>
+      <div class="w-full md:w-1/2 px-3 form-mob-input">
+        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+          Ім'я
+        </label>
+        <input formControlName="firstName" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Jane">
+      </div>
     </div>
-  </div>
-  <div class="flex flex-wrap -mx-3 mb-6">
-    <div class="w-full px-3">
-      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-warehouse">
-        Warehouse
-      </label>
-      <input formControlName="warehouse" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-warehouse" type="text">
+    <div class="flex flex-wrap -mx-3 mb-6 form-mob">
+      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-patronymic-name">
+          По батькові
+        </label>
+        <input formControlName="patronymic" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-patronymic-name" type="text" placeholder="Jane">
+      </div>
     </div>
-  </div>
-  <div *ngIf="!isFieldHidden" class="flex flex-wrap -mx-3 mb-6">
-    <div class="w-full px-3">
-      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-oldOne">
-        Старий пароль
-      </label>
-      <input formControlName="oldOne" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-oldOne" type="password">
+    <div class="flex flex-wrap -mx-3 mb-6 form-mob">
+      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-email">
+          Email
+        </label>
+        <input formControlName="email" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-email" type="text" placeholder="Jane">
+      </div>
+      <div class="w-full md:w-1/2 px-3 form-mob-input">
+        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-phone">
+          Телефон
+        </label>
+        <input formControlName="phone" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-phone" type="text" placeholder="Doe">
+      </div>
     </div>
-  </div>
-  <div *ngIf="!isFieldHidden" class="flex flex-wrap -mx-3 mb-6">
-    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-newFirst">
-        Новий пароль
-      </label>
-      <input formControlName="newOneFirst" class="appearance-none w-full block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-newFirst" type="password">
+    <div class="flex flex-wrap -mx-3 mb-6 form-mob">
+      <div class="w-full px-3 form-mob-input">
+        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-location">
+          Адреса
+        </label>
+        <input formControlName="location" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-location" type="text">
+      </div>
     </div>
-    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-newTwo">
-        Повторіть пароль
-      </label>
-      <input formControlName="newOneSecond" class="appearance-none w-full block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-newTwo" type="password">
+    <div class="flex flex-wrap -mx-3 mb-6 form-mob">
+      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-number">
+          Номер відділення
+        </label>
+        <input formControlName="number" class="appearance-none w-full block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-number" type="number">
+      </div>
+      <div class="w-full md:w-1/2 px-3 form-mob-input">
+        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-phone">
+          Поштовий індекс
+        </label>
+        <input formControlName="postIndex" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-postIndex" type="text" placeholder="Для укрпошти">
+      </div>
     </div>
-  </div>
-  <div class="flex flex-wrap  mb-6">
-    <span class="hidden sm:block">
-      <button (click)="isFieldHidden = !isFieldHidden" type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-        <svg class="-ml-1 mr-2 h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-          <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-        </svg>
-        Змінити пароль
-      </button>
-    </span>
-  </div>
-  <button (click)="updateUser()" class="my-2 bg-yellow-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+    <div class="flex flex-wrap -mx-3 mb-6 form-mob ">
+      <div class="w-full px-3 form-mob-input">
+        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-warehouse">
+          Відділення
+        </label>
+        <input formControlName="warehouse" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-warehouse" type="text">
+      </div>
+    </div>
+    <div *ngIf="!isFieldHidden" class="flex flex-wrap -mx-3 mb-6 form-mob">
+      <div class="w-full px-3">
+        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-oldOne">
+          Старий пароль
+        </label>
+        <input formControlName="oldOne" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-oldOne" type="password">
+      </div>
+    </div>
+    <div *ngIf="!isFieldHidden" class="flex flex-wrap -mx-3 mb-6 form-mob">
+      <div class="w-full md:w-1/2 px-3 mb-2 md:mb-0">
+        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-newFirst">
+          Новий пароль
+        </label>
+        <input formControlName="newOneFirst" class="appearance-none w-full block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-newFirst" type="password">
+      </div>
+      <div class="w-full md:w-1/2 px-3 mb-2 md:mb-0">
+        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-newTwo">
+          Повторіть пароль
+        </label>
+        <input formControlName="newOneSecond" class="appearance-none w-full block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-newTwo" type="password">
+      </div>
+    </div>
+    <div class="flex flex-wrap mb-6 form-mob-button">
+      <span class=" sm:block">
+        <button (click)="isFieldHidden = !isFieldHidden" type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          <svg class="-ml-1 mr-2 h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+          </svg>
+          {{isFieldHidden ? 'Змінити пароль' : 'Закрити' }}
+        </button>
+      </span>
+    </div>
+  </ng-container>
+  <button *ngIf="isFieldHidden" (click)="updateUser()" class="my-2 bg-yellow-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded form-mob-button">
     Оновити
   </button>
+  <button *ngIf="!isFieldHidden" (click)="updatePassword()" class="my-2 bg-yellow-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded form-mob-button">
+    Змінити
+  </button>
 </form>
+<div *ngIf="errorResponse" class="alert-message-column">
+  <div class="text-center py-4 lg:px-4 alert-message">
+    <div class="p-2 bg-red-400 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex alert-message-new" role="alert" *ngFor="let error of errorResponse">
+      <span class="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></span>
+      <span *ngIf="error.message" class="font-semibold mr-2 text-left flex-auto">{{error.message}}</span>
+      <span  class="font-semibold mr-2 text-left flex-auto">{{error}}</span>
+      <svg class="fill-current opacity-75 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/></svg>
+    </div>
+  </div>
+</div>
+<div *ngIf="successResponse" class="alert-message-column">
+  <div class="text-center py-4 lg:px-4 alert-message">
+    <div class="p-2 bg-green-400 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex alert-message-new" role="alert">
+      <span class="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></span>
+      <span class="font-semibold mr-2 text-left flex-auto">Інформацію оновлено</span>
+      <svg class="fill-current opacity-75 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/></svg>
+    </div>
+  </div>
+</div>
+<div *ngIf="paaswordValidator" class="alert-message-column">
+  <div class="text-center py-4 lg:px-4 alert-message">
+    <div class="p-2 bg-red-400 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex alert-message-new" role="alert" *ngFor="let passwordError of passwordListErrors">
+      <span class="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></span>
+      <span class="font-semibold mr-2 text-left flex-auto">{{passwordError}}</span>
+      <svg class="fill-current opacity-75 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/></svg>
+    </div>
+  </div>
+</div>

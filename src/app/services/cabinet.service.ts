@@ -40,6 +40,9 @@ export class CabinetService {
   updateCurrentUser(user): Observable<any>{
     return this.httpClient.post<any>(`/api/users/update`, user);
   }
+  updateCurrentUserPassword(dataPassword): Observable<any> {
+    return this.httpClient.post<any>(`/api/users/password`, dataPassword);
+  }
   getLensesCount(): Observable<any> {
     return this.httpClient.get<any>('/api/lenses/count');
   }
