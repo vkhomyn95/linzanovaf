@@ -100,3 +100,22 @@
     display: none;
   }
 }
+@media screen and (max-width: 767px) {
+  .cart-modal-box {
+    right: 0;
+    left: 0;
+    transform: translate(-36%, 0);
+    min-width: 320px;
+  }
+  .cart-modal-box::before{
+    right: 185px;
+  }
+  .btn-trans {
+    transition: all .3s ease-in-out;
+    outline: none;
+    font-size: 13px;
+  }
+  .mob-img {
+    display: none;
+  }
+}
