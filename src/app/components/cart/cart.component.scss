@@ -128,3 +128,18 @@ table.scroll thead { display: block; }
     background: #fafafa;
   }
 }
+@media screen and (max-width: 1023px){
+  .mob-img {
+    width: 20%;
+  }
+  .tabs-mob {
+    flex-direction: row;
+    &-a {
+      font-size: 13px;
+    }
+  }
+  .wrapper-box {
+    //width: 90%;
+  }
+
+}

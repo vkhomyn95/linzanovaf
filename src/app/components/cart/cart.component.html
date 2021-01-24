@@ -1,8 +1,8 @@
 <section class="text-gray-700 body-font">
   <div class="container px-5 py-20 mx-auto flex flex-wrap flex-col">
-    <div class="flex mx-auto flex-wrap mb-12">
+    <div class="flex mx-auto flex-wrap mb-12 tabs-mob">
       <a
-        class="sm:px-6 py-3 w-1/2 sm:w-auto justify-center sm:justify-start border-b-2 title-font font-medium inline-flex items-center leading-none border-gray-200 tracking-wider rounded-t"
+        class="tabs-mob-a sm:px-6 py-3 w-1/2 sm:w-auto justify-center sm:justify-start border-b-2 title-font font-medium inline-flex items-center leading-none border-gray-200 tracking-wider rounded-t"
         [ngClass]="{'bg-gray-100 border-indigo-500 text-indigo-500': orderStep === 0}">
         <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
              class="w-5 h-5 mr-3" viewBox="0 0 24 24">
@@ -11,7 +11,7 @@
         КОШИК
       </a>
       <a
-        class="sm:px-6 py-3 w-1/2 sm:w-auto justify-center sm:justify-start border-b-2 title-font font-medium inline-flex items-center leading-none border-gray-200 hover:text-gray-900 tracking-wider"
+        class="tabs-mob-a sm:px-6 py-3 w-1/2 sm:w-auto justify-center sm:justify-start border-b-2 title-font font-medium inline-flex items-center leading-none border-gray-200 hover:text-gray-900 tracking-wider"
         [ngClass]="{'bg-gray-100 border-indigo-500 text-indigo-500': orderStep === 1}">
         <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
              class="w-5 h-5 mr-3" viewBox="0 0 24 24">
@@ -20,7 +20,7 @@
         ДОСТАВКА / ОПЛАТА
       </a>
       <a
-        class="sm:px-6 py-3 w-1/2 sm:w-auto justify-center sm:justify-start border-b-2 title-font font-medium inline-flex items-center leading-none border-gray-200 hover:text-gray-900 tracking-wider"
+        class="tabs-mob-a sm:px-6 py-3 w-1/2 sm:w-auto justify-center sm:justify-start border-b-2 title-font font-medium inline-flex items-center leading-none border-gray-200 hover:text-gray-900 tracking-wider"
         [ngClass]="{'bg-gray-100 border-indigo-500 text-indigo-500': orderStep === 2}">
         <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
              class="w-5 h-5 mr-3" viewBox="0 0 24 24">
@@ -30,6 +30,7 @@
         ІНФОРМАЦІЯ ПРО ДОСТАВКУ
       </a>
     </div>
+
     <ng-container *ngIf="orderStep === 0">
       <div *ngIf="!cartItems || cartItems[0].offers.length === 0 && cartItems[0].solutions.length === 0 &&
        cartItems[0].lenses.length === 0 && cartItems[0].drops.length === 0" class="flex flex-col">
@@ -42,7 +43,7 @@
         <h2 *ngIf="item.drops.length !== 0"
             class="text-lg text-gray-900 font-medium title-font mb-4 mx-auto flex justify-center">Догляд за очима</h2>
         <div class="flex flex-row" *ngFor="let care of item.drops">
-          <img class="xl:w-32 lg:w-1/5 md:w-1/2 w-2/3 block mx-auto mb-10 object-cover object-center rounded" alt="hero"
+          <img class="xl:w-32 lg:w-1/5 md:w-1/2 w-2/3 block mx-auto mb-10 object-cover object-center rounded mob-img" alt="hero"
                src="https://dummyimage.com/720x600">
           <div class="flex flex-col text-left w-full ml-8">
             <h1 class="text-xl font-medium title-font mb-3 text-gray-900">{{care.name}}</h1>
@@ -97,7 +98,7 @@
         <h2 *ngIf="item.lenses.length !== 0"
             class="text-lg text-gray-900 font-medium title-font mb-4 mx-auto flex justify-center">Контактні лінзи</h2>
         <div class="flex flex-row" *ngFor="let lense of item.lenses">
-          <img class="xl:w-32 lg:w-1/5 md:w-1/2 w-2/3 block mx-auto mb-10 object-cover object-center rounded" alt="hero"
+          <img class="xl:w-32 lg:w-1/5 md:w-1/2 w-2/3 block mx-auto mb-10 object-cover object-center rounded mob-img" alt="hero"
                src="https://dummyimage.com/720x600">
           <div class="flex flex-col text-left w-full ml-8">
             <h1 class="text-xl font-medium title-font mb-4 text-gray-900">{{lense.name}}</h1>
@@ -225,7 +226,7 @@
         <h2 *ngIf="item.offers.length !== 0"
             class="text-lg text-gray-900 font-medium title-font mb-4 mx-auto flex justify-center">Вигідні пропозиції</h2>
         <div class="flex flex-row" *ngFor="let offer of item.offers">
-          <img class="xl:w-32 lg:w-1/5 md:w-1/2 w-2/3 block mx-auto mb-10 object-cover object-center rounded" alt="hero"
+          <img class="xl:w-32 lg:w-1/5 md:w-1/2 w-2/3 block mx-auto mb-10 object-cover object-center rounded mob-img" alt="hero"
                src="https://dummyimage.com/720x600">
           <div class="flex flex-col text-left w-full ml-8">
             <h1 class="text-xl font-medium title-font mb-4 text-gray-900">{{offer.name}}</h1>
@@ -340,7 +341,7 @@
         <h2 *ngIf="item.solutions.length !== 0"
             class="text-lg text-gray-900 font-medium title-font mb-4 mx-auto flex justify-center">Розчини</h2>
         <div class="flex flex-row" *ngFor="let solution of item.solutions">
-          <img class="xl:w-32 lg:w-1/5 md:w-1/2 w-2/3 block mx-auto mb-10 object-cover object-center rounded" alt="hero"
+          <img class="xl:w-32 lg:w-1/5 md:w-1/2 w-2/3 block mx-auto mb-10 object-cover object-center rounded mob-img" alt="hero"
                src="https://dummyimage.com/720x600">
           <div class="flex flex-col text-left w-full ml-8">
             <h1 class="text-xl font-medium title-font mb-4 text-gray-900">{{solution.name}}</h1>
