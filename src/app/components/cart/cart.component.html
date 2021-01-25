@@ -41,15 +41,15 @@
       </div>
       <div class="wrapper-box" *ngFor="let item of cartItems">
         <h2 *ngIf="item.drops.length !== 0"
-            class="text-lg text-gray-900 font-medium title-font mb-4 mx-auto flex justify-center">Догляд за очима</h2>
-        <div class="flex flex-row" *ngFor="let care of item.drops">
+            class="text-lg text-gray-900 font-medium title-font mb-4 mx-auto flex justify-center title-mob-heading">Догляд за очима</h2>
+        <div class="flex flex-row mob-items-container" *ngFor="let care of item.drops">
           <img class="xl:w-32 lg:w-1/5 md:w-1/2 w-2/3 block mx-auto mb-10 object-cover object-center rounded mob-img" alt="hero"
                src="https://dummyimage.com/720x600">
           <div class="flex flex-col text-left w-full ml-8">
-            <h1 class="text-xl font-medium title-font mb-3 text-gray-900">{{care.name}}</h1>
+            <h1 class="text-xl font-medium title-font mb-3 text-gray-900 title-mob">{{care.name}}</h1>
             <div class="flex flex-row">
-              <div class="flex flex-col pr-2">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+              <div class="flex flex-col pr-2 mob-param-block">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 title-mob-param" for="grid-state">
                   Кількість:
                 </label>
                 <div class="relative">
@@ -64,8 +64,8 @@
                   </div>
                 </div>
               </div>
-              <div class="flex flex-col pr-2">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+              <div class="flex flex-col pr-2 mob-param-block">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 title-mob-param" for="grid-state">
                   Об'єм:
                 </label>
                 <div class="relative">
@@ -96,15 +96,33 @@
           </div>
         </div>
         <h2 *ngIf="item.lenses.length !== 0"
-            class="text-lg text-gray-900 font-medium title-font mb-4 mx-auto flex justify-center">Контактні лінзи</h2>
-        <div class="flex flex-row" *ngFor="let lense of item.lenses">
-          <img class="xl:w-32 lg:w-1/5 md:w-1/2 w-2/3 block mx-auto mb-10 object-cover object-center rounded mob-img" alt="hero"
+            class="text-lg text-gray-900 font-medium title-font mb-4 mx-auto flex justify-center title-mob-heading">Контактні лінзи</h2>
+        <div class="flex flex-row mob-items-container" *ngFor="let lense of item.lenses">
+          <h1 class="text-xl font-medium title-font mb-4 text-gray-900 title-mob hidden delete-block-mob">{{lense.name}}</h1>
+          <img class="xl:w-32 lg:w-1/5 md:w-1/2 w-2/3 block mx-auto mb-10 object-cover object-center rounded mob-img delete-block" alt="hero"
                src="https://dummyimage.com/720x600">
+
+          <div class="mob-resp hidden delete-block-mob">
+            <img class="xl:w-32 lg:w-1/5 md:w-1/2 w-2/3 block mx-auto mb-10 object-cover object-center rounded mob-img" alt="hero"
+                 src="https://dummyimage.com/720x600">
+            <div class="flex items-center hidden flex-col delete-block-mob">
+              <span>
+                <svg (click)="deleteLenseFromList(lense)" class="w-8 h-8 delete-button" fill="none" stroke="currentColor"
+                     viewBox="0 0 24 24"
+                     xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                </svg>
+              </span>
+              <span class="whitespace-no-wrap mt-10 font-medium price">{{lense.price * lense.quantity}} грн.</span>
+            </div>
+          </div>
+
           <div class="flex flex-col text-left w-full ml-8">
-            <h1 class="text-xl font-medium title-font mb-4 text-gray-900">{{lense.name}}</h1>
-            <div class="flex flex-row">
-              <div class="flex flex-col pr-2">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Кількість:</label>
+            <h1 class="text-xl font-medium title-font mb-4 text-gray-900 title-mob delete-block">{{lense.name}}</h1>
+            <div class="flex flex-row flex-wrap">
+              <div class="flex flex-col pr-2 mob-param-block">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 title-mob-param">Кількість:</label>
                 <div class="relative">
                   <select (change)="changeLensesQuantity(item, $event, lense.id)"
                     class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
@@ -117,8 +135,8 @@
                   </div>
                 </div>
               </div>
-              <div class="flex flex-col pr-2">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Діоптрії:</label>
+              <div class="flex flex-col pr-2 mob-param-block">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 title-mob-param">Діоптрії:</label>
                 <div class="relative">
                   <select (change)="changeDiopters(item, $event, lense.id)"
                           class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
@@ -134,8 +152,8 @@
               </div>
 
 
-              <div class="flex flex-col pr-2" *ngIf="lense.hasCylinder">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Циліндр:</label>
+              <div class="flex flex-col pr-2 mob-param-block" *ngIf="lense.hasCylinder">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 title-mob-param">Циліндр:</label>
                 <div class="relative">
                   <select (change)="changeLensCylinder(item, $event, lense.id)"
                           class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
@@ -151,8 +169,8 @@
               </div>
 
 
-              <div class="flex flex-col pr-2" *ngIf="lense.hasAxis">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Вісь:</label>
+              <div class="flex flex-col pr-2 mob-param-block" *ngIf="lense.hasAxis">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 title-mob-param">Вісь:</label>
                 <div class="relative">
                   <select (change)="changeLensAxis(item, $event, lense.id)"
                           class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
@@ -167,8 +185,8 @@
                 </div>
 
               </div>
-              <div class="flex flex-col pr-2">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Кривизна:</label>
+              <div class="flex flex-col pr-2 mob-param-block">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 title-mob-param">Кривизна:</label>
                 <div class="relative" *ngIf="lense.hasDefaultBC">
                   <select
                           class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
@@ -194,8 +212,8 @@
                 </div>
               </div>
 
-              <div class="flex flex-col pr-2">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Діаметр:</label>
+              <div class="flex flex-col pr-2 mob-param-block">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 title-mob-param">Діаметр:</label>
                 <div class="relative">
                   <select
                           class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
@@ -210,7 +228,7 @@
               </div>
             </div>
           </div>
-          <div class="flex items-center flex-col">
+          <div class="flex items-center flex-col delete-block">
             <span>
               <svg (click)="deleteLenseFromList(lense)" class="w-8 h-8 delete-button" fill="none" stroke="currentColor"
                    viewBox="0 0 24 24"
@@ -224,15 +242,15 @@
         </div>
 
         <h2 *ngIf="item.offers.length !== 0"
-            class="text-lg text-gray-900 font-medium title-font mb-4 mx-auto flex justify-center">Вигідні пропозиції</h2>
-        <div class="flex flex-row" *ngFor="let offer of item.offers">
+            class="text-lg text-gray-900 font-medium title-font mb-4 mx-auto flex justify-center title-mob-heading">Вигідні пропозиції</h2>
+        <div class="flex flex-row mob-items-container" *ngFor="let offer of item.offers">
           <img class="xl:w-32 lg:w-1/5 md:w-1/2 w-2/3 block mx-auto mb-10 object-cover object-center rounded mob-img" alt="hero"
                src="https://dummyimage.com/720x600">
           <div class="flex flex-col text-left w-full ml-8">
-            <h1 class="text-xl font-medium title-font mb-4 text-gray-900">{{offer.name}}</h1>
-            <div class="flex flex-row">
-              <div class="flex flex-col pr-2">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Діоптрії:</label>
+            <h1 class="text-xl font-medium title-font mb-4 text-gray-900 title-mob">{{offer.name}}</h1>
+            <div class="flex flex-row flex-wrap">
+              <div class="flex flex-col pr-2 mob-param-block">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 title-mob-param">Діоптрії:</label>
                 <div class="relative">
                   <select (change)="changeOfferDiopters(item, $event, offer.id)"
                           class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
@@ -248,8 +266,8 @@
               </div>
 
 
-              <div class="flex flex-col pr-2" *ngIf="offer.hasCylinder">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Циліндр:</label>
+              <div class="flex flex-col pr-2 mob-param-block" *ngIf="offer.hasCylinder">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 title-mob-param">Циліндр:</label>
                 <div class="relative">
                   <select (change)="changeOfferCylinder(item, $event, offer.id)"
                           class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
@@ -265,8 +283,8 @@
               </div>
 
 
-              <div class="flex flex-col pr-2" *ngIf="offer.hasAxis">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Вісь:</label>
+              <div class="flex flex-col pr-2 mob-param-block" *ngIf="offer.hasAxis">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 title-mob-param">Вісь:</label>
                 <div class="relative">
                   <select (change)="changeOfferAxis(item, $event, offer.id)"
                           class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
@@ -281,8 +299,8 @@
                 </div>
 
               </div>
-              <div class="flex flex-col pr-2">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Кривизна:</label>
+              <div class="flex flex-col pr-2 mob-param-block">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 title-mob-param">Кривизна:</label>
                 <div class="relative" *ngIf="offer.hasDefaultBC">
                   <select
                     class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
@@ -308,8 +326,8 @@
                 </div>
               </div>
 
-              <div class="flex flex-col pr-2">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Діаметр:</label>
+              <div class="flex flex-col pr-2 mob-param-block">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 title-mob-param">Діаметр:</label>
                 <div class="relative">
                   <select
                     class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
@@ -339,15 +357,15 @@
         </div>
 
         <h2 *ngIf="item.solutions.length !== 0"
-            class="text-lg text-gray-900 font-medium title-font mb-4 mx-auto flex justify-center">Розчини</h2>
-        <div class="flex flex-row" *ngFor="let solution of item.solutions">
+            class="text-lg text-gray-900 font-medium title-font mb-4 mx-auto flex justify-center title-mob-heading">Розчини</h2>
+        <div class="flex flex-row mob-items-container" *ngFor="let solution of item.solutions">
           <img class="xl:w-32 lg:w-1/5 md:w-1/2 w-2/3 block mx-auto mb-10 object-cover object-center rounded mob-img" alt="hero"
                src="https://dummyimage.com/720x600">
           <div class="flex flex-col text-left w-full ml-8">
-            <h1 class="text-xl font-medium title-font mb-4 text-gray-900">{{solution.name}}</h1>
-            <div class="flex flex-row">
-              <div class="flex flex-col pr-2">
-                <label>Кількість:</label>
+            <h1 class="text-xl font-medium title-font mb-4 text-gray-900 title-mob">{{solution.name}}</h1>
+            <div class="flex flex-row flex-wrap">
+              <div class="flex flex-col pr-2 mob-param-block">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 title-mob-param">Кількість:</label>
                 <div class="relative">
                   <select (change)="changeSolutionQuantity(item, $event, solution.id)"
                           class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
@@ -361,7 +379,7 @@
                 </div>
               </div>
               <div class="flex flex-col">
-                <label>Об'єм:</label>
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 title-mob-param">Об'єм:</label>
                 <div class="relative">
                   <select
                           class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
