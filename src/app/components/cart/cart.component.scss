@@ -161,18 +161,33 @@ table.scroll thead { display: block; }
 @media screen and (max-width: 768px){
   .tabs-mob {
     flex-direction: row;
+    margin-bottom: 2rem;
     &-a {
       font-size: 11px;
+      text-align: center;
+      &-svg {
+        display: none;
+      }
     }
   }
 }
 
 @media screen and (max-width: 640px){
+  .tabs-mob {
+    flex-direction: row;
+    &-a {
+      font-size: 10px;
+      width: 30%;
+    }
+  }
   .delete-block {
     display: none;
   }
   .delete-block-mob {
     display: block;
+  }
+  .dlt-bl {
+    margin-right: 2rem;
   }
   .mob-resp {
     display: flex;
@@ -185,16 +200,38 @@ table.scroll thead { display: block; }
   }
   .mob-img {
     margin-left: 1rem;
+    margin-right: 0rem;
     width: 25%;
   }
   .title-mob {
     font-size: 1rem;
     &-param {
-      font-size: 0.40rem;
+      font-size: 0.70rem;
       margin-bottom: 0.35rem;
     }
     &-heading {
       font-size: 0.75rem;
+      text-transform: uppercase;
     }
   }
+  .mob-param-block{
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+  }
+  .mob-container {
+    padding: 2rem;
+  }
+}
+@media screen and (max-width: 500px){
+  .btn-mob {
+    font-size: 13px;
+    margin-bottom: 1rem;
+    &-wrapper {
+      flex-direction: column;
+      margin: 0 auto;
+    }
+  }
+
 }
