@@ -3,11 +3,12 @@ export interface User {
   phone: string;
   firstName: string;
   lastName: string;
+  patronymic: string;
   password: string;
   location: string;
   number: string;
   warehouse: string;
-  userRole: string;
+  postIndex: string;
 }
 export interface UpdateUser {
   email: string;

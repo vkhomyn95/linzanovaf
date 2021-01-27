@@ -3,6 +3,8 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {SettlementsService} from '../../services/settlements.service';
 import {UserService} from '../../services/user.service';
 import {User} from '../../models/user/User';
+import {BroadcastService} from '../../services/components-data/broadcast.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -15,16 +17,22 @@ export class RegisterComponent implements OnInit {
   locationNPList: any[]; numberNPList: any[];
   paaswordValidator = false; passwordValidatorLength = false; formFieldValidator = true; phoneValidator = false;
   passwordListErrors: string[] = [];
+  errorResponse = [];
 
-  constructor(private settlementsService: SettlementsService, private userService: UserService) {
+  constructor(private settlementsService: SettlementsService,
+              private userService: UserService,
+              private broadcastService: BroadcastService,
+              private router: Router) {
     this.authFormReg = new FormGroup({
       rEmail: new FormControl('', [Validators.required]),
       rPhone: new FormControl('', [Validators.required]),
       rFirstName: new FormControl('', [Validators.required]),
       rLastName: new FormControl('', [Validators.required]),
+      rPatronymic: new FormControl('', [Validators.required]),
       rPassword: new FormControl('', [Validators.required]),
       rPasswordRepeat: new FormControl('', [Validators.required]),
       locationNp: new FormControl(''),
+      rpostIndex: new FormControl(''),
       numberNp: new FormControl(''),
       aboutWarehouse: new FormControl('')
     });
@@ -68,23 +76,35 @@ export class RegisterComponent implements OnInit {
   }
 
   register(): object {
-    console.log(this.authFormReg);
     if (this.authFormReg.valid) {
       const user: User = {
         email: this.authFormReg.value.rEmail,
         phone: this.authFormReg.value.rPhone,
         firstName: this.authFormReg.value.rFirstName,
         lastName: this.authFormReg.value.rLastName,
+        patronymic: this.authFormReg.value.rPatronymic,
         password: this.authFormReg.value.rPassword,
         location: this.authFormReg.value.locationNp,
         number: this.authFormReg.value.numberNp,
-        userRole: 'admin',
+        postIndex: this.authFormReg.value.rpostIndex,
         warehouse: this.authFormReg.value.aboutWarehouse
       };
 
       console.log(user);
       if (this.checkPassword() && this.checkPasswordLength() && this.checkPhoneNumber()) {
-        return this.userService.registerUser(user).subscribe(value => console.log(value));
+        return this.userService.registerUser(user).toPromise()
+          .then((response) => {
+            if (response){
+             this.router.navigate(['login']);
+            }else {
+              this.broadcastService.http404.asObservable().subscribe(value => {
+                if (value === true){
+                  this.errorResponse.push('Заповніть усі поля коректно');
+                  this.removeError();
+                }
+              });
+            }
+          });
       } else if (!this.checkPassword()) {
         this.passwordListErrors.push('Паролі не співпадають');
         setTimeout(() => {
@@ -139,5 +159,11 @@ export class RegisterComponent implements OnInit {
     }else {
       return false;
     }
+  }
+  removeError(): void {
+    setTimeout(() => {
+      this.errorResponse.splice(-1, 1);
+      console.log(this.errorResponse);
+    }, 5000);
   }
 }

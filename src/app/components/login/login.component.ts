@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {UserService} from '../../services/user.service';
 import {LoginUser} from '../../models/user/User';
-import {log} from 'util';
 import {Router} from '@angular/router';
 import {TokenStorageService} from '../../services/token-storage.service';
 

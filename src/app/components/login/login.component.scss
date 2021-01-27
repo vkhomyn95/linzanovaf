@@ -9,3 +9,13 @@
 .reg-link:hover {
   color: #151515;
 }
+
+@media screen and (max-width: 768px){
+  .mob-center {
+    display: flex;
+    justify-content: center;
+  }
+  .auto-height {
+    height: 25rem;
+  }
+}

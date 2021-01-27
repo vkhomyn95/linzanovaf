@@ -14,7 +14,7 @@ export class BackendInterceptor implements HttpInterceptor {
 
   private handleBackendError(err: HttpErrorResponse): Observable<any> {
     if (err instanceof HttpErrorResponse) {
-      if (err.status === 500) {
+      if (err.status === 500 || err.status === 400) {
         this.http404 = true;
         this.broadcastService.http404.next(true);
         return of(err.message);

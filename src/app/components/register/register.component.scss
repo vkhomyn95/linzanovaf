@@ -40,3 +40,12 @@
     margin-top: 10px;
   }
 }
+@media screen and (max-width: 520px){
+  .btn-mob {
+    display: flex;
+    margin: 0 auto;
+  }
+  .mob-container {
+    padding: 1.25rem 1.25rem;
+  }
+}
