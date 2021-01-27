@@ -2,6 +2,7 @@
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
   flex-direction: row;
+  margin-bottom: 1rem;
 }
 .deliveries-payments-surcharges {
   width: 67%;
@@ -128,6 +129,25 @@ table.scroll thead { display: block; }
     background: #fafafa;
   }
 }
+
+@media screen and (max-width: 1280px){
+  .mob-title-delivery {
+    font-size: 0.875rem;
+    &-date {
+      font-size: 0.5rem;
+    }
+  }
+  .mob-title-payment {
+    font-size: 1rem;
+    &-total {
+      font-size: 1.25rem;
+    }
+  }
+  .mob-item-name {
+    font-size: 0.75rem;
+  }
+}
+
 @media screen and (max-width: 1023px){
   .mob-img {
     width: 20%;
@@ -156,6 +176,37 @@ table.scroll thead { display: block; }
       font-size: 1rem;
     }
   }
+  .mob-title-delivery {
+    font-size: 0.675rem;
+    &-date {
+      font-size: 0.3rem;
+    }
+  }
+  .mob-title-payment {
+    font-size: 0.875rem;
+    &-total {
+      font-size: 1rem;
+    }
+  }
+  .mob-item-name {
+    font-size: 0.75rem;
+  }
+  .mob-delivery-img {
+    height: 1.2rem;
+  }
+  .mob-table-title {
+    font-size: 0.775rem;
+  }
+  .input-props {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+  .banner-mob {
+    font-size: 0.65rem;
+    &-heading {
+      font-size: 0.875rem;
+    }
+  }
 }
 
 @media screen and (max-width: 768px){
@@ -169,6 +220,25 @@ table.scroll thead { display: block; }
         display: none;
       }
     }
+  }
+  .deliveries-payments-recapitulation-wrapper {
+    flex-direction: column;
+  }
+  .deliveries-payments-surcharges {
+    border-right: none;
+    margin: 0 auto;
+    border-bottom: 1px solid #d9e5e8;
+    padding-bottom: 0;
+  }
+  .mob-date {
+    display: block;
+  }
+  .mob-date-none {
+    display: none;
+  }
+  .mb-d {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 
@@ -186,9 +256,6 @@ table.scroll thead { display: block; }
   .delete-block-mob {
     display: block;
   }
-  .dlt-bl {
-    margin-right: 2rem;
-  }
   .mob-resp {
     display: flex;
     justify-content: space-between;
@@ -199,7 +266,7 @@ table.scroll thead { display: block; }
     flex-direction: column;
   }
   .mob-img {
-    margin-left: 1rem;
+    margin-left: 0rem;
     margin-right: 0rem;
     width: 25%;
   }
@@ -214,24 +281,62 @@ table.scroll thead { display: block; }
       text-transform: uppercase;
     }
   }
+  .param-block-wrapper {
+    margin-left: 0;
+  }
   .mob-param-block{
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    width: 90%;
+    width: 100%;
   }
   .mob-container {
-    padding: 2rem;
+    padding: 1rem;
+  }
+  .pr-2 {
+    padding-right: 0;
+  }
+  .delete-button {
+    margin-bottom: 1rem;
+  }
+  .deliveries-payments-surcharges {
+    border-right: none;
+    width: auto;
+    margin: 0 auto;
+    border-bottom: 1px solid #d9e5e8;
+    padding-bottom: 0;
+  }
+  .mob-delivery-img {
+    width: 3.6rem;
+  }
+  .mb-fix {
+    padding-bottom: 1.5rem;
   }
 }
 @media screen and (max-width: 500px){
   .btn-mob {
     font-size: 13px;
-    margin-bottom: 1rem;
-    &-wrapper {
-      flex-direction: column;
-      margin: 0 auto;
+  }
+}
+@media screen and (max-width: 410px){
+  .btn-mob {
+    font-size: 11px;
+  }
+  .mob-title-payment-heading {
+    font-size: 0.875rem;
+    &-total-heading {
+      font-size: 1rem;
     }
   }
+}
 
+@media screen and (max-width: 365px){
+  .btn-mob {
+    font-size: 10px;
+  }
+}
+@media screen and (max-width: 340px){
+  .btn-mob {
+    font-size: 9px;
+  }
 }

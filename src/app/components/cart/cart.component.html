@@ -65,7 +65,7 @@
           </div>
 
 
-          <div class="flex flex-col text-left w-full ml-8">
+          <div class="flex flex-col text-left w-full ml-8 param-block-wrapper">
             <h1 class="text-xl font-medium title-font mb-3 text-gray-900 title-mob delete-block">{{care.name}}</h1>
             <div class="flex flex-row flex-wrap">
               <div class="flex flex-col pr-2 mob-param-block">
@@ -138,7 +138,7 @@
             </div>
           </div>
 
-          <div class="flex flex-col text-left w-full ml-8">
+          <div class="flex flex-col text-left w-full ml-8 param-block-wrapper">
             <h1 class="text-xl font-medium title-font mb-4 text-gray-900 title-mob delete-block">{{lense.name}}</h1>
             <div class="flex flex-row flex-wrap">
               <div class="flex flex-col pr-2 mob-param-block">
@@ -285,7 +285,7 @@
           </div>
 
 
-          <div class="flex flex-col text-left w-full ml-8">
+          <div class="flex flex-col text-left w-full ml-8 param-block-wrapper">
             <h1 class="text-xl font-medium title-font mb-4 text-gray-900 title-mob delete-block">{{offer.name}}</h1>
             <div class="flex flex-row flex-wrap">
               <div class="flex flex-col pr-2 mob-param-block">
@@ -419,7 +419,7 @@
           </div>
 
 
-          <div class="flex flex-col text-left w-full ml-8">
+          <div class="flex flex-col text-left w-full ml-8 param-block-wrapper">
             <h1 class="text-xl font-medium title-font mb-4 text-gray-900 title-mob delete-block">{{solution.name}}</h1>
             <div class="flex flex-row flex-wrap">
               <div class="flex flex-col pr-2 mob-param-block">
@@ -474,35 +474,37 @@
           <div class="deliveries-wrapper">
 
             <form class="flex flex-col" [formGroup]="deliveryForm">
-              <div class="flex flex-row items-center pb-6">
+              <div class="flex flex-row items-center pb-6 mb-d">
                 <label class="inline-flex items-center mt-3">
-                  <input formControlName="novaPoshta" type="checkbox" (click)="changeSelectionOfDeliveryType()" class="form-checkbox h-5 w-5 text-red-600 mr-2">
-                  <span><img class="w-16 h-6" src="../../../assets/nova-poshta-logo.png" alt="novaposhta"></span>
-                  <span class="ml-2 text-gray-700 font-medium pr-4">У відділення Нової пошти</span>
-                  <span class="text-sm flex items-center text-green-400">(3-5 робочих днів по прибуттю в Україну)</span>
+                  <input formControlName="novaPoshta" type="checkbox" (click)="changeSelectionOfDeliveryType()" class="form-checkbox h-5 w-5 text-red-600 mr-2 ">
+                  <span><img class="w-16 h-6 mob-delivery-img" src="../../../assets/nova-poshta-logo.png" alt="novaposhta"></span>
+                  <span class="ml-2 text-gray-700 font-medium pr-4 mob-title-delivery">У відділення Нової пошти</span>
+                  <span class="text-sm flex items-center text-green-400 mob-title-delivery-date mob-date-none">(3-5 робочих днів по прибуттю в Україну)</span>
                 </label>
+                <span class="text-sm text-green-400 mob-title-delivery-date hidden mob-date pt-2">(3-5 робочих днів по прибуттю в Україну)</span>
               </div>
-              <div class="flex flex-row pb-10">
+              <div class="flex flex-row pb-10 mb-d mb-fix">
                 <label class="inline-flex items-center mt-3">
                   <input formControlName="ukrPoshta" (click)="changeSelectionOfDeliveryType()" type="checkbox" class="form-checkbox h-5 w-5 text-orange-600 mr-2" >
-                  <span><img class="w-20 h-6" src="../../../assets/ukposhta-logo.png" alt="ukrposhta"></span>
-                  <span class="ml-2 text-gray-700 font-medium pr-4">У відділення Укрпошти</span>
-                  <span class="text-sm text-green-400">(3-5 робочих днів по прибуттю в Україну)</span>
+                  <span><img class="w-20 h-6 mob-delivery-img" src="../../../assets/ukposhta-logo.png" alt="ukrposhta"></span>
+                  <span class="ml-2 text-gray-700 font-medium pr-4 mob-title-delivery">У відділення Укрпошти</span>
+                  <span class="text-sm text-green-400 mob-title-delivery-date mob-date-none">(3-5 робочих днів по прибуттю в Україну)</span>
                 </label>
+                <span class="text-sm text-green-400 mob-title-delivery-date hidden mob-date pt-2">(3-5 робочих днів по прибуттю в Україну)</span>
               </div>
-              <div class="orderDeliveryTime pb-4">
+              <div class="orderDeliveryTime pb-4 mob-title-delivery">
                 Передбачувана дата відправки п'ятниця <span class="font-medium">16 жовтня</span>
               </div>
               <span class="deliveries-header hr-line pt-4 font-sans">Оберіть спосіб оплати замовлення</span>
-              <div class="flex flex-row pb-6">
+              <div class="flex flex-row items-center pb-6">
                 <input formControlName="inPost" (click)="changeSelectionOfPaymentType()" type="checkbox" class="form-checkbox h-5 w-5 text-red-600">
                 <span><img class="w-16 h-6" src="../../../assets/wallet.svg" alt="wallet"></span>
-                <span class="ml-2 text-gray-700 font-medium">Оплата при отрманні</span>
+                <span class="ml-2 text-gray-700 font-medium mob-title-delivery">Оплата при отрманні</span>
               </div>
-              <div class="flex flex-row pb-6">
-                <input formControlName="byCardPay" (click)="changeSelectionOfPaymentType()" type="checkbox" class="form-checkbox h-5 w-5 text-red-600" >
+              <div class="flex flex-row items-center pb-6">
+                <input formControlName="byCardPay" (click)="changeSelectionOfPaymentType()" type="checkbox" class="form-checkbox h-5 w-5 text-red-600">
                 <span><img class="w-16 h-6" src="../../../assets/card.svg" alt="creditcard"></span>
-                <span class="ml-2 text-gray-700 font-medium">Оплата карткою</span>
+                <span class="ml-2 text-gray-700 font-medium mob-title-delivery">Оплата карткою</span>
               </div>
             </form>
           </div>
@@ -514,15 +516,15 @@
               <table class="table-auto scroll">
                 <thead>
                   <tr>
-                    <th class="pr-4 py-2 w-full font-semibold">Товарна позиція</th>
-                    <th class="pr-6 py-2 w-1/4 font-semibold">Кількість</th>
-                    <th class="pr-4 py-2 w-1/4 font-semibold">Ціна</th>
+                    <th class="pr-4 py-2 w-full font-semibold mob-table-title">Товарна позиція</th>
+                    <th class="pr-6 py-2 w-1/4 font-semibold mob-table-title">Кількість</th>
+                    <th class="pr-4 py-2 w-1/4 font-semibold mob-table-title">Ціна</th>
                   </tr>
                 </thead>
                 <tbody class="h-container w-full overflow-y-scroll">
                   <tr *ngFor="let care of item.drops">
                     <td class="border-b pr-4 py-2 item-color text-left w-3/5">
-                      <span class="product-basket-name text-sm font-medium">{{care.name}}</span>
+                      <span class="product-basket-name text-sm font-medium mob-item-name">{{care.name}}</span>
                       <div class="checkout-basket-product-info-params">Об'єм:: <b>{{care.cvalue}} ml</b></div>
                     </td>
                     <td class="border-b pr-4 py-2 text-center">{{care.quantity}}</td>
@@ -530,7 +532,7 @@
                   </tr>
                   <tr *ngFor="let lens of item.lenses">
                     <td class="border-b pr-4 py-2 item-color text-left w-3/5">
-                      <span class="product-basket-name text-sm font-medium">{{lens.name}}</span>
+                      <span class="product-basket-name text-sm font-medium mob-item-name">{{lens.name}}</span>
                       <div class="checkout-basket-product-info-params">Діоптрії:: <b>{{lens.diopters}}</b></div>
                       <div *ngIf="lens.hasCylinder" class="checkout-basket-product-info-params">Циліндр:: <b>{{lens.cylinder}}</b></div>
                       <div *ngIf="lens.hasAxis" class="checkout-basket-product-info-params">Вісь:: <b>{{lens.axis}}</b></div>
@@ -542,7 +544,7 @@
                   </tr>
                   <tr *ngFor="let offer of item.offers">
                     <td class="border-b pr-4 py-2 item-color text-left w-3/5">
-                      <span class="product-basket-name text-sm font-medium">{{offer.name}}</span>
+                      <span class="product-basket-name text-sm font-medium mob-item-name">{{offer.name}}</span>
                       <div class="checkout-basket-product-info-params">Діоптрії:: <b>{{offer.diopters}}</b></div>
                       <div *ngIf="offer.hasCylinder" class="checkout-basket-product-info-params">Циліндр:: <b>{{offer.cylinder}}</b></div>
                       <div *ngIf="offer.hasAxis" class="checkout-basket-product-info-params">Вісь:: <b>{{offer.axis}}</b></div>
@@ -554,7 +556,7 @@
                   </tr>
                   <tr  *ngFor="let solution of item.solutions">
                     <td class="border-b pr-4 py-2 item-color text-left w-3/5">
-                      <span class="product-basket-name text-sm font-medium">{{solution.name}}</span>
+                      <span class="product-basket-name text-sm font-medium mob-item-name">{{solution.name}}</span>
                       <div class="checkout-basket-product-info-params">Об'єм:: <b>{{solution.solutionValue}} ml</b></div>
                     </td>
                     <td class="border-b pr-4 py-2 text-center w-1/4">{{solution.quantity}}</td>
@@ -568,18 +570,18 @@
                 </tbody>
                 <tbody class="checkout-basket-prices">
                   <tr class="flex flex-row justify-between">
-                    <th class="text-left pt-2">Сплачуєте при отриманні</th>
-                    <th class="checkout-basket-price price-line pt-2">{{priceToPayAfterDelivery}} грн.</th>
+                    <th class="text-left pt-2 mob-title-payment-heading">Сплачуєте при отриманні</th>
+                    <th class="checkout-basket-price price-line pt-2 mob-title-payment">{{priceToPayAfterDelivery}} грн.</th>
                   </tr>
                   <tr class="flex flex-row justify-between">
-                    <th class="text-left pb-2">Сплачуєте зараз</th>
-                    <th class="checkout-basket-price price-line pb-2">{{priceToPayNow}} грн.</th>
+                    <th class="text-left pb-2 mob-title-payment-heading">Сплачуєте зараз</th>
+                    <th class="checkout-basket-price price-line pb-2 mob-title-payment">{{priceToPayNow}} грн.</th>
                   </tr>
                 </tbody>
                 <tbody>
                   <tr>
                     <th colspan="3">
-                      <span class="flex flex-row text-2xl justify-center mx-auto py-5">Загальна вартість <span
+                      <span class="flex flex-row text-2xl justify-center mx-auto py-5 mob-title-payment-total mob-title-payment-total-heading">Загальна вартість <span
                         class="text-red-500 pl-4">{{totalPrice}} грн.</span></span>
                     </th>
                   </tr>
@@ -665,8 +667,8 @@
               Інформація про доставку
             </h3>
             <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 px-4 py-2 mt-1" role="alert">
-              <p class="font-bold">Зверніть увагу</p>
-              <p class="text-sm">Ви не є авторизованим користувачем! Для отримання можливості слідкувати за статусом замовлення та іншим рекомендуємо <a routerLink="/register">зареєструватись</a> на сайті!</p>
+              <p class="font-bold banner-mob-heading">Зверніть увагу</p>
+              <p class="text-sm banner-mob">Ви не є авторизованим користувачем! Для отримання можливості слідкувати за статусом замовлення та іншим рекомендуємо <a routerLink="/register">зареєструватись</a> на сайті!</p>
             </div>
           </div>
           <div>
@@ -675,10 +677,15 @@
                 <dt class="text-sm leading-5 font-medium text-gray-500">
                   Повне ім'я
                 </dt>
-                <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-1 flex flex-row">
-                  <input formControlName="userFirstName" class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="firstName" type="text" placeholder="Ваше ім'я">
-                  <input formControlName="userLastName" class="shadow-sm appearance-none border rounded w-full py-2 px-3 ml-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="lastName" type="text" placeholder="Ваше прізвище">
-                </dd>
+                <div class="flex flex-col">
+                  <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-1 flex flex-row">
+                    <input formControlName="userLastName" class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="lastName" type="text" placeholder="Ваше прізвище">
+                    <input formControlName="userFirstName" class="shadow-sm appearance-none border rounded w-full py-2 px-3 ml-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  id="firstName" type="text" placeholder="Ваше ім'я">
+                  </dd>
+                  <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-1 pt-3">
+                    <input formControlName="patronymic" class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="patronymic" type="text" placeholder="По батькові">
+                  </dd>
+                </div>
               </div>
               <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-sm leading-5 font-medium text-gray-500">
@@ -748,7 +755,7 @@
     <div *ngIf="cartItems && orderStep === 0" class="flex justify-end my-4">
       <span class="md:text-xl">Загальна вартість: <span class="text-red-500 font-bold">{{totalPrice}} грн</span></span>
     </div>
-    <div class="flex justify-between btn-mob-wrapper">
+    <div class="flex justify-between">
       <div [ngClass]="{'mx-auto mt-10': !cartItems}">
         <button
           class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded btn-mob"

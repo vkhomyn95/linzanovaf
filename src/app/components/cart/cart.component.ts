@@ -51,6 +51,7 @@ export class CartComponent implements OnInit, OnDestroy {
     this.userDataForm = new FormGroup({
       userFirstName: new FormControl('', [Validators.required]),
       userLastName: new FormControl('', [Validators.required]),
+      patronymic: new FormControl('', [Validators.required]),
       userPhone: new FormControl('', [Validators.required]),
       userEmail: new FormControl('', [Validators.required]),
       userCity: new FormControl('', [Validators.required]),
@@ -489,15 +490,34 @@ export class CartComponent implements OnInit, OnDestroy {
             user: this.authUserData.id
           };
         }else {
+          let deliveryType;
+          let paymentType;
+          if (this.deliveryForm.controls.novaPoshta.value === true){
+            deliveryType = 'np';
+          }else{
+            deliveryType = 'ukr';
+          }
+          if (this.deliveryForm.controls.inPost.value === true){
+            paymentType = 'inPost';
+          }else if (this.deliveryForm.controls.byCardPay.value === true){
+            paymentType = 'byCardPay';
+          }
           order = {
             createdAt: '2020-09-01 12:18:51',
             totalSumm: this.totalPrice,
             lastName: this.userDataForm.controls.userFirstName.value,
             firstName: this.userDataForm.controls.userLastName.value,
+            patronymic: this.userDataForm.controls.patronymic.value,
             phone: this.userDataForm.controls.userPhone.value,
+            email: this.userDataForm.controls.userEmail.value,
             delivery: {
               cityName: this.userDataForm.controls.userCity.value,
               warehouseNumber: this.userDataForm.controls.userWarehouseNumber.value,
+              postIndex: this.userDataForm.controls.userPostIndex.value,
+              deliveryType: deliveryType.toString(),
+              paymentType: paymentType.toString(),
+              description: this.userDataForm.controls.aboutWarehouse.value,
+              customerComment: this.userDataForm.controls.customerComment.value,
             },
             items: this.itemsToSend,
           };
