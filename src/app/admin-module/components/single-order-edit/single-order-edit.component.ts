@@ -47,6 +47,7 @@ export class SingleOrderEditComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(orderId => {
       this.cabinetService.getOrder(orderId.id).subscribe(value => {
+        console.log(value);
         this.properties = value.properties.split('\n');
         this.properties.splice(-1, 1);
         for (const param of Object.keys(this.updateForm.controls)) {

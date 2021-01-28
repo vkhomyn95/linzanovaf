@@ -38,6 +38,7 @@ export class CartComponent implements OnInit, OnDestroy {
   userDataForm: FormGroup;  authUserDataForm;
   deliveryForm: FormGroup;
   dialogRef: MatDialogRef<CartDialogSuccessComponent>;
+  isBannerVisible = true;
 
 
   constructor(private cartObjectService: CartObjectService,
@@ -510,14 +511,14 @@ export class CartComponent implements OnInit, OnDestroy {
             patronymic: this.userDataForm.controls.patronymic.value,
             phone: this.userDataForm.controls.userPhone.value,
             email: this.userDataForm.controls.userEmail.value,
+            customerComment: this.userDataForm.controls.customerComment.value,
             delivery: {
               cityName: this.userDataForm.controls.userCity.value,
               warehouseNumber: this.userDataForm.controls.userWarehouseNumber.value,
               postIndex: this.userDataForm.controls.userPostIndex.value,
               deliveryType: deliveryType.toString(),
               paymentType: paymentType.toString(),
-              description: this.userDataForm.controls.aboutWarehouse.value,
-              customerComment: this.userDataForm.controls.customerComment.value,
+              description: this.userDataForm.controls.aboutWarehouse.value
             },
             items: this.itemsToSend,
           };
@@ -556,5 +557,9 @@ export class CartComponent implements OnInit, OnDestroy {
       console.log(400);
     }
     return Promise.reject(error);
+  }
+
+  hideBanner(): void {
+    this.isBannerVisible = false;
   }
 }

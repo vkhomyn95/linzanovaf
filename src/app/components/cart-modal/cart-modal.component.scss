@@ -95,6 +95,10 @@
 .relative-pos {
   position: relative!important;
 }
+.cart-modal-box-main {
+  height: 70vh;
+  overflow-y: scroll;
+}
 @media (min-width: 768px) {
   .header-resp-mob{
     display: none;
@@ -117,5 +121,17 @@
   }
   .mob-img {
     display: none;
+  }
+}
+@media screen and (max-height: 800px){
+  .cart-modal-box-main {
+    max-height: 60vh;
+    overflow-y: scroll;
+  }
+}
+@media screen and (max-height: 630px){
+  .cart-modal-box-main {
+    max-height: 50vh;
+    overflow-y: scroll;
   }
 }

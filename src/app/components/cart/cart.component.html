@@ -666,8 +666,15 @@
             <h3 class="text-lg leading-6 font-medium text-gray-900">
               Інформація про доставку
             </h3>
-            <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 px-4 py-2 mt-1" role="alert">
-              <p class="font-bold banner-mob-heading">Зверніть увагу</p>
+            <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 px-4 py-2 mt-1" role="alert" *ngIf="isBannerVisible">
+              <div class="flex flex-row justify-between">
+                <p class="font-bold banner">Увага!</p>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-red-500 w-5 h-5" (click)="hideBanner()">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </span>
+              </div>
               <p class="text-sm banner-mob">Ви не є авторизованим користувачем! Для отримання можливості слідкувати за статусом замовлення та іншим рекомендуємо <a routerLink="/register">зареєструватись</a> на сайті!</p>
             </div>
           </div>

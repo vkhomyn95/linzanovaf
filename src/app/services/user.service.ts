@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {User} from '../models/user/User';
-import {map} from 'rxjs/operators';
-import {log} from 'util';
 
 @Injectable({
   providedIn: 'root'

@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./warning-banner.component.scss']
 })
 export class WarningBannerComponent implements OnInit {
+  isBannerVisible = true;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  hideBanner(): void {
+    this.isBannerVisible = false;
+  }
 }

@@ -1,6 +1,13 @@
-<div class="bg-orange-100 border-t border-b border-orange-500 text-orange-700 px-4 py-3" role="alert">
-  <p class="font-bold banner">Увага!</p>
-  <p class="font-bold hidden banner-mob text-sm">Увага!</p>
-  <p class="text-sm banner">У зв'язку із вжитими владою заходоми можуть виникнути значні затримки із доставкою на кордоні! Радимо робити замовлення заздалегідь!</p>
-  <p class="text-xs hidden banner-mob">У зв'язку із COVID-19 можуть виникнути затримки із доставкою на кордоні!</p>
+<div class="bg-orange-100 border-t border-b border-orange-500 text-orange-700 px-4 py-3" role="alert" *ngIf="isBannerVisible">
+  <div class="flex flex-row justify-between">
+    <p class="font-bold">Увага!</p>
+    <span>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-red-500 w-5 h-5" (click)="hideBanner()">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </span>
+  </div>
+
+    <p class="text-sm banner">У зв'язку із вжитими владою заходоми можуть виникнути значні затримки із доставкою на кордоні! Радимо робити замовлення заздалегідь!</p>
+    <p class="text-xs hidden banner-mob">У зв'язку із COVID-19 можуть виникнути затримки із доставкою на кордоні!</p>
 </div>

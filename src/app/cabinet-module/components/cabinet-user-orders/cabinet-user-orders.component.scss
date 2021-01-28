@@ -1,0 +1,34 @@
+.pagination-block {
+  border: 1px solid #e2e8f0;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+@media (min-width: 640px) {
+  table {
+    display: inline-table !important;
+  }
+
+  thead tr:not(:first-child) {
+    display: none;
+  }
+}
+@media screen and (max-width: 760px){
+  .mob-wrap {
+    white-space: pre-wrap;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .mob-svg {
+    height: 1.63rem!important;
+  }
+}
+
+td:not(:last-child) {
+  border-bottom: 0;
+}
+
+th:not(:last-child) {
+  border-bottom: 2px solid rgba(0, 0, 0, .1);
+}
+

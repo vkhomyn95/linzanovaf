@@ -4,6 +4,7 @@ import {UserService} from '../../services/user.service';
 import {LoginUser} from '../../models/user/User';
 import {Router} from '@angular/router';
 import {TokenStorageService} from '../../services/token-storage.service';
+import {SetLoginService} from '../../services/components-data/set-login.service';
 
 @Component({
   selector: 'app-login',
@@ -13,12 +14,13 @@ import {TokenStorageService} from '../../services/token-storage.service';
 export class LoginComponent implements OnInit {
   authForm: FormGroup;
   isLoggedIn = false;
-  roles: string[] = [];
-  invalidLogin = false; listErrors: string[] = ['Перевірте правельність введення даних'];
+  invalidLogin = false;
+  listErrors: string[] = ['Перевірте правельність введення даних'];
 
   constructor(private userService: UserService,
               private router: Router,
-              private tokenStorageService: TokenStorageService) {
+              private tokenStorageService: TokenStorageService,
+              private setLoginService: SetLoginService) {
     this.authForm = new FormGroup({
       username: new FormControl(''),
       password: new FormControl('')
@@ -39,6 +41,7 @@ export class LoginComponent implements OnInit {
           this.invalidLogin = false;
           this.tokenStorageService.saveToken(data.token);
           this.isLoggedIn = true;
+          this.setLoginService.sendMessage(true);
           return this.router.navigate(['cabinet']);
         }
       },
@@ -47,7 +50,5 @@ export class LoginComponent implements OnInit {
       }
     ));
   }
-  reloadPage(): void {
-    window.location.reload();
-  }
 }
+

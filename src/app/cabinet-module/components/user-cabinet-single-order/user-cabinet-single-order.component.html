@@ -1,4 +1,4 @@
-<section class="2xl:w-9/12 2xl:mx-auto xl:w-9/12 xl:mx-auto xl:w-9/12 xl:mx-auto lg:w-9/12 lg:mx-auto md:w-10/12 md:mx-auto py-8 pt-10">
+<section class="2xl:w-9/12 2xl:mx-auto xl:w-9/12 xl:mx-auto xl:w-9/12 xl:mx-auto lg:w-9/12 lg:mx-auto md:w-10/12 md:mx-auto py-8 pt-mob pt-10 mob-block-p">
   <div class="bg-white shadow overflow-hidden sm:rounded-lg" *ngIf="loader">
     <div class="px-4 py-5 sm:px-6 flex flex-col">
       <ngx-skeleton-loader [theme]="{'margin-bottom': '0px', 'width':'25%'}"></ngx-skeleton-loader>
@@ -90,10 +90,10 @@
       <dl>
         <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
           <dt class="text-sm font-medium text-gray-500">
-            Full name
+            Ім'я
           </dt>
           <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-            {{currentOrder.lastName}} {{currentOrder.firstName}} {{currentOrder?.patronymic}}
+            {{currentOrder.firstName}} {{currentOrder.lastName}} {{currentOrder?.patronymic}}
           </dd>
         </div>
         <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -114,7 +114,7 @@
         </div>
         <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
           <dt class="text-sm font-medium text-gray-500">
-            Email address
+            Email
           </dt>
           <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
             {{currentOrder.userEmail}}
@@ -141,13 +141,13 @@
             Адреса
           </dt>
           <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-            <div class="flex flex-col" *ngIf="currentOrder.delivery.deliveryType && currentOrder.delivery.deliveryType === '0'">
-              <span><span class="italic">Відділення:</span> <span class="font-medium"> {{currentOrder.delivery.cityName}}</span></span>
-              <span><span class="italic">Деталі адреси:</span> <span class="font-medium"> {{currentOrder.delivery.description}}</span></span>
-              <span><span class="italic">Номер відділення:</span> <span class="font-medium"> №{{currentOrder.delivery.warehouseNumber}}</span></span>
+            <div class="flex flex-col" *ngIf="currentOrder.delivery.deliveryType && currentOrder.delivery.deliveryType === 'np'">
+              <span><span class="italic">Відділення:</span> <span class="font-medium mob-text"> {{currentOrder.delivery.cityName}}</span></span>
+              <span><span class="italic">Деталі адреси:</span> <span class="font-medium mob-text"> {{currentOrder.delivery.description}}</span></span>
+              <span><span class="italic">Номер відділення:</span> <span class="font-medium mob-text"> №{{currentOrder.delivery.warehouseNumber}}</span></span>
             </div>
-            <div class="flex flex-col" *ngIf="currentOrder.delivery.deliveryType && currentOrder.delivery.deliveryType === '1'">
-              <span><span class="italic">Поштовий індекс:</span> <span class="font-medium"> {{currentOrder.delivery.postIndex}}</span></span>
+            <div class="flex flex-col" *ngIf="currentOrder.delivery.deliveryType && currentOrder.delivery.deliveryType === 'ukr'">
+              <span><span class="italic">Поштовий індекс:</span> <span class="font-medium mob-text"> {{currentOrder.delivery.postIndex}}</span></span>
             </div>
           </dd>
         </div>
@@ -159,7 +159,7 @@
             <div class="py-3 text-sm">
               <div *ngFor="let prop of properties" class="flex justify-start items-center cursor-pointer text-gray-700 hover:text-blue-400 hover:bg-blue-100 rounded-md pl-0 px-2 py-2 my-2">
                 <span class="bg-gray-400 h-2 w-2 m-2 rounded-full"></span>
-                <div class="flex-grow font-medium px-2">{{prop}}</div>
+                <div class="flex-grow font-medium px-2 mob-text">{{prop}}</div>
               </div>
             </div>
           </dd>
