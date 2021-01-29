@@ -54,7 +54,6 @@ export class CartModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(window.location.host);
     this.href = '/cart';
   }
 

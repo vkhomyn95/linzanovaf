@@ -127,7 +127,7 @@
                  src="https://dummyimage.com/720x600">
             <div class="flex items-center hidden flex-col delete-block-mob dlt-bl">
               <span>
-                <svg (click)="deleteLenseFromList(lense)" class="w-8 h-8 delete-button" fill="none" stroke="currentColor"
+                <svg (click)="deleteLenseFromList(i)" class="w-8 h-8 delete-button" fill="none" stroke="currentColor"
                      viewBox="0 0 24 24"
                      xmlns="http://www.w3.org/2000/svg">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -144,7 +144,7 @@
               <div class="flex flex-col pr-2 mob-param-block">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 title-mob-param">Кількість:</label>
                 <div class="relative">
-                  <select (change)="changeLensesQuantity(item, $event, i)"
+                  <select (change)="changeLensesQuantity(item.lenses[i], $event)"
                     class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                     <option *ngFor="let quantity of lenseQuantity" [selected]="lense.quantity === quantity.value" [value]="quantity.value">{{quantity.value}}</option>
                   </select>
@@ -158,7 +158,7 @@
               <div class="flex flex-col pr-2 mob-param-block">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 title-mob-param">Діоптрії:</label>
                 <div class="relative">
-                  <select (change)="changeDiopters(item, $event, i)"
+                  <select (change)="changeDiopters(item.lenses[i], $event)"
                           class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                     <option value="Вибрати">Вибрати</option>
                     <option *ngFor="let diopters of lenseDiopters" [selected]="lense.diopters === diopters.value" [value]="diopters.value">{{diopters.value}}</option>
@@ -175,7 +175,7 @@
               <div class="flex flex-col pr-2 mob-param-block" *ngIf="lense.hasCylinder">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 title-mob-param">Циліндр:</label>
                 <div class="relative">
-                  <select (change)="changeLensCylinder(item, $event, i)"
+                  <select (change)="changeLensCylinder(item.lenses[i], $event)"
                           class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                     <option value="Вибрати">Вибрати</option>
                     <option *ngFor="let cylinder of lensCylinder" [selected]="cylinder.value === lense.cylinder"  [value]="cylinder.value">{{cylinder.value}}</option>
@@ -192,7 +192,7 @@
               <div class="flex flex-col pr-2 mob-param-block" *ngIf="lense.hasAxis">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 title-mob-param">Вісь:</label>
                 <div class="relative">
-                  <select (change)="changeLensAxis(item, $event, i)"
+                  <select (change)="changeLensAxis(item.lenses[i], $event)"
                           class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                     <option value="Вибрати">Вибрати</option>
                     <option *ngFor="let axis of lensAxis" [selected]="lense.axis === axis.value"  [value]="axis.value">{{axis.value}}</option>
@@ -219,7 +219,7 @@
                   </div>
                 </div>
                 <div class="relative" *ngIf="!lense.hasDefaultBC">
-                  <select (change)="changeLensBc(item, $event, i)"
+                  <select (change)="changeLensBc(item.lenses[i], $event)"
                     class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                     <option value="Вибрати">Вибрати</option>
                     <option *ngFor="let bc of lensBC" [selected]="lense.defaultBC == bc.value" [value]="bc.value">{{bc.value}}</option>
@@ -250,7 +250,7 @@
           </div>
           <div class="flex items-center flex-col delete-block">
             <span>
-              <svg (click)="deleteLenseFromList(lense)" class="w-8 h-8 delete-button" fill="none" stroke="currentColor"
+              <svg (click)="deleteLenseFromList(i)" class="w-8 h-8 delete-button" fill="none" stroke="currentColor"
                    viewBox="0 0 24 24"
                    xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -263,7 +263,7 @@
 
         <h2 *ngIf="item.offers.length !== 0"
             class="text-lg text-gray-900 font-medium title-font mb-4 mx-auto flex justify-center title-mob-heading"><span class="border-b">Вигідні пропозиції</span></h2>
-        <div class="flex flex-row mob-items-container" *ngFor="let offer of item.offers">
+        <div class="flex flex-row mob-items-container" *ngFor="let offer of item.offers; let i = index">
           <h1 class="text-xl font-medium title-font mb-4 text-gray-900 title-mob hidden delete-block-mob">{{offer.name}}</h1>
           <img class="xl:w-32 lg:w-1/5 md:w-1/2 w-2/3 block mx-auto mb-10 object-cover object-center rounded mob-img delete-block" alt="hero"
                src="https://dummyimage.com/720x600">
@@ -273,7 +273,7 @@
                  src="https://dummyimage.com/720x600">
             <div class="flex items-center hidden flex-col delete-block-mob dlt-bl">
               <span>
-                <svg (click)="deleteOfferFromList(offer)" class="w-8 h-8 delete-button" fill="none" stroke="currentColor"
+                <svg (click)="deleteOfferFromList(i)" class="w-8 h-8 delete-button" fill="none" stroke="currentColor"
                      viewBox="0 0 24 24"
                      xmlns="http://www.w3.org/2000/svg">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -291,7 +291,7 @@
               <div class="flex flex-col pr-2 mob-param-block">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 title-mob-param">Діоптрії:</label>
                 <div class="relative">
-                  <select (change)="changeOfferDiopters(item, $event, offer.id)"
+                  <select (change)="changeOfferDiopters(item.offers[i], $event)"
                           class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                     <option value="Вибрати">Вибрати</option>
                     <option *ngFor="let diopters of lenseDiopters" [selected]="offer.diopters === diopters.value" [value]="diopters.value">{{diopters.value}}</option>
@@ -308,7 +308,7 @@
               <div class="flex flex-col pr-2 mob-param-block" *ngIf="offer.hasCylinder">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 title-mob-param">Циліндр:</label>
                 <div class="relative">
-                  <select (change)="changeOfferCylinder(item, $event, offer.id)"
+                  <select (change)="changeOfferCylinder(item.offers[i], $event)"
                           class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                     <option value="Вибрати">Вибрати</option>
                     <option *ngFor="let cylinder of lensCylinder" [selected]="cylinder.value === offer.cylinder"  [value]="cylinder.value">{{cylinder.value}}</option>
@@ -325,7 +325,7 @@
               <div class="flex flex-col pr-2 mob-param-block" *ngIf="offer.hasAxis">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 title-mob-param">Вісь:</label>
                 <div class="relative">
-                  <select (change)="changeOfferAxis(item, $event, offer.id)"
+                  <select (change)="changeOfferAxis(item.offers[i], $event)"
                           class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                     <option value="Вибрати">Вибрати</option>
                     <option *ngFor="let axis of lensAxis" [selected]="offer.axis === axis.value"  [value]="axis.value">{{axis.value}}</option>
@@ -352,7 +352,7 @@
                   </div>
                 </div>
                 <div class="relative" *ngIf="!offer.hasDefaultBC">
-                  <select (change)="changeOfferBc(item, $event, offer.id)"
+                  <select (change)="changeOfferBc(item.offers[i], $event)"
                           class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                     <option value="Вибрати">Вибрати</option>
                     <option *ngFor="let bc of lensBC" [selected]="offer.defaultBC == bc.value" [value]="bc.value">{{bc.value}}</option>
@@ -384,7 +384,7 @@
 
           <div class="flex items-center flex-col delete-block">
             <span>
-              <svg (click)="deleteOfferFromList(offer)" class="w-8 h-8 delete-button" fill="none" stroke="currentColor"
+              <svg (click)="deleteOfferFromList(i)" class="w-8 h-8 delete-button" fill="none" stroke="currentColor"
                    viewBox="0 0 24 24"
                    xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -397,7 +397,7 @@
 
         <h2 *ngIf="item.solutions.length !== 0"
             class="text-lg text-gray-900 font-medium title-font mb-4 mx-auto flex justify-center title-mob-heading"><span class="border-b">Розчини</span></h2>
-        <div class="flex flex-row mob-items-container" *ngFor="let solution of item.solutions">
+        <div class="flex flex-row mob-items-container" *ngFor="let solution of item.solutions; let i = index">
           <h1 class="text-xl font-medium title-font mb-4 text-gray-900 title-mob hidden delete-block-mob">{{solution.name}}</h1>
           <img class="xl:w-32 lg:w-1/5 md:w-1/2 w-2/3 block mx-auto mb-10 object-cover object-center rounded mob-img delete-block" alt="hero"
                src="https://dummyimage.com/720x600">
@@ -407,7 +407,7 @@
                  src="https://dummyimage.com/720x600">
             <div class="flex items-center hidden flex-col delete-block-mob dlt-bl">
               <span>
-                <svg (click)="deleteSolutionFromList(solution)" class="w-8 h-8 delete-button" fill="none" stroke="currentColor"
+                <svg (click)="deleteSolutionFromList(i)" class="w-8 h-8 delete-button" fill="none" stroke="currentColor"
                      viewBox="0 0 24 24"
                      xmlns="http://www.w3.org/2000/svg">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -425,7 +425,7 @@
               <div class="flex flex-col pr-2 mob-param-block">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 title-mob-param">Кількість:</label>
                 <div class="relative">
-                  <select (change)="changeSolutionQuantity(item, $event, solution.id)"
+                  <select (change)="changeSolutionQuantity(item.solutions[i], $event)"
                           class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                     <option *ngFor="let quantity of lenseQuantity" [selected]="solution.quantity === quantity.value" [value]="quantity.value">{{quantity.value}}</option>
                   </select>
@@ -455,7 +455,7 @@
 
           <div class="flex items-center flex-col delete-block">
             <span>
-              <svg (click)="deleteSolutionFromList(solution)" class="w-8 h-8 delete-button" fill="none" stroke="currentColor"
+              <svg (click)="deleteSolutionFromList(i)" class="w-8 h-8 delete-button" fill="none" stroke="currentColor"
                    viewBox="0 0 24 24"
                    xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -476,7 +476,7 @@
             <form class="flex flex-col" [formGroup]="deliveryForm">
               <div class="flex flex-row items-center pb-6 mb-d">
                 <label class="inline-flex items-center mt-3">
-                  <input formControlName="novaPoshta" type="checkbox" (click)="changeSelectionOfDeliveryType()" class="form-checkbox h-5 w-5 text-red-600 mr-2 ">
+                  <input formControlName="novaPoshta" type="checkbox" (click)="changeSelectionOfDeliveryType(0)" class="form-checkbox h-5 w-5 text-red-600 mr-2 ">
                   <span><img class="w-16 h-6 mob-delivery-img" src="../../../assets/nova-poshta-logo.png" alt="novaposhta"></span>
                   <span class="ml-2 text-gray-700 font-medium pr-4 mob-title-delivery">У відділення Нової пошти</span>
                   <span class="text-sm flex items-center text-green-400 mob-title-delivery-date mob-date-none">(3-5 робочих днів по прибуттю в Україну)</span>
@@ -485,7 +485,7 @@
               </div>
               <div class="flex flex-row pb-10 mb-d mb-fix">
                 <label class="inline-flex items-center mt-3">
-                  <input formControlName="ukrPoshta" (click)="changeSelectionOfDeliveryType()" type="checkbox" class="form-checkbox h-5 w-5 text-orange-600 mr-2" >
+                  <input formControlName="ukrPoshta" (click)="changeSelectionOfDeliveryType(1)" type="checkbox" class="form-checkbox h-5 w-5 text-orange-600 mr-2" >
                   <span><img class="w-20 h-6 mob-delivery-img" src="../../../assets/ukposhta-logo.png" alt="ukrposhta"></span>
                   <span class="ml-2 text-gray-700 font-medium pr-4 mob-title-delivery">У відділення Укрпошти</span>
                   <span class="text-sm text-green-400 mob-title-delivery-date mob-date-none">(3-5 робочих днів по прибуттю в Україну)</span>
@@ -497,12 +497,12 @@
               </div>
               <span class="deliveries-header hr-line pt-4 font-sans">Оберіть спосіб оплати замовлення</span>
               <div class="flex flex-row items-center pb-6">
-                <input formControlName="inPost" (click)="changeSelectionOfPaymentType()" type="checkbox" class="form-checkbox h-5 w-5 text-red-600">
+                <input formControlName="inPost" (click)="changeSelectionOfPaymentType(0)" type="checkbox" class="form-checkbox h-5 w-5 text-red-600">
                 <span><img class="w-16 h-6" src="../../../assets/wallet.svg" alt="wallet"></span>
                 <span class="ml-2 text-gray-700 font-medium mob-title-delivery">Оплата при отрманні</span>
               </div>
               <div class="flex flex-row items-center pb-6">
-                <input formControlName="byCardPay" (click)="changeSelectionOfPaymentType()" type="checkbox" class="form-checkbox h-5 w-5 text-red-600">
+                <input formControlName="byCardPay" (click)="changeSelectionOfPaymentType(1)" type="checkbox" class="form-checkbox h-5 w-5 text-red-600">
                 <span><img class="w-16 h-6" src="../../../assets/card.svg" alt="creditcard"></span>
                 <span class="ml-2 text-gray-700 font-medium mob-title-delivery">Оплата карткою</span>
               </div>
@@ -587,8 +587,6 @@
                   </tr>
                 </tbody>
               </table>
-
-
             </div>
           </div>
         </div>
@@ -609,10 +607,10 @@
             <dl>
               <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-sm leading-5 font-medium text-gray-500">
-                  Full name
+                  Повне ім'я
                 </dt>
                 <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                  {{authUserData?.firstName}} {{authUserData?.lastName}}
+                  {{authUserData?.lastName}} {{authUserData?.firstName}} {{authUserData?.patronymic}}
                 </dd>
               </div>
               <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -635,16 +633,21 @@
                 <dt class="text-sm leading-5 font-medium text-gray-500">
                   Поштовий індекс
                 </dt>
-                <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-1 sm:col-span-2 relative w-1/2">
-                  {{authUserData?.postIndex}}
+                <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-1 sm:col-span-1 relative w-1/2">
+                  <span class="font-bold">{{authUserData.postIndex ? authUserData.postIndex : 'Добавте в особистому кабінеті'}}</span>
                 </dd>
+                <span class="mt-1 pr-4 text-sm leading-5 text-indigo-600 sm:mt-0 sm:col-span-1 text-right hover:text-indigo-500 transition duration-150 ease-in-out" (click)="toUpdateUserNPDeliveryAddress()">Update</span>
               </div>
-              <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6" *ngIf="deliveryForm.controls.novaPoshta.value === true">
                 <dt class="text-sm leading-5 font-medium text-gray-500">
-                  About
+                  Адреса
                 </dt>
                 <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-1">
-                  {{authUserData?.location}}, {{authUserData?.warehouse}}, відділення № {{authUserData?.number}}
+                  <div class="flex flex-col">
+                    <span class="italic">{{authUserData.location ? authUserData.location : 'Добавте в особистому кабінеті'}}</span>
+                    <span class="italic">{{authUserData.warehouse ? authUserData.warehouse : 'Добавте в особистому кабінеті'}}</span>
+                    <span class="font-bold">відділення № {{authUserData.number ? authUserData.number : 'Добавте в особистому кабінеті'}}</span>
+                  </div>
                 </dd>
                 <span class="mt-1 pr-4 text-sm leading-5 text-indigo-600 sm:mt-0 sm:col-span-1 text-right hover:text-indigo-500 transition duration-150 ease-in-out" (click)="toUpdateUserNPDeliveryAddress()">Update</span>
               </div>
