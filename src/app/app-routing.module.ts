@@ -63,7 +63,7 @@ const routes: Routes = [
     path: 'register', component: RegisterComponent
   },
   {
-    path: 'cart', component: CartComponent
+    path: 'cart', component: CartComponent,
   },
   {
     path: 'steps', component: InfoStepsComponent

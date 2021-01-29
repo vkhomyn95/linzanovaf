@@ -42,7 +42,7 @@
       <div class="wrapper-box" *ngFor="let item of cartItems">
         <h2 *ngIf="item.drops.length !== 0"
             class="text-lg text-gray-900 font-medium title-font mb-4 mx-auto flex justify-center title-mob-heading"><span class="border-b">Догляд за очима</span></h2>
-        <div class="flex flex-row mob-items-container" *ngFor="let care of item.drops">
+        <div class="flex flex-row mob-items-container" *ngFor="let care of item.drops; let i = index">
           <h1 class="text-xl font-medium title-font mb-3 text-gray-900 hidden delete-block-mob title-mob">{{care.name}}</h1>
 
           <img class="xl:w-32 lg:w-1/5 md:w-1/2 w-2/3 block mx-auto mb-10 object-cover object-center rounded mob-img delete-block" alt="hero"
@@ -53,7 +53,7 @@
                  src="https://dummyimage.com/720x600">
             <div class="flex items-center hidden flex-col delete-block-mob dlt-bl">
               <span>
-                <svg (click)="deleteCareFromList(care)" class="w-8 h-8 delete-button" fill="none" stroke="currentColor"
+                <svg (click)="deleteCareFromList(i)" class="w-8 h-8 delete-button" fill="none" stroke="currentColor"
                      viewBox="0 0 24 24"
                      xmlns="http://www.w3.org/2000/svg">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -73,7 +73,7 @@
                   Кількість:
                 </label>
                 <div class="relative">
-                  <select (change)="changeDropsQuantity(item, $event, care.id)"
+                  <select (change)="changeDropsQuantity(item.drops[i], $event)"
                           class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                     <option *ngFor="let quantity of lenseQuantity" [selected]="care.quantity === quantity.value"  [value]="quantity.value">{{quantity.value}}</option>
                   </select>
@@ -105,7 +105,7 @@
           </div>
           <div class="flex items-center flex-col delete-block">
             <span>
-              <svg (click)="deleteCareFromList(care)" class="w-8 h-8 delete-button" fill="none" stroke="currentColor"
+              <svg (click)="deleteCareFromList(i)" class="w-8 h-8 delete-button" fill="none" stroke="currentColor"
                    viewBox="0 0 24 24"
                    xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -117,7 +117,7 @@
         </div>
         <h2 *ngIf="item.lenses.length !== 0"
             class="text-lg text-gray-900 font-medium title-font mb-4 mx-auto flex justify-center title-mob-heading"><span class="border-b">Контактні лінзи</span></h2>
-        <div class="flex flex-row mob-items-container" *ngFor="let lense of item.lenses">
+        <div class="flex flex-row mob-items-container" *ngFor="let lense of item.lenses; let i = index">
           <h1 class="text-xl font-medium title-font mb-4 text-gray-900 title-mob hidden delete-block-mob">{{lense.name}}</h1>
           <img class="xl:w-32 lg:w-1/5 md:w-1/2 w-2/3 block mx-auto mb-10 object-cover object-center rounded mob-img delete-block" alt="hero"
                src="https://dummyimage.com/720x600">
@@ -144,7 +144,7 @@
               <div class="flex flex-col pr-2 mob-param-block">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 title-mob-param">Кількість:</label>
                 <div class="relative">
-                  <select (change)="changeLensesQuantity(item, $event, lense.id)"
+                  <select (change)="changeLensesQuantity(item, $event, i)"
                     class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                     <option *ngFor="let quantity of lenseQuantity" [selected]="lense.quantity === quantity.value" [value]="quantity.value">{{quantity.value}}</option>
                   </select>
@@ -158,7 +158,7 @@
               <div class="flex flex-col pr-2 mob-param-block">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 title-mob-param">Діоптрії:</label>
                 <div class="relative">
-                  <select (change)="changeDiopters(item, $event, lense.id)"
+                  <select (change)="changeDiopters(item, $event, i)"
                           class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                     <option value="Вибрати">Вибрати</option>
                     <option *ngFor="let diopters of lenseDiopters" [selected]="lense.diopters === diopters.value" [value]="diopters.value">{{diopters.value}}</option>
@@ -175,7 +175,7 @@
               <div class="flex flex-col pr-2 mob-param-block" *ngIf="lense.hasCylinder">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 title-mob-param">Циліндр:</label>
                 <div class="relative">
-                  <select (change)="changeLensCylinder(item, $event, lense.id)"
+                  <select (change)="changeLensCylinder(item, $event, i)"
                           class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                     <option value="Вибрати">Вибрати</option>
                     <option *ngFor="let cylinder of lensCylinder" [selected]="cylinder.value === lense.cylinder"  [value]="cylinder.value">{{cylinder.value}}</option>
@@ -192,7 +192,7 @@
               <div class="flex flex-col pr-2 mob-param-block" *ngIf="lense.hasAxis">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 title-mob-param">Вісь:</label>
                 <div class="relative">
-                  <select (change)="changeLensAxis(item, $event, lense.id)"
+                  <select (change)="changeLensAxis(item, $event, i)"
                           class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                     <option value="Вибрати">Вибрати</option>
                     <option *ngFor="let axis of lensAxis" [selected]="lense.axis === axis.value"  [value]="axis.value">{{axis.value}}</option>
@@ -219,7 +219,7 @@
                   </div>
                 </div>
                 <div class="relative" *ngIf="!lense.hasDefaultBC">
-                  <select (change)="changeLensBc(item, $event, lense.id)"
+                  <select (change)="changeLensBc(item, $event, i)"
                     class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                     <option value="Вибрати">Вибрати</option>
                     <option *ngFor="let bc of lensBC" [selected]="lense.defaultBC == bc.value" [value]="bc.value">{{bc.value}}</option>
@@ -636,7 +636,7 @@
                   Поштовий індекс
                 </dt>
                 <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-1 sm:col-span-2 relative w-1/2">
-                  <input formControlName="userAuthPostIndex" class="shadow-sm appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  type="text" placeholder="Поштовий індекс" autocomplete="off">
+                  {{authUserData?.postIndex}}
                 </dd>
               </div>
               <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">

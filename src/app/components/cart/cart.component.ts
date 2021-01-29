@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit, AfterContentInit} from '@angular/core';
 import {CartObjectService} from '../../services/components-data/cart-object.service';
 import {CartItems} from '../../models/order/CartItems';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -14,7 +14,6 @@ import {SpecialOffer} from '../../models/special-offers/SpecialOffer';
 import {Solution} from '../../models/solution/Solution';
 import {SettlementsService} from '../../services/settlements.service';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {SessionModalComponent} from '../session-modal/session-modal.component';
 import {CartDialogSuccessComponent} from '../cart-dialog-success/cart-dialog-success.component';
 
 @Component({
@@ -71,6 +70,11 @@ export class CartComponent implements OnInit, OnDestroy {
       inPost: new FormControl(false),
       byCardPay: new FormControl(false)
     });
+    this.lenseQuantity = lenseQuantity; this.lenseDiopters = lenseDiopters; this.lensBC = lensBCValues;
+    this.lensAxis = lensAxis; this.lensCylinder = lensCylinder;
+  }
+
+  ngOnInit(): void {
     this.cartObjectService.getObject().subscribe(value => {
       if (value){
         this.cartItems = value;
@@ -96,13 +100,6 @@ export class CartComponent implements OnInit, OnDestroy {
         });
       }
     });
-    this.lenseQuantity = lenseQuantity; this.lenseDiopters = lenseDiopters; this.lensBC = lensBCValues;
-    this.lensAxis = lensAxis; this.lensCylinder = lensCylinder;
-  }
-
-  ngOnInit(): void {
-    console.log(this.cartItems);
-
     this.cabinetService.getUserByUsername().subscribe(value => {
       this.authUserData = value;
       console.log(this.authUserData);
@@ -241,14 +238,9 @@ export class CartComponent implements OnInit, OnDestroy {
     this.orderStep -= 1;
   }
 
-  deleteCareFromList(care: Drops): void {
+  deleteCareFromList(careIndex): void {
     this.cartItems.map(value => {
-      const dropInArr = value.drops.find(drop => drop.name === care.name);
-      this.totalPrice -= dropInArr.price;
-      const index = value.drops.indexOf(dropInArr);
-      if (index > -1) {
-        value.drops.splice(index, 1);
-      }
+      value.drops.splice(careIndex, 1);
     });
     this.cartObjectService.sendObject(this.cartItems);
   }
@@ -285,59 +277,54 @@ export class CartComponent implements OnInit, OnDestroy {
     });
     this.cartObjectService.sendObject(this.cartItems);
   }
-  changeDropsQuantity(item: CartItems, event, careId): void {
-    item.drops.map(value => {
-      if (careId === value.id){
-        value.quantity = Number(event.target.value);
-      }
-    });
-    this.cartObjectService.sendObject(this.cartItems);
-  }
-  changeLensesQuantity(item: CartItems, event, lensId): void {
-    item.lenses.map((value) => {
-      if (lensId === value.id){
-        value.quantity = Number(event.target.value);
-      }
-    });
-    console.log(item);
-    this.cartObjectService.sendObject(this.cartItems);
-  }
-  changeLensBc(item: CartItems, event, lensId): void {
-    item.lenses.map((value) => {
-      if (lensId === value.id){
-        value.defaultBC = event.target.value;
-      }
-    });
-    console.log(item);
-    this.cartObjectService.sendObject(this.cartItems);
-  }
-  changeDiopters(item: CartItems, event, lensId): void {
-    item.lenses.map(value => {
-      if (lensId === value.id){
-       value.diopters = event.target.value;
-      }
-    });
+
+  changeDropsQuantity(item, event): void {
+    item.quantity = Number(event.target.value);
     console.log(this.cartItems);
     this.cartObjectService.sendObject(this.cartItems);
   }
-  changeLensCylinder(item: CartItems, event, lensId): void {
-    item.lenses.map((value) => {
-      if (lensId === value.id){
+
+  changeLensesQuantity(item: CartItems, event, index): void {
+    item.lenses.map((value, id) => {
+      if (id === index){
+        value.quantity = Number(event.target.value);
+      }
+    });
+    this.cartObjectService.sendObject(this.cartItems);
+  }
+  changeLensBc(item: CartItems, event, index): void {
+    item.lenses.map((value, id) => {
+      if (id === index){
+        value.defaultBC = event.target.value;
+      }
+    });
+    this.cartObjectService.sendObject(this.cartItems);
+  }
+  changeDiopters(item: CartItems, event, index): void {
+    item.lenses.map((value, id) => {
+      if (id === index){
+        value.diopters = event.target.value;
+      }
+    });
+    this.cartObjectService.sendObject(this.cartItems);
+  }
+  changeLensCylinder(item: CartItems, event, index): void {
+    item.lenses.map((value, id) => {
+      if (id === index){
         value.cylinder = event.target.value;
       }
     });
-    console.log(item);
     this.cartObjectService.sendObject(this.cartItems);
   }
-  changeLensAxis(item: CartItems, event, lensId): void {
-    item.lenses.map((value) => {
-      if (lensId === value.id){
+  changeLensAxis(item: CartItems, event, index): void {
+    item.lenses.map((value, id) => {
+      if (id === index){
         value.axis = event.target.value;
       }
     });
-    console.log(item);
     this.cartObjectService.sendObject(this.cartItems);
   }
+
   changeOfferBc(item: CartItems, event, offerId): void {
     item.offers.map((value) => {
       if (offerId === value.id){
