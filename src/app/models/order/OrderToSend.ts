@@ -14,6 +14,7 @@ export interface Items {
   drops?: any[];
   lenses?: any[];
   offers?: any[];
+  solutions?: any[];
 }
 
 interface Drops {

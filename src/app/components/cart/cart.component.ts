@@ -26,7 +26,8 @@ export class CartComponent implements OnInit, OnDestroy {
   itemsToSend: Items[] = [{
     offers: [],
     drops: [],
-    lenses: []
+    lenses: [],
+    solutions: []
   }];
   lenseQuantity; lenseDiopters; lensBC; lensCylinder; lensAxis;
   focusedLocation: boolean; focusedNumber: boolean; locationNPList: any[]; numberNPList: any[];
@@ -388,27 +389,52 @@ export class CartComponent implements OnInit, OnDestroy {
           this.deliveryForm.controls.ukrPoshta.value === true && this.userDataForm.controls.userPostIndex.valid || this.authUserData){
         this.cartItems.map(items => {
           items.offers.map(offers => {
-            this.itemsToSend.map(itemOffer => itemOffer.offers.push({offerId: offers.id}));
+            const properties = `Діоптрії: ${offers.diopters} ` + (offers.hasCylinder ? `Циліндр: ${offers.cylinder} ` : ' ') + (offers.hasAxis ? `Вісь: ${offers.axis}` : ' ') + ` Кривизна: ${offers.defaultBC} Діаметр: ${offers.defaultDiameter} \n`;
+            this.itemsToSend.map(itemOffer => itemOffer.offers.push({offerId: offers.id, properties}));
           });
           items.lenses.map(lenses => {
-            const properties = `Кількість: ${lenses.quantity} Діоптрії: ${lenses.diopters}` + (lenses.hasCylinder ? `Циліндр: ${lenses.cylinder}` : ' ') + (lenses.hasAxis ? `Вісь: ${lenses.axis}` : ' ') + `Кривизна: ${lenses.defaultBC} Діаметр: ${lenses.defaultDiameter} \n`;
+            const properties = `Кількість: ${lenses.quantity} Діоптрії: ${lenses.diopters} ` + (lenses.hasCylinder ? `Циліндр: ${lenses.cylinder} ` : ' ') + (lenses.hasAxis ? `Вісь: ${lenses.axis}` : ' ') + ` Кривизна: ${lenses.defaultBC} Діаметр: ${lenses.defaultDiameter} \n`;
             this.itemsToSend.map(itemOffer => itemOffer.lenses.push({lenseId: lenses.id, properties}));
           });
           items.drops.map(drops => {
-            this.itemsToSend.map(itemOffer => itemOffer.drops.push({dropId: drops.id}));
+            const properties = `Кількість: ${drops.quantity} Об'єм: ${drops.cvalue} \n`;
+            this.itemsToSend.map(itemOffer => itemOffer.drops.push({dropId: drops.id, properties}));
+          });
+          items.solutions.map(solutions => {
+            const properties = `Кількість: ${solutions.quantity} Об'єм: ${solutions.solutionValue} \n`;
+            this.itemsToSend.map(itemOffer => itemOffer.solutions.push({solutionId: solutions.id, properties}));
           });
         });
         let order;
         if (this.authUserData){
+          let deliveryType;
+          let paymentType;
+          if (this.deliveryForm.controls.novaPoshta.value === true){
+            deliveryType = 'np';
+          }else{
+            deliveryType = 'ukr';
+          }
+          if (this.deliveryForm.controls.inPost.value === true){
+            paymentType = 'inPost';
+          }else if (this.deliveryForm.controls.byCardPay.value === true){
+            paymentType = 'byCardPay';
+          }
           order = {
             createdAt: '2020-09-01 12:18:51',
             totalSumm: this.totalPrice,
             lastName: this.authUserData.lastName,
             firstName: this.authUserData.firstName,
+            patronymic: this.authUserData.patronymic,
             phone: this.authUserData.phone,
+            email: this.authUserData.email,
+            customerComment: this.authUserDataForm.controls.customerAuthComment.value,
             delivery: {
               cityName: this.authUserData.location,
               warehouseNumber: this.authUserData.number,
+              description: this.authUserData.warehouse,
+              postIndex: this.authUserData.postIndex,
+              deliveryType: deliveryType.toString(),
+              paymentType: paymentType.toString()
             },
             items: this.itemsToSend,
             user: this.authUserData.id
@@ -443,7 +469,7 @@ export class CartComponent implements OnInit, OnDestroy {
               paymentType: paymentType.toString(),
               description: this.userDataForm.controls.aboutWarehouse.value
             },
-            items: this.itemsToSend,
+            items: this.itemsToSend
           };
         }
         console.log(order);
