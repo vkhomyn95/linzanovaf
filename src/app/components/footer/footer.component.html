@@ -1,11 +1,11 @@
 <footer class="text-gray-700 body-font">
-  <div class="container px-5 py-24 mx-auto">
+  <div class="container px-5 py-20 mx-auto">
     <div class="flex flex-wrap md:text-left text-center order-first">
       <div class="lg:w-1/4 md:w-1/2 w-full px-4">
         <h2 class="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">КОНТАКТНІ ЛІНЗИ</h2>
         <nav class="list-none mb-10">
-          <li *ngFor="let lense of lenseTypeList">
-            <a class="text-gray-600 hover:text-gray-800">{{lense.name}}</a>
+          <li *ngFor="let lensType of lenseTypeList" (click)="filterLens(lensType)">
+            <span class="text-gray-600 hover:text-gray-800 hover-pointer">{{lensType.name}}</span>
           </li>
         </nav>
       </div>
@@ -13,44 +13,42 @@
         <h2 class="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">ІНФОРМАЦІЯ</h2>
         <nav class="list-none mb-10">
           <li>
-            <a (click)="howToBuy()" class="text-gray-600 hover:text-gray-800">Як це працює?</a>
+            <a (click)="howToBuy()" class="text-gray-600 hover:text-gray-800 hover-pointer">Як це працює?</a>
           </li>
           <li>
-            <a class="text-gray-600 hover:text-gray-800">Second Link</a>
+            <a class="text-gray-600 hover:text-gray-800 hover-pointer">Розчини</a>
           </li>
           <li>
-            <a class="text-gray-600 hover:text-gray-800">Third Link</a>
+            <a class="text-gray-600 hover:text-gray-800 hover-pointer">Контактні лінзи</a>
           </li>
           <li>
-            <a class="text-gray-600 hover:text-gray-800">Fourth Link</a>
+            <a class="text-gray-600 hover:text-gray-800 hover-pointer">Догляд</a>
           </li>
         </nav>
       </div>
       <div class="lg:w-1/4 md:w-1/2 w-full px-4">
-        <h2 class="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">ПІДТРИМКА КЛІЄНТІВ</h2>
+        <h2 class="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">КЛІЄНТАМ</h2>
         <nav class="list-none mb-10">
           <li>
-            <a class="text-gray-600 hover:text-gray-800">First Link</a>
+            <a class="text-gray-600 hover:text-gray-800 hover-pointer"></a>
           </li>
           <li>
-            <a class="text-gray-600 hover:text-gray-800">Second Link</a>
+            <a href="https://t.me/g_zholinska" class="text-gray-600 hover:text-gray-800 hover-pointer">Телеграм</a>
           </li>
           <li>
-            <a class="text-gray-600 hover:text-gray-800">Third Link</a>
+            <a href="https://www.instagram.com/linza.nova/?hl=ru" class="text-gray-600 hover:text-gray-800 hover-pointer">Інстаграм</a>
           </li>
           <li>
-            <a class="text-gray-600 hover:text-gray-800">Fourth Link</a>
+            <a href="https://www.facebook.com/messages/t/100016099457792" class="text-gray-600 hover:text-gray-800 hover-pointer">Messenger</a>
           </li>
         </nav>
       </div>
       <div class="lg:w-1/4 md:w-1/2 w-full px-4">
         <h2 class="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">SUBSCRIBE</h2>
         <div class="flex xl:flex-no-wrap md:flex-no-wrap lg:flex-wrap flex-wrap justify-center md:justify-start">
-<!--          <input class="w-40 sm:w-auto bg-gray-100 rounded xl:mr-4 lg:mr-0 sm:mr-4 mr-2 border border-gray-400 focus:outline-none focus:border-indigo-500 text-base py-2 px-4" placeholder="Placeholder" type="text">-->
-<!--          <button class="lg:mt-2 xl:mt-0 flex-shrink-0 inline-flex text-white bg-indigo-500 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-600 rounded">Підписатись</button>-->
+<!--          <input class="w-40 sm:w-auto bg-gray-100 rounded xl:mr-4 lg:mr-0 sm:mr-4 mr-2 border border-gray-400 focus:outline-none focus:border-indigo-500 text-base py-1 px-2" placeholder="linzanova18@gmail.com" type="text">-->
         </div>
-        <p class="text-gray-500 text-sm mt-2 md:text-left text-center">Підписуйтесь на нашу email розсилку,
-          <br class="lg:block hidden">щоб знати про всі вигідні акції
+        <p class="text-gray-500 text-sm mt-2 md:text-left text-center">Підписуйтесь на нашу email розсилку, щоб знати про всі новинки
         </p>
       </div>
     </div>
@@ -58,8 +56,17 @@
   <div class="bg-gray-200">
     <div class="container px-5 py-6 mx-auto flex items-center sm:flex-row flex-col">
       <a class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
-          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+        <svg viewBox="0 0 31 31" xmlns="http://www.w3.org/2000/svg" fill="#667eea" stroke="#667eea" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white pct rounded-full">
+          <g transform="matrix(0.049785, 0, 0, 0.049785, 3.114944, 3.388505)">
+            <g>
+              <g>
+                <path d="M207.65,281.6c-21-21-94-65.9-147.8-53.3L216.55,385C251.75,338,226.65,300.6,207.65,281.6z"/>
+                <path d="M302.55,185.9c-60.7-60.7-158.7-60.7-219.3,0l-21,21c71.4-6.9,136.1,37.3,159.1,60.7c29.2,29.2,51.6,77.6,8.9,131.4 l91.4,91l144.3-140.8L302.55,185.9z"/>
+                <ellipse cx="208.75" cy="34.6" rx="184.7" ry="34.6"/>
+                <path d="M383.35,67.7c-37.4,14.7-124.1,21.4-174.6,21.4s-140.1-7.6-174.6-21.4c25.3,39.7,93.7,68.1,174.6,68.1 S358.15,107.3,383.35,67.7z"/>
+              </g>
+            </g>
+          </g>
         </svg>
         <span class="ml-3 text-xl">linzanova</span>
       </a>
