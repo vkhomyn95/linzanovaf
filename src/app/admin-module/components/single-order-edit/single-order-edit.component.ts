@@ -70,6 +70,7 @@ export class SingleOrderEditComponent implements OnInit {
 
   updateOrder(): void {
     const order: UpdateOrder = this.updateForm.value;
+    console.log(order);
     this.activatedRoute.params.subscribe(orderId => {
       return this.cabinetService.updateOrder(orderId.id, order).toPromise()
         .then((response) => {

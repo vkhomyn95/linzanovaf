@@ -24,3 +24,12 @@
 .wsp {
   white-space: nowrap !important;
 }
+@media screen and (max-width: 767px){
+  .mob-direction {
+    display: flex;
+    flex-direction: column;
+    &-full {
+      width: 100%;
+    }
+  }
+}

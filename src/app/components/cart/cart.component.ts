@@ -477,10 +477,7 @@ export class CartComponent implements OnInit, OnDestroy {
               this.cartObjectService.clearObjects();
               this.cartObjectService.setObject();
               this.dialogRef = this.modal.open(CartDialogSuccessComponent, {
-                disableClose: true,
-                data: {
-                  // confirmMessage: userName.sub
-                }
+                disableClose: true
               });
               this.dialogRef.afterClosed().subscribe(value => {
                 if (value){

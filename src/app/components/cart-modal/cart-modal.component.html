@@ -1,6 +1,7 @@
 <div class="relative">
   <svg *ngIf="!mbWidth" class="w-10 h-10 mr-8 cursor-pointer" (click)="showCart()" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
   <svg *ngIf="mbWidth" class="w-8 h-8 mr-6 cursor-pointer" (click)="showCart()" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+  <button tabindex="-1" *ngIf="cartVisisbility" (click)="cartVisisbility = false" class="fixed z-10 inset-0 h-full w-full bg-black opacity-50 cursor-default"></button>
   <div *ngIf="cartVisisbility" class="cart-modal-box" >
     <div class="cart-modal-box-header">
       <div class="cart-modal-box-title">
@@ -94,11 +95,6 @@
       <span *ngIf="item.offers.length !== 0" class="cart-modal-box-main-title">Вигідні пропозиції</span>
       <div class="solution-cart-wrapper" *ngFor="let offer of item.offers">
         <div class="cart-modal-box-main-item flex flex-row">
-          <div class=" w-10">
-<!--            <a href="https://www.alensa.pl/biofinity-toric-6-soczewek-plyn-gelone-360-ml">-->
-<!--              <img src="https://www.alensa.pl/imagesCdn/1480/1644-800x600.jpg" alt="product" class="w-18 h-16">-->
-<!--            </a>-->
-          </div>
           <div class=" ml-3">
             <div class="flex flex-row">
               <span class="text-base font-medium font-mono">{{offer.name}}</span>

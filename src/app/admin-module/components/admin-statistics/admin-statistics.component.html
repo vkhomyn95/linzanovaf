@@ -127,11 +127,11 @@
               </div>
               <div class="flex-grow">
                 <h2 class="text-gray-900 text-lg title-font font-medium mb-3">Добавити номер ТТН до замовлення</h2>
-                <form class="w-full max-w-sm form-track flex flex-row flex-wrap" [formGroup]="setTTNNumberForm">
-                  <div class="flex items-center border-b border-green-500 py-1 w-5/12 mr-3">
+                <form class="w-full max-w-sm form-track flex flex-row flex-wrap mob-direction" [formGroup]="setTTNNumberForm">
+                  <div class="flex items-center border-b border-green-500 py-1 w-5/12 mr-3 mob-direction-full">
                     <input formControlName="TTNNumber" class="appearance-none bg-transparent border-none text-gray-700 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="TTN номер" aria-label="meest">
                   </div>
-                  <div class="flex items-center border-b border-green-500 py-1 mr-2 w-5/12">
+                  <div class="flex items-center border-b border-green-500 py-1 mr-2 w-5/12 mob-direction-full">
                     <input formControlName="orderNumber" class="appearance-none bg-transparent border-none text-gray-700 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Номер замовлення" aria-label="orderNumber">
                   </div>
                 </form>
@@ -153,11 +153,11 @@
               </div>
               <div class="flex-grow">
                 <h2 class="text-gray-900 text-lg title-font font-medium mb-3">Добавити номер meest до замовлення</h2>
-                <form class="w-full max-w-sm form-track flex flex-row flex-wrap" [formGroup]="setTrackingNumberForm">
-                  <div class="flex items-center border-b border-green-500 py-1 w-5/12 mr-3">
+                <form class="w-full max-w-sm form-track flex flex-row flex-wrap mob-direction" [formGroup]="setTrackingNumberForm">
+                  <div class="flex items-center border-b border-green-500 py-1 w-5/12 mr-3 mob-direction-full">
                     <input formControlName="meestNumber" class="appearance-none bg-transparent border-none text-gray-700 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Meest номер" aria-label="meest">
                   </div>
-                  <div class="flex items-center border-b border-green-500 py-1 mr-2 w-5/12">
+                  <div class="flex items-center border-b border-green-500 py-1 mr-2 w-5/12 mob-direction-full">
                     <input formControlName="orderNumber" class="appearance-none bg-transparent border-none text-gray-700 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Номер замовлення" aria-label="orderNumber">
                   </div>
                 </form>
