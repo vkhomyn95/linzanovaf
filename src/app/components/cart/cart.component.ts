@@ -420,7 +420,6 @@ export class CartComponent implements OnInit, OnDestroy {
             paymentType = 'byCardPay';
           }
           order = {
-            totalSumm: this.totalPrice,
             lastName: this.authUserData.lastName,
             firstName: this.authUserData.firstName,
             patronymic: this.authUserData.patronymic,
@@ -452,9 +451,8 @@ export class CartComponent implements OnInit, OnDestroy {
             paymentType = 'byCardPay';
           }
           order = {
-            totalSumm: this.totalPrice,
-            lastName: this.userDataForm.controls.userFirstName.value,
-            firstName: this.userDataForm.controls.userLastName.value,
+            lastName: this.userDataForm.controls.userLastName.value,
+            firstName: this.userDataForm.controls.userFirstName.value,
             patronymic: this.userDataForm.controls.patronymic.value,
             phone: this.userDataForm.controls.userPhone.value,
             email: this.userDataForm.controls.userEmail.value,

@@ -14,7 +14,7 @@ export class HotPropositionComponent implements OnInit {
   loader = true;
   offers = [];
   currentPage =  0;
-  currentSize = 3;
+  currentSize = 20;
   totalElements: number;
   items: CartItems[];
   totalPages: number;

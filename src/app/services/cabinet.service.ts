@@ -53,7 +53,7 @@ export class CabinetService {
     return this.httpClient.get<any>(`/api/lenses/${lensId}`);
   }
   updateLens(lensId, lens): Observable<any> {
-    return this.httpClient.post<any>(`/api/lenses/${lensId}`, lens);
+    return this.httpClient.post<any>(`/api/lens/${lensId}`, lens);
   }
   searchLensesByName(lensName, page, size): Observable<any> {
     return this.httpClient.get<any>(`/api/lenses/name?name=${lensName}&page=${page}&size=${size}`);
