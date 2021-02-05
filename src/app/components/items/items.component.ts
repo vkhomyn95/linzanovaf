@@ -18,7 +18,7 @@ export class ItemsComponent implements OnInit, OnChanges {
 
   values = [];
   items: CartItems[]; itemCategoryName: string; itemCategoryId: number;
-
+  imagesLoader = true;
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
@@ -29,13 +29,20 @@ export class ItemsComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     if (this.router.url.indexOf('/lenses') > -1) {
       this.cabinetService.getAllLenses(this.currentPage, this.allPagesSize).subscribe(value => {
+        value.lenses.map(val => {
+          if (val.photo.length > 0 && val.photo.map(f => f.endsWith('.webp'))){
+            this.cabinetService.getLensImage(val.id, 'webp').subscribe(value1 =>  {
+              this.createImageFromBlob(value1, val.id - 1);
+            });
+          }
+        });
         this.values = value.lenses;
         this.totalElements = value.totalElements;
         this.totalPages = value.totalPages;
         this.itemCategoryName = 'Контактні лінзи';
         this.itemCategoryId = 1;
-        console.log(value);
         this.loader = false;
+        console.log(this.values);
       });
     }else if (this.router.url.indexOf('/lens/search') > -1){
       this.activatedRoute.queryParams.subscribe(params => {
@@ -150,6 +157,21 @@ export class ItemsComponent implements OnInit, OnChanges {
   }
   ngOnChanges(): void {
     console.log(this.currentPage);
+  }
+
+  createImageFromBlob(photo: Blob, imageId): void {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      this.values.map((value, index) => {
+        if (imageId === index){
+          value.img = reader.result;
+        }
+      });
+    }, false);
+
+    if (photo) {
+      reader.readAsDataURL(photo);
+    }
   }
 
   viewDetails(category, id): void {

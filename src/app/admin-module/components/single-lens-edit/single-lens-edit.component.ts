@@ -5,6 +5,7 @@ import {CabinetService} from '../../../services/cabinet.service';
 import {ActivatedRoute} from '@angular/router';
 import {UpdateLens} from '../../../models/lense/Lens';
 import {BroadcastService} from '../../../services/components-data/broadcast.service';
+import {LensService} from '../../../services/lens.service';
 
 @Component({
   selector: 'app-single-lens-edit',
@@ -14,16 +15,18 @@ import {BroadcastService} from '../../../services/components-data/broadcast.serv
 export class SingleLensEditComponent implements OnInit {
   updateForm: FormGroup;
   lTypeList; lProducerList; lBrandList; lQuantityList; lCorrectionList; lMaterialList;
-  errorResponse = []; successResponse = false;
+  errorResponse = []; successResponse = false; images = []; id: number; fileToUpload: File = null;
 
   constructor(private cabinetService: CabinetService,
               private activatedRoute: ActivatedRoute,
-              private broadcastService: BroadcastService) {
+              private broadcastService: BroadcastService,
+              private lensService: LensService) {
     this.updateForm = new FormGroup({
       name: new FormControl(''),
       price: new FormControl(''),
       avgPriceInUkraine: new FormControl(''),
       quantity: new FormControl(''),
+      mediaField: new FormControl(),
       lenseType: new FormControl(''),
       lenseProducer: new FormControl(''),
       lenseBrand: new FormControl(''),
@@ -54,6 +57,8 @@ export class SingleLensEditComponent implements OnInit {
     this.activatedRoute.params.subscribe( lensId => {
       this.cabinetService.getLens(lensId.id).subscribe(value => {
         console.log(value);
+        this.images = value.photo;
+        this.id = value.id;
         for (const param of Object.keys(this.updateForm.controls)){
           for (const lens in value) {
             if (param === lens){
@@ -87,10 +92,26 @@ export class SingleLensEditComponent implements OnInit {
     });
   }
 
+  preUploadPhoto(e): void {
+    if (this.images.length < 2){
+      this.fileToUpload = e.target.files;
+    }
+  }
+
+
   removeError(): void {
     setTimeout(() => {
       this.errorResponse.splice(-1, 1);
       console.log(this.errorResponse);
     }, 5000);
+  }
+
+  uploadImage(): void {
+      const file: File = this.fileToUpload[0];
+      const formData: FormData = new FormData();
+      formData.append('file', file, file.name);
+      const headers = new Headers();
+      headers.append('Content-Type', 'multipart/form-data');
+      this.lensService.addLensImage(this.id, formData, headers).subscribe(value => console.log(value));
   }
 }

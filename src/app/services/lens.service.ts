@@ -17,6 +17,10 @@ export class LensService {
     return this.httpClient.post<Lens>('/api/lens', lens);
   }
 
+  addLensImage(lensId, formData, options): Observable<any>{
+    return this.httpClient.post<any>(`/api/lenses/${lensId}/photo`, formData, options);
+  }
+
   addSolution(solution: Solution): Observable<Solution> {
     return this.httpClient.post<Solution>('/api/solution', solution);
   }

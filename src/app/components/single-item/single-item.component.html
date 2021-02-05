@@ -35,7 +35,10 @@
 <section class="text-gray-700 body-font overflow-hidden" *ngIf="!loader">
   <div class="container px-5 py-24 mx-auto content-indent">
     <div class="lg:w-4/5 mx-auto flex flex-wrap">
-      <img alt="ecommerce" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="https://dummyimage.com/400x400">
+      <div class="image-wrapper lg:w-1/2 w-full lg:h-auto h-64">
+        <ngx-skeleton-loader *ngIf="imageLoader" class="object-cover object-center rounded pt-6" [theme]="{'height':'100%'}"></ngx-skeleton-loader>
+        <img *ngIf="!imageLoader && photo" class="object-cover object-center rounded pt-6" [src]="photo">
+      </div>
       <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
         <h2 class="text-sm title-font uppercase text-gray-500 tracking-widest">{{lens?.lenseBrand}}{{solution?.solutionBrand}}</h2>
         <h1 class="text-gray-900 text-2xl title-font font-medium mb-1">{{lens?.name}}{{solution?.name}}{{care?.name}}</h1>

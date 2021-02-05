@@ -12,11 +12,13 @@ import {Solution} from '../../models/solution/Solution';
 })
 export class SingleItemComponent implements OnInit {
   loader = true;
+  imageLoader = true;
   care: Drops;
   lens: Lens;
   solution: Solution;
   changeText: boolean;
   tab = 0;
+  photo: any;
 
   constructor(private activatedRoute: ActivatedRoute,
               private cabinetService: CabinetService,
@@ -26,11 +28,19 @@ export class SingleItemComponent implements OnInit {
     this.activatedRoute.params.subscribe(urlId => {
       if (this.router.url.indexOf('/lenses') > -1){
         this.cabinetService.getLens(urlId.id).subscribe(lensValue => {
-            this.lens = lensValue;
-            this.loader = false;
-            console.log(this.lens);
+          this.lens = lensValue;
+          this.loader = false;
+          if (lensValue.photo.length > 0){
+            lensValue.photo.map(p => {
+              if (p.endsWith('.jpg')){
+                this.cabinetService.getLensImage(urlId.id, 'jpeg').subscribe( photo => {
+                    this.createImageFromBlob(photo);
+                    this.imageLoader = false;
+                  });
+              }
+            });
           }
-        );
+          });
       }else if (this.router.url.indexOf('/care') > -1){
         this.cabinetService.getCare(urlId.id).subscribe(careValue => {
             this.care = careValue;
@@ -49,6 +59,18 @@ export class SingleItemComponent implements OnInit {
       }
     });
   }
+
+  createImageFromBlob(photo: Blob): void {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      this.photo = reader.result;
+    }, false);
+
+    if (photo) {
+      reader.readAsDataURL(photo);
+    }
+  }
+
 
   changeTabView(number): void {
     this.tab = number;

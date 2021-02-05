@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {TokenStorageService} from './token-storage.service';
 
@@ -60,6 +60,10 @@ export class CabinetService {
   }
   getLensesByFilter(page, size, colName, nameValue): Observable<any> {
     return this.httpClient.get<any>(`/api/lenses/filter?page=${page}&size=${size}&colName=${colName}&name=${nameValue}`);
+  }
+  getLensImage(id, format): Observable<Blob> {
+    const headers = new HttpHeaders().set('format', format);
+    return this.httpClient.get<any>(`/api/lenses/image/${id}`, {headers: headers, responseType: 'blob' as 'json'});
   }
   getSolutionsCount(): Observable<any> {
     return this.httpClient.get<any>('/api/solution/count');

@@ -23,7 +23,11 @@
   --tw-text-opacity: 1;
   color: rgba(99, 102, 241, var(--tw-text-opacity));
 }
-
+.product-image-area {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
 @media screen and (min-width: 1283px){
   .nav-resp {
     display: none;
