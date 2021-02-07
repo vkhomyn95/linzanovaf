@@ -25,12 +25,24 @@ export class LensService {
     return this.httpClient.post<Solution>('/api/solution', solution);
   }
 
+  addSolutionImage(solutionId, formData, options): Observable<any>{
+    return this.httpClient.post<any>(`/api/solution/${solutionId}/photo`, formData, options);
+  }
+
   addLensDrops(drops: Drops): Observable<Drops> {
     return this.httpClient.post<Drops>('/api/drops', drops);
   }
 
+  addLensDropImage(dropId, formData, options): Observable<any>{
+    return this.httpClient.post<any>(`/api/drops/${dropId}/photo`, formData, options);
+  }
+
   addSpecialOffer(offer: SpecialOffer): Observable<SpecialOffer> {
     return this.httpClient.post<SpecialOffer>('/api/special', offer);
+  }
+
+  addOfferImage(offerId, formData, options): Observable<any>{
+    return this.httpClient.post<any>(`/api/special/${offerId}/photo`, formData, options);
   }
 
   createOrder(order): Observable<any> {

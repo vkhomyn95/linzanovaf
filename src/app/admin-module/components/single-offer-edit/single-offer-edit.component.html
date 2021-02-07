@@ -63,7 +63,12 @@
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-file">
         Фото
       </label>
-      <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-file" type="file" placeholder="Обрати фото">
+      <input formControlName="mediaField" (change)="preUploadPhoto($event)" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-file" type="file" placeholder="Обрати фото">
+    </div>
+  </div>
+  <div *ngIf="images.length !== 0" class="flex flex-row flex-wrap -mx-3 mb-6 px-3">
+    <div *ngFor="let image of images" class="bg-gray-200 text-small px-3">
+      {{image}}
     </div>
   </div>
   <div class="flex flex-wrap -mx-3 mb-2">
@@ -116,6 +121,9 @@
   </div>
   <button (click)="updateOffer()" class="my-2 bg-yellow-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
     Оновити
+  </button>
+  <button (click)="uploadImage()" *ngIf="images.length < 2 && updateForm.controls.mediaField.value" class="ml-4 my-2 bg-yellow-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+    Добавити фото
   </button>
 </form>
 <div *ngIf="errorResponse" class="alert-message-column">

@@ -18,7 +18,6 @@ export class ItemsComponent implements OnInit, OnChanges {
 
   values = [];
   items: CartItems[]; itemCategoryName: string; itemCategoryId: number;
-  imagesLoader = true;
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
@@ -32,7 +31,7 @@ export class ItemsComponent implements OnInit, OnChanges {
         value.lenses.map(val => {
           if (val.photo.length > 0 && val.photo.map(f => f.endsWith('.webp'))){
             this.cabinetService.getLensImage(val.id, 'webp').subscribe(value1 =>  {
-              this.createImageFromBlob(value1, val.id - 1);
+              this.createImageFromBlob(value1, val.id);
             });
           }
         });
@@ -47,6 +46,13 @@ export class ItemsComponent implements OnInit, OnChanges {
     }else if (this.router.url.indexOf('/lens/search') > -1){
       this.activatedRoute.queryParams.subscribe(params => {
         this.cabinetService.searchLensesByName(params.name, this.currentPage, this.allPagesSize).subscribe(value => {
+          value.lenses.map(val => {
+            if (val.photo.length > 0 && val.photo.map(f => f.endsWith('.webp'))){
+              this.cabinetService.getLensImage(val.id, 'webp').subscribe(value1 =>  {
+                this.createImageFromBlob(value1, val.id);
+              });
+            }
+          });
           this.values = value.lenses;
           this.totalElements = value.totalElements;
           this.totalPages = value.totalPages;
@@ -59,6 +65,13 @@ export class ItemsComponent implements OnInit, OnChanges {
     }else if (this.router.url.indexOf('/lens/filter') > -1){
       this.activatedRoute.queryParams.subscribe(params => {
         this.cabinetService.getLensesByFilter(this.currentPage, this.allPagesSize, params.colName, params.name).subscribe(value => {
+          value.lenses.map(val => {
+            if (val.photo.length > 0 && val.photo.map(f => f.endsWith('.webp'))){
+              this.cabinetService.getLensImage(val.id, 'webp').subscribe(value1 =>  {
+                this.createImageFromBlob(value1, val.id);
+              });
+            }
+          });
           this.values = value.lenses;
           this.totalElements = value.totalElements;
           this.totalPages = value.totalPages;
@@ -138,6 +151,13 @@ export class ItemsComponent implements OnInit, OnChanges {
       });
     }else {
       this.cabinetService.getAllLenses(this.currentPage, this.itemsSize).subscribe(value => {
+        value.lenses.map(val => {
+          if (val.photo.length > 0 && val.photo.map(f => f.endsWith('.webp'))){
+            this.cabinetService.getLensImage(val.id, 'webp').subscribe(value1 =>  {
+              this.createImageFromBlob(value1, val.id);
+            });
+          }
+        });
         this.values = value.lenses;
         this.totalElements = value.totalElements;
         this.totalPages = value.totalPages;
@@ -157,21 +177,6 @@ export class ItemsComponent implements OnInit, OnChanges {
   }
   ngOnChanges(): void {
     console.log(this.currentPage);
-  }
-
-  createImageFromBlob(photo: Blob, imageId): void {
-    const reader = new FileReader();
-    reader.addEventListener('load', () => {
-      this.values.map((value, index) => {
-        if (imageId === index){
-          value.img = reader.result;
-        }
-      });
-    }, false);
-
-    if (photo) {
-      reader.readAsDataURL(photo);
-    }
   }
 
   viewDetails(category, id): void {
@@ -209,10 +214,18 @@ export class ItemsComponent implements OnInit, OnChanges {
   nextPage(page: any): void {
     if (this.router.url.indexOf('/lenses') > -1) {
       this.cabinetService.getAllLenses(page, this.allPagesSize).subscribe(value => {
+        value.lenses.map(val => {
+          if (val.photo.length > 0 && val.photo.map(f => f.endsWith('.webp'))){
+            console.log(val);
+            this.cabinetService.getLensImage(val.id, 'webp').subscribe(imgValue =>  {
+              this.createImageFromBlob(imgValue, val.id);
+              debugger
+            });
+          }
+        });
         this.values = value.lenses;
         this.totalElements = value.totalElements;
         this.totalPages = value.totalPages;
-        console.log(value);
         this.loader = false;
       });
     }else {
@@ -229,6 +242,13 @@ export class ItemsComponent implements OnInit, OnChanges {
   prevPage(page: any): void {
     if (this.router.url.indexOf('/lenses') > -1) {
       this.cabinetService.getAllLenses(page, this.allPagesSize).subscribe(value => {
+        value.lenses.map(val => {
+          if (val.photo.length > 0 && val.photo.map(f => f.endsWith('.webp'))){
+            this.cabinetService.getLensImage(val.id, 'webp').subscribe(value1 =>  {
+              this.createImageFromBlob(value1, val.id);
+            });
+          }
+        });
         this.values = value.lenses;
         this.totalElements = value.totalElements;
         this.totalPages = value.totalPages;
@@ -259,6 +279,22 @@ export class ItemsComponent implements OnInit, OnChanges {
       this.currentStateTab = undefined;
     }else {
       this.currentStateTab = 0;
+    }
+  }
+
+
+  createImageFromBlob(photo: Blob, imageId): void {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      this.values.map((value) => {
+        if (imageId === value.id){
+          value.img = reader.result;
+        }
+      });
+    }, false);
+
+    if (photo) {
+      reader.readAsDataURL(photo);
     }
   }
 }

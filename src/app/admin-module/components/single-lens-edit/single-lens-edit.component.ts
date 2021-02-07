@@ -56,7 +56,6 @@ export class SingleLensEditComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe( lensId => {
       this.cabinetService.getLens(lensId.id).subscribe(value => {
-        console.log(value);
         this.images = value.photo;
         this.id = value.id;
         for (const param of Object.keys(this.updateForm.controls)){
@@ -107,11 +106,26 @@ export class SingleLensEditComponent implements OnInit {
   }
 
   uploadImage(): void {
-      const file: File = this.fileToUpload[0];
-      const formData: FormData = new FormData();
-      formData.append('file', file, file.name);
-      const headers = new Headers();
-      headers.append('Content-Type', 'multipart/form-data');
-      this.lensService.addLensImage(this.id, formData, headers).subscribe(value => console.log(value));
+    const file: File = this.fileToUpload[0];
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+    const headers = new Headers();
+    headers.append('Content-Type', 'multipart/form-data');
+    this.lensService.addLensImage(this.id, formData, headers).toPromise()
+      .then(response => {
+        if (response){
+          setTimeout(() => {
+            this.successResponse = true;
+          }, 3000);
+          this.successResponse = false;
+        }else {
+          this.broadcastService.http404.asObservable().subscribe(value => {
+            if (value === true){
+              this.errorResponse.push('Повторіть спробу пізніше');
+              this.removeError();
+            }
+          });
+        }
+      });
   }
 }

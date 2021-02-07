@@ -21,18 +21,18 @@ export class AddFormComponent implements OnInit {
   navOptions; currentOption;
   sTypeList; sProducerList; sBrandList; sValueList; lTypeList; lProducerList; lBrandList; lQuantityList; lCorrectionList; lMaterialList;
   cProducerList;
-  errorResponse = []; successResponse = false;
+  errorResponse = []; successResponse = false; fileToUpload: File = null;
   constructor(private lensService: LensService,
               private broadcastService: BroadcastService) {
     this.navOptions = navOption;
     this.addSolutionForm = new FormGroup({
       pName: new FormControl(''),
       pPrice: new FormControl(''),
+      mediaField: new FormControl(),
       sType: new FormControl(),
       sProducer: new FormControl(),
       sBrand: new FormControl(),
       sValue: new FormControl(),
-      pPhoto: new FormControl(),
       sDate: new FormControl(''),
       sTdt: new FormControl(''),
       sZip: new FormControl(''),
@@ -125,6 +125,10 @@ export class AddFormComponent implements OnInit {
       return this.lensService.addLens(lens).toPromise()
         .then((response) => {
           if (response){
+            console.log(response);
+            if (this.fileToUpload !== null){
+              this.uploadImage(response.lensId);
+            }
             setTimeout(() => {
               this.successResponse = true;
             }, 3000);
@@ -270,6 +274,19 @@ export class AddFormComponent implements OnInit {
       this.errorResponse.push('Заповніть усі поля коректно!');
       this.removeError();
     }
+  }
+
+  preUploadPhoto(e): void {
+      this.fileToUpload = e.target.files;
+  }
+
+  uploadImage(lensId): void {
+    const file: File = this.fileToUpload[0];
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+    const headers = new Headers();
+    headers.append('Content-Type', 'multipart/form-data');
+    this.lensService.addLensImage(lensId, formData, headers).subscribe(value => console.log(value));
   }
 
   removeError(): void {

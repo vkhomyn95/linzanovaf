@@ -4,6 +4,7 @@ import {CabinetService} from '../../../services/cabinet.service';
 import {ActivatedRoute} from '@angular/router';
 import {BroadcastService} from '../../../services/components-data/broadcast.service';
 import {UpdateOffer} from '../../../models/special-offers/SpecialOffer';
+import {LensService} from '../../../services/lens.service';
 
 @Component({
   selector: 'app-single-offer-edit',
@@ -12,14 +13,16 @@ import {UpdateOffer} from '../../../models/special-offers/SpecialOffer';
 })
 export class SingleOfferEditComponent implements OnInit {
   updateForm: FormGroup;
-  errorResponse = []; successResponse = false;
+  errorResponse = []; successResponse = false; images = []; id: number; fileToUpload: File = null;
 
   constructor(private cabinetService: CabinetService,
               private activatedRoute: ActivatedRoute,
-              private broadcastService: BroadcastService) {
+              private broadcastService: BroadcastService,
+              private lensService: LensService) {
     this.updateForm = new FormGroup({
       name: new FormControl(''),
       price: new FormControl(''),
+      mediaField: new FormControl(),
       avgPriceInUkraine: new FormControl(''),
       firstItemName: new FormControl(''),
       secondItemName: new FormControl(''),
@@ -37,6 +40,8 @@ export class SingleOfferEditComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe( offerId => {
       this.cabinetService.getOffer(offerId.id).subscribe(value => {
+        this.images = value.photo;
+        this.id = value.id;
         for (const param of Object.keys(this.updateForm.controls)){
           for (const offer in value) {
             if (param === offer){
@@ -68,6 +73,36 @@ export class SingleOfferEditComponent implements OnInit {
           }
         });
     });
+  }
+
+  preUploadPhoto(e): void {
+    if (this.images.length < 2){
+      this.fileToUpload = e.target.files;
+    }
+  }
+
+  uploadImage(): void {
+    const file: File = this.fileToUpload[0];
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+    const headers = new Headers();
+    headers.append('Content-Type', 'multipart/form-data');
+    this.lensService.addOfferImage(this.id, formData, headers).toPromise()
+      .then(response => {
+        if (response){
+          setTimeout(() => {
+            this.successResponse = true;
+          }, 3000);
+          this.successResponse = false;
+        }else {
+          this.broadcastService.http404.asObservable().subscribe(value => {
+            if (value === true){
+              this.errorResponse.push('Повторіть спробу пізніше');
+              this.removeError();
+            }
+          });
+        }
+      });
   }
 
   removeError(): void {
