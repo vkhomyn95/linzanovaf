@@ -26,8 +26,8 @@ export class HotPropositionComponent implements OnInit {
   ngOnInit(): void {
     this.cabinetService.getAllSpecialOffers(this.currentPage, this.currentSize).subscribe(value => {
       value.specials.map(val => {
-        if (val.photo.length > 0 && val.photo.map(f => f.endsWith('.webp'))){
-          this.cabinetService.getOfferImage(val.id, 'webp').subscribe(value1 =>  {
+        if (val.photo.length > 0 && val.photo.map(f => f.endsWith('.jpg'))){
+          this.cabinetService.getOfferImage('jpeg', val.name).subscribe(value1 =>  {
             this.createImageFromBlob(value1, val.id);
           });
         }

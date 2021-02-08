@@ -61,9 +61,9 @@ export class CabinetService {
   getLensesByFilter(page, size, colName, nameValue): Observable<any> {
     return this.httpClient.get<any>(`/api/lenses/filter?page=${page}&size=${size}&colName=${colName}&name=${nameValue}`);
   }
-  getLensImage(id, format): Observable<Blob> {
+  getLensImage(name, format): Observable<Blob> {
     const headers = new HttpHeaders().set('format', format);
-    return this.httpClient.get<any>(`/api/lenses/image/${id}`, {headers: headers, responseType: 'blob' as 'json'});
+    return this.httpClient.get<any>(`/api/lenses/image?name=${encodeURIComponent(name)}`, {headers: headers, responseType: 'blob' as 'json'});
   }
   getSolutionsCount(): Observable<any> {
     return this.httpClient.get<any>('/api/solution/count');
@@ -83,9 +83,9 @@ export class CabinetService {
   getSolutionsByFilter(page, size, colName, nameValue): Observable<any> {
     return this.httpClient.get<any>(`/api/solution/filter?page=${page}&size=${size}&colName=${colName}&name=${nameValue}`);
   }
-  getSolutionImage(id, format): Observable<Blob> {
+  getSolutionImage(name, format): Observable<Blob> {
     const headers = new HttpHeaders().set('format', format);
-    return this.httpClient.get<any>(`/api/solution/image/${id}`, {headers: headers, responseType: 'blob' as 'json'});
+    return this.httpClient.get<any>(`/api/solution/image?name=${encodeURIComponent(name)}`, {headers: headers, responseType: 'blob' as 'json'});
   }
   getCareCount(): Observable<any> {
     return this.httpClient.get<any>('/api/drops/count');
@@ -105,9 +105,9 @@ export class CabinetService {
   getCaresByFilter(page, size, colName, nameValue): Observable<any> {
     return this.httpClient.get<any>(`/api/drops/filter?page=${page}&size=${size}&colName=${colName}&name=${nameValue}`);
   }
-  getCareImage(id, format): Observable<Blob> {
+  getCareImage(name, format): Observable<Blob> {
     const headers = new HttpHeaders().set('format', format);
-    return this.httpClient.get<any>(`/api/cares/image/${id}`, {headers: headers, responseType: 'blob' as 'json'});
+    return this.httpClient.get<any>(`/api/cares/image?name=${encodeURIComponent(name)}`, {headers: headers, responseType: 'blob' as 'json'});
   }
   getOffer(offerId): Observable<any> {
     return this.httpClient.get<any>(`/api/special/${offerId}`);
@@ -118,9 +118,9 @@ export class CabinetService {
   getAllSpecialOffers(page, size): Observable<any> {
     return this.httpClient.get<any>(`/api/special?page=${page}&size=${size}`, {headers: {skip: 'true'}});
   }
-  getOfferImage(id, format): Observable<Blob> {
+  getOfferImage(format, name): Observable<Blob> {
     const headers = new HttpHeaders().set('format', format);
-    return this.httpClient.get<any>(`/api/special/image/${id}`, {headers: headers, responseType: 'blob' as 'json'});
+    return this.httpClient.get<any>(`/api/special/image?name=${encodeURIComponent(name)}`, {headers: headers, responseType: 'blob' as 'json'});
   }
   updateSpecialOffer(offerId, special): Observable<any> {
     return this.httpClient.post<any>(`/api/special/${offerId}`, special);
