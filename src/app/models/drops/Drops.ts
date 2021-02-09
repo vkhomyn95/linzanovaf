@@ -1,4 +1,5 @@
 export interface Drops {
+  img?: any;
   id?: number;
   name: string;
   price: number;

@@ -312,6 +312,9 @@ table.scroll thead { display: block; }
   .mb-fix {
     padding-bottom: 1.5rem;
   }
+  .mob-title-none {
+    font-size: 11px;
+  }
 }
 @media screen and (max-width: 500px){
   .btn-mob {

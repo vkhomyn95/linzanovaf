@@ -6,6 +6,7 @@ export interface CartItems {
 }
 
 interface Drops {
+  img?: any;
   id: number;
   name: string;
   price: number;
@@ -20,6 +21,7 @@ interface Drops {
 interface Lenses {
   id: number;
   name: string;
+  img?: any;
   price: number;
   quantity: number;
   diopters?: string;
@@ -35,11 +37,13 @@ interface Lenses {
 interface Solutions {
   id: number;
   name: string;
+  img?: any;
   price: number;
   quantity: number;
   solutionValue: number;
 }
 interface HotOffers {
+  img?: string;
   id: number;
   name: string;
   price: number;
