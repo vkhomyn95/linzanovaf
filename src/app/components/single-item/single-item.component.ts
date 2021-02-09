@@ -33,7 +33,7 @@ export class SingleItemComponent implements OnInit {
           if (lensValue.photo.length > 0){
             lensValue.photo.map(p => {
               if (p.endsWith('.jpg')){
-                this.cabinetService.getLensImage(urlId.id, 'jpeg').subscribe( photo => {
+                this.cabinetService.getLensImage(lensValue.name, 'jpeg').subscribe( photo => {
                     this.createImageFromBlob(photo);
                     this.imageLoader = false;
                   });
@@ -45,17 +45,34 @@ export class SingleItemComponent implements OnInit {
         this.cabinetService.getCare(urlId.id).subscribe(careValue => {
             this.care = careValue;
             this.loader = false;
-            console.log(this.care);
+            if (careValue.photo.length > 0){
+              careValue.photo.map(p => {
+                if (p.endsWith('.jpg')){
+                  this.cabinetService.getCareImage(careValue.name, 'jpeg').subscribe( photo => {
+                    this.createImageFromBlob(photo);
+                    this.imageLoader = false;
+                  });
+                }
+              });
+            }
           }
         );
 
       }else if (this.router.url.indexOf('/solutions') > -1){
         this.cabinetService.getSolution(urlId.id).subscribe(solutionValue => {
-            this.solution = solutionValue;
-            this.loader = false;
-            console.log(this.solution);
+          this.solution = solutionValue;
+          this.loader = false;
+          if (solutionValue.photo.length > 0){
+            solutionValue.photo.map(p => {
+              if (p.endsWith('.jpg')){
+                this.cabinetService.getSolutionImage(solutionValue.name, 'jpeg').subscribe( photo => {
+                  this.createImageFromBlob(photo);
+                  this.imageLoader = false;
+                });
+              }
+            });
           }
-        );
+        });
       }
     });
   }

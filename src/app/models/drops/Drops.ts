@@ -1,4 +1,5 @@
 export interface Drops {
+  id?: number;
   name: string;
   price: number;
   avgPriceInUkraine: number;

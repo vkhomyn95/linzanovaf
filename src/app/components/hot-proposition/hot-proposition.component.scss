@@ -4,6 +4,10 @@
 .price-color {
   color: #f84147;
 }
+.added {
+  border: 1px solid #38a169 !important;
+  color: #38a169;
+}
 @media screen and (max-width: 1035px){
   .md-w {
     display: flex;

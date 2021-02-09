@@ -121,13 +121,11 @@ export class AddFormComponent implements OnInit {
         avgPriceInUkraine: this.addSolutionForm.controls.ukrPrice.value,
         availability: this.addSolutionForm.controls.availability.value
       };
-      console.log(lens);
       return this.lensService.addLens(lens).toPromise()
         .then((response) => {
           if (response){
-            console.log(response);
             if (this.fileToUpload !== null){
-              this.uploadImage(response.lensId);
+              this.uploadImage(response.lensId, 1);
             }
             setTimeout(() => {
               this.successResponse = true;
@@ -173,6 +171,9 @@ export class AddFormComponent implements OnInit {
       return this.lensService.addSolution(solution).toPromise()
         .then((response) => {
           if (response){
+            if (this.fileToUpload !== null){
+              this.uploadImage(response.id, 2);
+            }
             setTimeout(() => {
               this.successResponse = true;
             }, 3000);
@@ -211,6 +212,9 @@ export class AddFormComponent implements OnInit {
       return this.lensService.addLensDrops(drops).toPromise()
         .then((response) => {
           if (response){
+            if (this.fileToUpload !== null){
+              this.uploadImage(response.id, 0);
+            }
             setTimeout(() => {
               this.successResponse = true;
             }, 3000);
@@ -256,6 +260,9 @@ export class AddFormComponent implements OnInit {
       return this.lensService.addSpecialOffer(offer).toPromise()
         .then((response) => {
           if (response){
+            if (this.fileToUpload !== null){
+              this.uploadImage(response.id, 3);
+            }
             setTimeout(() => {
               this.successResponse = true;
             }, 3000);
@@ -280,13 +287,85 @@ export class AddFormComponent implements OnInit {
       this.fileToUpload = e.target.files;
   }
 
-  uploadImage(lensId): void {
+  uploadImage(id, category): void {
     const file: File = this.fileToUpload[0];
     const formData: FormData = new FormData();
     formData.append('file', file, file.name);
     const headers = new Headers();
     headers.append('Content-Type', 'multipart/form-data');
-    this.lensService.addLensImage(lensId, formData, headers).subscribe(value => console.log(value));
+    if (category === 0) {
+      this.lensService.addLensDropImage(id, formData, headers).toPromise()
+        .then((response) => {
+          if (response){
+            setTimeout(() => {
+              this.successResponse = true;
+            }, 3000);
+            this.successResponse = false;
+            this.addSolutionForm.reset();
+          }else {
+            this.broadcastService.http404.asObservable().subscribe(value => {
+              if (value === true){
+                this.errorResponse.push('Повторіть спробу пізніше');
+                this.removeError();
+              }
+            });
+          }
+        });
+    }else if (category === 1){
+      this.lensService.addLensImage(id, formData, headers).toPromise()
+        .then((response) => {
+          if (response){
+            setTimeout(() => {
+              this.successResponse = true;
+            }, 3000);
+            this.successResponse = false;
+            this.addSolutionForm.reset();
+          }else {
+            this.broadcastService.http404.asObservable().subscribe(value => {
+              if (value === true){
+                this.errorResponse.push('Повторіть спробу пізніше');
+                this.removeError();
+              }
+            });
+          }
+        });
+    }else if (category === 2){
+      this.lensService.addSolutionImage(id, formData, headers).toPromise()
+        .then((response) => {
+          if (response){
+            setTimeout(() => {
+              this.successResponse = true;
+            }, 3000);
+            this.successResponse = false;
+            this.addSolutionForm.reset();
+          }else {
+            this.broadcastService.http404.asObservable().subscribe(value => {
+              if (value === true){
+                this.errorResponse.push('Повторіть спробу пізніше');
+                this.removeError();
+              }
+            });
+          }
+        });
+    }else if (category === 3){
+      this.lensService.addOfferImage(id, formData, headers).toPromise()
+        .then((response) => {
+          if (response){
+            setTimeout(() => {
+              this.successResponse = true;
+            }, 3000);
+            this.successResponse = false;
+            this.addSolutionForm.reset();
+          }else {
+            this.broadcastService.http404.asObservable().subscribe(value => {
+              if (value === true){
+                this.errorResponse.push('Повторіть спробу пізніше');
+                this.removeError();
+              }
+            });
+          }
+        });
+    }
   }
 
   removeError(): void {

@@ -19,11 +19,6 @@
       <span *ngIf="item.drops.length !== 0" class="cart-modal-box-main-title">Догляд за очима</span>
       <div class="solution-cart-wrapper" *ngFor="let care of item.drops">
         <div class="cart-modal-box-main-item flex flex-row">
-          <div>
-            <a href="https://www.alensa.pl/biofinity-toric-6-soczewek-plyn-gelone-360-ml">
-              <img src="https://www.alensa.pl/imagesCdn/1480/1644-800x600.jpg" alt="product" class="w-18 h-16 mob-img">
-            </a>
-          </div>
           <div class="ml-3">
             <div class="flex-right-row">
               <span class="text-base font-medium font-mono">{{care.name}}</span>
@@ -45,11 +40,6 @@
       <span *ngIf="item.lenses.length !== 0" class="cart-modal-box-main-title">Контактні лінзи</span>
       <div class="solution-cart-wrapper" *ngFor="let lense of item.lenses">
         <div class="cart-modal-box-main-item flex flex-row">
-          <div>
-            <a href="https://www.alensa.pl/biofinity-toric-6-soczewek-plyn-gelone-360-ml">
-              <img src="https://cdn.alensa.pl/imagesCdn/199/5-800x600.jpg" alt="product" class="w-18 h-16 mob-img">
-            </a>
-          </div>
           <div class="ml-3">
             <div class="flex flex-row pt-2">
               <span class="text-base font-medium font-mono">{{lense.name}}</span>
@@ -71,11 +61,6 @@
       <span *ngIf="item.solutions.length !== 0" class="cart-modal-box-main-title">Розчини</span>
       <div class="solution-cart-wrapper" *ngFor="let solution of item.solutions">
         <div class="cart-modal-box-main-item flex flex-row">
-          <div class="flex">
-            <a href="https://www.alensa.pl/biofinity-toric-6-soczewek-plyn-gelone-360-ml">
-              <img src="https://www.alensa.pl/imagesCdn/1480/1644-800x600.jpg" alt="product" class="w-18 h-16 mob-img">
-            </a>
-          </div>
           <div class="ml-3">
             <span class="text-base font-medium font-mono">{{solution.name}}</span>
             <div class="flex flex-row pt-2">

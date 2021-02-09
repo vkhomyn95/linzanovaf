@@ -10,7 +10,7 @@ import {Router} from '@angular/router';
 export class CareCabinetComponent implements OnInit {
   cares = [];
   currentPage =  0;
-  currentSize = 2;
+  currentSize = 8;
   totalElements: number;
   totalPages: number;
   itemName: string;

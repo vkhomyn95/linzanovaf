@@ -235,6 +235,10 @@ export class CartComponent implements OnInit, OnDestroy {
     this.orderStep -= 1;
   }
 
+  goToShop(): void {
+    this.router.navigate(['']);
+  }
+
   deleteCareFromList(careIndex): void {
     this.cartItems.map(value => {
       value.drops.splice(careIndex, 1);

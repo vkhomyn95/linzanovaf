@@ -1,4 +1,5 @@
 export interface Solution {
+  id?: number;
   name: string;
   price: number;
   category?: number;

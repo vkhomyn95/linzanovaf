@@ -107,7 +107,7 @@ export class CabinetService {
   }
   getCareImage(name, format): Observable<Blob> {
     const headers = new HttpHeaders().set('format', format);
-    return this.httpClient.get<any>(`/api/cares/image?name=${encodeURIComponent(name)}`, {headers: headers, responseType: 'blob' as 'json'});
+    return this.httpClient.get<any>(`/api/drops/image?name=${encodeURIComponent(name)}`, {headers: headers, responseType: 'blob' as 'json'});
   }
   getOffer(offerId): Observable<any> {
     return this.httpClient.get<any>(`/api/special/${offerId}`);

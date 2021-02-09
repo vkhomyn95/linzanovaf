@@ -47,4 +47,8 @@ export class HeaderComponent implements OnInit {
     this.isOpen = !this.isOpen;
     this.router.navigate(['cares']);
   }
+
+  setClosedLink($event: boolean): void {
+    this.isOpen = $event;
+  }
 }

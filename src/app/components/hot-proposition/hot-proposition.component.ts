@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CabinetService} from '../../services/cabinet.service';
 import {CartObjectService} from '../../services/components-data/cart-object.service';
-import {of, Subscription} from 'rxjs';
 import {CartItems} from '../../models/order/CartItems';
 
 @Component({
@@ -16,7 +15,7 @@ export class HotPropositionComponent implements OnInit {
   currentPage =  0;
   currentSize = 20;
   totalElements: number;
-  items: CartItems[];
+  items: CartItems[];  offersIndex = [];
   totalPages: number;
 
 
@@ -38,8 +37,11 @@ export class HotPropositionComponent implements OnInit {
     this.cartObjectService.getObject().subscribe(value => {
       if (value){
         this.items = value;
-        console.log(value);
-
+        this.offersIndex = [];
+        value[0].offers.map(offer => {
+          this.offersIndex.push(offer.id);
+        });
+        console.log(this.offersIndex);
       }
     });
   }
@@ -63,11 +65,11 @@ export class HotPropositionComponent implements OnInit {
           value.img = reader.result;
         }
       });
-      console.log(this.offers);
     }, false);
 
     if (photo) {
       reader.readAsDataURL(photo);
     }
   }
+
 }

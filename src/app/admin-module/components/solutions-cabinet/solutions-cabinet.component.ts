@@ -10,7 +10,7 @@ import {CabinetService} from '../../../services/cabinet.service';
 export class SolutionsCabinetComponent implements OnInit {
   solutions = [];
   currentPage =  0;
-  currentSize = 2;
+  currentSize = 8;
   totalElements: number;
   totalPages: number;
   itemName: string;

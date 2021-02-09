@@ -10,7 +10,7 @@ import {Router} from '@angular/router';
 export class OrdersCabinetComponent implements OnInit {
   orders = [];
   currentPage =  0;
-  currentSize = 4;
+  currentSize = 8;
   totalElements: number;
   totalPages: number;
   itemName: string;

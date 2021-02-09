@@ -689,8 +689,8 @@
                 </dt>
                 <div class="flex flex-col">
                   <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-1 flex flex-row">
-                    <input formControlName="userLastName" class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="lastName" type="text" placeholder="Ваше прізвище">
                     <input formControlName="userFirstName" class="shadow-sm appearance-none border rounded w-full py-2 px-3 ml-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  id="firstName" type="text" placeholder="Ваше ім'я">
+                    <input formControlName="userLastName" class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="lastName" type="text" placeholder="Ваше прізвище">
                   </dd>
                   <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-1 pt-3">
                     <input formControlName="patronymic" class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="patronymic" type="text" placeholder="По батькові">
@@ -762,29 +762,39 @@
         </div>
       </div>
     </div>
-    <div *ngIf="cartItems && orderStep === 0" class="flex justify-end my-4">
-      <span class="md:text-xl">Загальна вартість: <span class="text-red-500 font-bold">{{totalPrice}} грн</span></span>
-    </div>
-    <div class="flex justify-between">
-      <div [ngClass]="{'mx-auto mt-10': !cartItems}">
+    <ng-container *ngIf="cartItems && cartItems[0].lenses.length === 0 && cartItems[0].solutions.length === 0 && cartItems[0].drops.length === 0 && cartItems[0].offers.length === 0">
+      <div class="flex justify-center mt-4">
         <button
           class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded btn-mob"
-          (click)="prevStep()">
+          (click)="goToShop()">
           Продовжити покупки
         </button>
       </div>
-      <div *ngIf="cartItems && orderStep !== 2">
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded btn-mob" (click)="nextStep(cartItems)">
-          Перейти до замовлення
-        </button>
+    </ng-container>
+    <ng-container *ngIf="cartItems && cartItems[0].lenses.length > 0 || cartItems[0].solutions.length > 0 || cartItems[0].drops.length > 0 || cartItems[0].offers.length > 0">
+      <div *ngIf="orderStep === 0" class="flex justify-end my-4">
+        <span class="md:text-xl">Загальна вартість: <span class="text-red-500 font-bold">{{totalPrice}} грн</span></span>
       </div>
-      <div *ngIf="orderStep === 2">
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded btn-mob" (click)="checkOut()">
-          Оформити замовлення
-        </button>
+      <div class="flex justify-between">
+        <div [ngClass]="{'mx-auto mt-10': !cartItems}">
+          <button
+            class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded btn-mob"
+            (click)="prevStep()">
+            Продовжити покупки
+          </button>
+        </div>
+        <div *ngIf="cartItems && orderStep !== 2">
+          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded btn-mob" (click)="nextStep(cartItems)">
+            Перейти до замовлення
+          </button>
+        </div>
+        <div *ngIf="orderStep === 2">
+          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded btn-mob" (click)="checkOut()">
+            Оформити замовлення
+          </button>
+        </div>
       </div>
-    </div>
-
+    </ng-container>
   </div>
 </section>
 <div *ngIf="cartErrorMsg" class="alert-message-column">

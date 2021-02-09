@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit, Output, EventEmitter} from '@angular/core';
 import {Location} from '@angular/common';
 import {Router} from '@angular/router';
 import {CartObjectService} from '../../services/components-data/cart-object.service';
@@ -15,6 +15,7 @@ import {SpecialOffer} from '../../models/special-offers/SpecialOffer';
 })
 export class CartModalComponent implements OnInit {
   @Input() mbWidth;
+  @Output() setHeaderClosed = new EventEmitter<boolean>();
   cartVisisbility = false;
   cartItems: CartItems[];
   cartItemsQuantity = 0;
@@ -58,6 +59,7 @@ export class CartModalComponent implements OnInit {
   }
 
   showCart(): boolean {
+    this.setHeaderClosed.emit(false);
     if (this.router.url.includes('/cart')) {
       this.cartVisisbility = false;
     }else {

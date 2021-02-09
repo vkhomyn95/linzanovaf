@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {CabinetService} from '../../services/cabinet.service';
 import {CartObjectService} from '../../services/components-data/cart-object.service';
 import {CartItems} from '../../models/order/CartItems';
+import {of} from 'rxjs';
 
 @Component({
   selector: 'app-items',
@@ -14,10 +15,10 @@ export class ItemsComponent implements OnInit {
   range = 12;
   loader = true;
   totalElements = 0; totalPages = 0;
-  currentPage = 0; itemsSize = 9; allPagesSize = 12;
+  currentPage = 0; itemsSize = 9; allPagesSize = 12; nothingToDisplay = false;
 
   values = [];
-  items: CartItems[]; itemCategoryName: string; itemCategoryId: number;
+  items: CartItems[]; itemCategoryName: string; itemCategoryId: number; offersIndex = [{solutions: [], drops: [], lenses: []}];
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
@@ -50,12 +51,25 @@ export class ItemsComponent implements OnInit {
     this.cartObjectService.getObject().subscribe(value => {
       if (value){
         this.items = value;
+        this.offersIndex = [{solutions: [], drops: [], lenses: []}];
+        this.items[0].lenses.map(lens => {
+          this.offersIndex[0].lenses.push(lens.id);
+        });
+        value[0].drops.map(drop => {
+          this.offersIndex[0].drops.push(drop.id);
+        });
+        value[0].solutions.map(solution => {
+          this.offersIndex[0].solutions.push(solution.id);
+        });
       }
     });
   }
 
   getAllLenses(page): void {
     this.cabinetService.getAllLenses(page, this.allPagesSize).subscribe(value => {
+      if (value.lenses.length === 0){
+        this.nothingToDisplay = true;
+      }
       value.lenses.map(val => {
         if (val.photo.length > 0 && val.photo.map(f => f.endsWith('.webp'))){
           this.cabinetService.getLensImage(val.name, 'webp').subscribe(value1 =>  {
@@ -75,6 +89,9 @@ export class ItemsComponent implements OnInit {
   getLensesSearch(page): void {
     this.activatedRoute.queryParams.subscribe(params => {
       this.cabinetService.searchLensesByName(params.name, page, this.allPagesSize).subscribe(value => {
+        if (value.lenses.length === 0){
+          this.nothingToDisplay = true;
+        }
         value.lenses.map(val => {
           if (val.photo.length > 0 && val.photo.map(f => f.endsWith('.webp'))){
             this.cabinetService.getLensImage(val.name, 'webp').subscribe(value1 =>  {
@@ -95,6 +112,9 @@ export class ItemsComponent implements OnInit {
   getLensesFilter(page): void {
     this.activatedRoute.queryParams.subscribe(params => {
       this.cabinetService.getLensesByFilter(page, this.allPagesSize, params.colName, params.name).subscribe(value => {
+        if (value.lenses.length === 0){
+          this.nothingToDisplay = true;
+        }
         value.lenses.map(val => {
           if (val.photo.length > 0 && val.photo.map(f => f.endsWith('.webp'))){
             this.cabinetService.getLensImage(val.name, 'webp').subscribe(value1 =>  {
@@ -114,6 +134,9 @@ export class ItemsComponent implements OnInit {
 
   getAllSolutions(page): void {
     this.cabinetService.getAllSolutions(page, this.allPagesSize).subscribe(value => {
+      if (value.solutions.length === 0){
+        this.nothingToDisplay = true;
+      }
       value.solutions.map(val => {
         if (val.photo.length > 0 && val.photo.map(f => f.endsWith('.webp'))){
           this.cabinetService.getSolutionImage(val.name, 'webp').subscribe(value1 =>  {
@@ -133,6 +156,9 @@ export class ItemsComponent implements OnInit {
   getSolutionsSearch(page): void {
     this.activatedRoute.queryParams.subscribe(params => {
       this.cabinetService.searchSolutionsByName(params.name, page, this.allPagesSize).subscribe(value => {
+        if (value.solutions.length === 0){
+          this.nothingToDisplay = true;
+        }
         value.solutions.map(val => {
           if (val.photo.length > 0 && val.photo.map(f => f.endsWith('.webp'))){
             this.cabinetService.getSolutionImage(val.name, 'webp').subscribe(value1 =>  {
@@ -153,6 +179,9 @@ export class ItemsComponent implements OnInit {
   getSolutionsFilter(page): void {
     this.activatedRoute.queryParams.subscribe(params => {
       this.cabinetService.getSolutionsByFilter(page, this.allPagesSize, params.colName, params.name).subscribe(value => {
+        if (value.solutions.length === 0){
+          this.nothingToDisplay = true;
+        }
         value.solutions.map(val => {
           if (val.photo.length > 0 && val.photo.map(f => f.endsWith('.webp'))){
             this.cabinetService.getSolutionImage(val.name, 'webp').subscribe(value1 =>  {
@@ -172,6 +201,9 @@ export class ItemsComponent implements OnInit {
 
   getAllCares(page): void {
     this.cabinetService.getAllCares(page, this.allPagesSize).subscribe(value => {
+      if (value.drops.length === 0){
+        this.nothingToDisplay = true;
+      }
       value.drops.map(val => {
         if (val.photo.length > 0 && val.photo.map(f => f.endsWith('.webp'))){
           this.cabinetService.getCareImage(val.name, 'webp').subscribe(value1 =>  {
@@ -191,6 +223,9 @@ export class ItemsComponent implements OnInit {
   getCaresSearch(page): void {
     this.activatedRoute.queryParams.subscribe(params => {
       this.cabinetService.searchCaresByName(params.name, page, this.allPagesSize).subscribe(value => {
+        if (value.drops.length === 0){
+          this.nothingToDisplay = true;
+        }
         value.drops.map(val => {
           if (val.photo.length > 0 && val.photo.map(f => f.endsWith('.webp'))){
             this.cabinetService.getCareImage(val.name, 'webp').subscribe(value1 =>  {
@@ -211,6 +246,9 @@ export class ItemsComponent implements OnInit {
   getCareFilter(page): void {
     this.activatedRoute.queryParams.subscribe(params => {
       this.cabinetService.getCaresByFilter(page, this.allPagesSize, params.colName, params.name).subscribe(value => {
+        if (value.drops.length === 0){
+          this.nothingToDisplay = true;
+        }
         value.drops.map(val => {
           if (val.photo.length > 0 && val.photo.map(f => f.endsWith('.webp'))){
             this.cabinetService.getCareImage(val.name, 'webp').subscribe(value1 =>  {
@@ -230,6 +268,9 @@ export class ItemsComponent implements OnInit {
 
   getHomePageItems(page): void {
     this.cabinetService.getAllLenses(page, this.itemsSize).subscribe(value => {
+      if (value.lenses.length === 0){
+        this.nothingToDisplay = true;
+      }
       value.lenses.map(val => {
         if (val.photo.length > 0 && val.photo.map(f => f.endsWith('.webp'))){
           this.cabinetService.getLensImage(val.name, 'webp').subscribe(value1 =>  {
@@ -311,7 +352,7 @@ export class ItemsComponent implements OnInit {
 
   changeTabOption(number): void {
     if (this.isHomePage){
-      this.currentStateTab = number
+      this.currentStateTab = number;
     }else {
       this.currentStateTab = number;
     }

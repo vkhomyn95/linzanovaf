@@ -10,7 +10,7 @@ import {Router} from '@angular/router';
 export class UsersCabinetComponent implements OnInit {
   users = [];
   currentPage =  0;
-  currentSize = 2;
+  currentSize = 10;
   totalElements: number;
   totalPages: number;
   itemName: string;
