@@ -7,10 +7,11 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class CommentComponent implements OnInit {
   @Input() loader;
+  @Input() comments;
+  @Input() productCategory;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
 }

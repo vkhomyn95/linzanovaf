@@ -22,6 +22,27 @@
 .cursor-p:hover {
   cursor: pointer;
 }
+.alert-message {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  &-column {
+    display: flex;
+    flex-direction: column;
+  }
+  &-new {
+    margin-top: 10px;
+  }
+}
+
+@media screen and  (max-width: 540px){
+  .comment-box {
+    width: 90%;
+  }
+}
 @media screen and (max-width: 767px) {
   .content-indent {
     padding: 2.1rem 0;

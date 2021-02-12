@@ -153,4 +153,50 @@
     </div>
   </div>
 </div>
-<app-comment [loader]="loader"></app-comment>
+<app-comment [loader]="loader" [comments]="careComments" [productCategory]="productCategory"></app-comment>
+<button *ngIf="totalPages > 1"
+  class="flex mx-auto justify-center inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-indigo-500 rounded-full shadow ripple hover:shadow-lg hover:bg-indigo-600 focus:outline-none" (click)="loadMoreComments()">
+  Завантажити ще
+</button>
+<div *ngIf="token.getToken()" class="flex mx-auto items-center justify-center shadow-lg mx-8 my-4 max-w-lg comment-box">
+  <form class="w-full max-w-xl bg-white rounded-lg px-4 pt-2" [formGroup]="commentForm">
+    <div class="flex flex-wrap -mx-3 mb-6">
+      <h2 class="px-4 pt-3 pb-2 text-gray-800 text-lg">Добавити відгук</h2>
+      <div class="w-full md:w-full px-3 mb-2 mt-2">
+        <textarea formControlName="body" class="bg-gray-100 rounded border border-gray-400 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white" name="body" required></textarea>
+      </div>
+      <div class="w-full md:w-full flex items-start md:w-full px-3">
+        <div class="flex items-start w-1/2 text-gray-700 px-2 mr-auto">
+          <svg fill="none" class="w-5 h-5 text-gray-600 mr-1" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+        </div>
+        <div class="-mr-1">
+          <button (click)="addComment()" class="bg-white text-gray-700 font-medium py-1 px-4 border border-gray-400 rounded-lg tracking-wide mr-1 hover:bg-gray-100">Опублікувати</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="flex mx-auto justify-center mt-4" *ngIf="!token.getToken()">
+  Авторизуйтесь, щоб залишити відгук!
+</div>
+<div *ngIf="errorResponse" class="alert-message-column">
+  <div class="text-center py-4 lg:px-4 alert-message">
+    <div class="p-2 bg-red-400 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex alert-message-new" role="alert" *ngFor="let error of errorResponse">
+      <span class="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></span>
+      <span *ngIf="error.message" class="font-semibold mr-2 text-left flex-auto">{{error.message}}</span>
+      <span  class="font-semibold mr-2 text-left flex-auto">{{error}}</span>
+      <svg class="fill-current opacity-75 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/></svg>
+    </div>
+  </div>
+</div>
+<div *ngIf="successResponse" class="alert-message-column">
+  <div class="text-center py-4 lg:px-4 alert-message">
+    <div class="p-2 bg-green-400 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex alert-message-new" role="alert">
+      <span class="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></span>
+      <span class="font-semibold mr-2 text-left flex-auto">Коментар добавлено</span>
+      <svg class="fill-current opacity-75 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/></svg>
+    </div>
+  </div>
+</div>

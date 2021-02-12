@@ -109,6 +109,9 @@ export class CabinetService {
     const headers = new HttpHeaders().set('format', format);
     return this.httpClient.get<any>(`/api/drops/image?name=${encodeURIComponent(name)}`, {headers: headers, responseType: 'blob' as 'json'});
   }
+  getCareComments(careId, page): Observable<any>{
+    return this.httpClient.get<any>(`/api/drop/${careId}/comments?page=${page}`);
+  }
   getOffer(offerId): Observable<any> {
     return this.httpClient.get<any>(`/api/special/${offerId}`);
   }

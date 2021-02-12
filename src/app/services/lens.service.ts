@@ -37,6 +37,10 @@ export class LensService {
     return this.httpClient.post<any>(`/api/drops/${dropId}/photo`, formData, options);
   }
 
+  addLensDropComment(dropId, comment): Observable<any>{
+    return this.httpClient.post<any>(`/api/drop/${dropId}/comments`, comment);
+  }
+
   addSpecialOffer(offer: SpecialOffer): Observable<SpecialOffer> {
     return this.httpClient.post<SpecialOffer>('/api/special', offer);
   }
