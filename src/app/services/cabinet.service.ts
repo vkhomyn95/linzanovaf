@@ -49,6 +49,9 @@ export class CabinetService {
   getAllLenses(page, size): Observable<any> {
     return this.httpClient.get<any>(`/api/lenses?page=${page}&size=${size}`, {headers: {skip: 'true'}});
   }
+  getAllLensComments(page, size): Observable<any> {
+    return this.httpClient.get<any>(`/api/lens/comments?page=${page}&size=${size}`);
+  }
   getLens(lensId): Observable<any> {
     return this.httpClient.get<any>(`/api/lenses/${lensId}`);
   }
@@ -65,11 +68,23 @@ export class CabinetService {
     const headers = new HttpHeaders().set('format', format);
     return this.httpClient.get<any>(`/api/lenses/image?name=${encodeURIComponent(name)}`, {headers: headers, responseType: 'blob' as 'json'});
   }
+  getLensComments(lensId, page): Observable<any>{
+    return this.httpClient.get<any>(`/api/lens/${lensId}/comments?page=${page}`);
+  }
+  getSingleLensComment(commentId): Observable<any> {
+    return this.httpClient.get<any>(`/api/lens/comments/${commentId}`);
+  }
+  updateSingleLensComment(commentId, comment): Observable<any> {
+    return this.httpClient.post<any>(`/api/lens/comments/${commentId}/update`, comment);
+  }
   getSolutionsCount(): Observable<any> {
     return this.httpClient.get<any>('/api/solution/count');
   }
   getAllSolutions(page, size): Observable<any> {
     return this.httpClient.get<any>(`/api/solution?page=${page}&size=${size}`, {headers: {skip: 'true'}});
+  }
+  getAllSolutionComments(page, size): Observable<any> {
+    return this.httpClient.get<any>(`/api/solution/comments?page=${page}&size=${size}`);
   }
   getSolution(solutionId): Observable<any> {
     return this.httpClient.get<any>(`api/solution/${solutionId}`);
@@ -87,11 +102,23 @@ export class CabinetService {
     const headers = new HttpHeaders().set('format', format);
     return this.httpClient.get<any>(`/api/solution/image?name=${encodeURIComponent(name)}`, {headers: headers, responseType: 'blob' as 'json'});
   }
+  getSolutionComments(solutionId, page): Observable<any>{
+    return this.httpClient.get<any>(`/api/solution/${solutionId}/comments?page=${page}`);
+  }
+  getSingleSolutionComment(commentId): Observable<any> {
+    return this.httpClient.get<any>(`/api/solution/comments/${commentId}`);
+  }
+  updateSingleSolutionComment(commentId, comment): Observable<any> {
+    return this.httpClient.post<any>(`/api/solution/comments/${commentId}/update`, comment);
+  }
   getCareCount(): Observable<any> {
     return this.httpClient.get<any>('/api/drops/count');
   }
   getAllCares(page, size): Observable<any> {
     return this.httpClient.get<any>(`/api/drops?page=${page}&size=${size}`, {headers: {skip: 'true'}});
+  }
+  getAllCaresComments(page, size): Observable<any> {
+    return this.httpClient.get<any>(`/api/drop/comments?page=${page}&size=${size}`);
   }
   getCare(careId): Observable<any> {
     return this.httpClient.get<any>(`/api/drops/${careId}`, {headers: {skip: 'true'}});
@@ -111,6 +138,12 @@ export class CabinetService {
   }
   getCareComments(careId, page): Observable<any>{
     return this.httpClient.get<any>(`/api/drop/${careId}/comments?page=${page}`);
+  }
+  getSingleCareComment(commentId): Observable<any> {
+    return this.httpClient.get<any>(`/api/drop/comments/${commentId}`);
+  }
+  updateSingleCareComment(commentId, comment): Observable<any> {
+    return this.httpClient.post<any>(`/api/drop/comments/${commentId}/update`, comment);
   }
   getOffer(offerId): Observable<any> {
     return this.httpClient.get<any>(`/api/special/${offerId}`);

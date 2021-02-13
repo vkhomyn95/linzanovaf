@@ -21,12 +21,20 @@ export class LensService {
     return this.httpClient.post<any>(`/api/lenses/${lensId}/photo`, formData, options);
   }
 
+  addLensComment(lensId, comment): Observable<any>{
+    return this.httpClient.post<any>(`/api/lens/${lensId}/comments`, comment);
+  }
+
   addSolution(solution: Solution): Observable<Solution> {
     return this.httpClient.post<Solution>('/api/solution', solution);
   }
 
   addSolutionImage(solutionId, formData, options): Observable<any>{
     return this.httpClient.post<any>(`/api/solution/${solutionId}/photo`, formData, options);
+  }
+
+  addSolutionComment(solutionId, comment): Observable<any>{
+    return this.httpClient.post<any>(`/api/solution/${solutionId}/comments`, comment);
   }
 
   addLensDrops(drops: Drops): Observable<Drops> {

@@ -15,6 +15,11 @@ import {SingleSolutionEditComponent} from './components/single-solution-edit/sin
 import {SingleCareEditComponent} from './components/single-care-edit/single-care-edit.component';
 import {AddFormComponent} from './components/add-form/add-form.component';
 import {AdminComponent} from './components/admin/admin.component';
+import {CommentsComponent} from './components/comments/comments.component';
+import {LensesCommentsComponent} from './components/lenses-comments/lenses-comments.component';
+import {SolutionsCommentsComponent} from './components/solutions-comments/solutions-comments.component';
+import {CaresCommentsComponent} from './components/cares-comments/cares-comments.component';
+import {SingleCommentEditComponent} from './components/single-comment-edit/single-comment-edit.component';
 
 const routes: Routes = [
   {
@@ -28,6 +33,27 @@ const routes: Routes = [
   },
   {
     path: 'products', component: ProductsCabinetComponent
+  },
+  {
+    path: 'comments', component: CommentsComponent
+  },
+  {
+    path: 'comments/lenses', component: LensesCommentsComponent
+  },
+  {
+    path: 'comments/lenses/:id', component: SingleCommentEditComponent
+  },
+  {
+    path: 'comments/solutions', component: SolutionsCommentsComponent
+  },
+  {
+    path: 'comments/solutions/:id', component: SingleCommentEditComponent
+  },
+  {
+    path: 'comments/cares', component: CaresCommentsComponent
+  },
+  {
+    path: 'comments/cares/:id', component: SingleCommentEditComponent
   },
   {
     path: 'offers', component: SpecialOffersCabinetComponent

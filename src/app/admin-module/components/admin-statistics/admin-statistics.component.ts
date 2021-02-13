@@ -48,6 +48,10 @@ export class AdminStatisticsComponent implements OnInit {
     this.router.navigate(['/admin/products']);
   }
 
+  getCommentsView(): void {
+    this.router.navigate(['/admin/comments']);
+  }
+
   getAllOrders(): void {
     this.router.navigate(['/admin/orders']);
   }

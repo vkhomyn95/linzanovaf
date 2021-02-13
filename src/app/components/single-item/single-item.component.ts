@@ -59,7 +59,16 @@ export class SingleItemComponent implements OnInit {
               }
             });
           }
+          this.cabinetService.getLensComments(urlId.id, this.defaultCommentPage).subscribe(lensesComments => {
+            this.totalPages = lensesComments.totalPages;
+            lensesComments.comments.map(value => {
+              const items = new Date(value.createdAt).toDateString();
+              const trimmed = items.substring(items.indexOf(' '), items.lastIndexOf(' '));
+              value.createdAt = trimmed;
+            });
+            this.careComments = lensesComments.comments;
           });
+        });
       }else if (this.router.url.indexOf('/care') > -1){
         this.cabinetService.getCare(urlId.id).subscribe(careValue => {
             this.care = careValue;
@@ -106,6 +115,15 @@ export class SingleItemComponent implements OnInit {
               }
             });
           }
+          this.cabinetService.getSolutionComments(urlId.id, this.defaultCommentPage).subscribe(solutionComments => {
+            this.totalPages = solutionComments.totalPages;
+            solutionComments.comments.map(value => {
+              const items = new Date(value.createdAt).toDateString();
+              const trimmed = items.substring(items.indexOf(' '), items.lastIndexOf(' '));
+              value.createdAt = trimmed;
+            });
+            this.careComments = solutionComments.comments;
+          });
         });
       }
     });
@@ -146,6 +164,40 @@ export class SingleItemComponent implements OnInit {
     const comment: Comment  = this.commentForm.value;
     if (this.productCategoryId === 0){
       this.lensService.addLensDropComment(this.productId, comment).toPromise()
+        .then((response) => {
+          if (response){
+            setTimeout(() => {
+              this.successResponse = true;
+            }, 3000);
+            this.successResponse = false;
+          }else {
+            this.broadcastService.http404.asObservable().subscribe(value => {
+              if (value === true){
+                this.errorResponse.push('Повторіть спробу пізніше');
+                this.removeError();
+              }
+            });
+          }
+        });
+    }else if (this.productCategoryId === 1){
+      this.lensService.addLensComment(this.productId, comment).toPromise()
+        .then((response) => {
+          if (response){
+            setTimeout(() => {
+              this.successResponse = true;
+            }, 3000);
+            this.successResponse = false;
+          }else {
+            this.broadcastService.http404.asObservable().subscribe(value => {
+              if (value === true){
+                this.errorResponse.push('Повторіть спробу пізніше');
+                this.removeError();
+              }
+            });
+          }
+        });
+    }else if (this.productCategoryId === 2){
+      this.lensService.addSolutionComment(this.productId, comment).toPromise()
         .then((response) => {
           if (response){
             setTimeout(() => {

@@ -23,6 +23,11 @@ import {SingleCareEditComponent} from './components/single-care-edit/single-care
 import {AdminStatisticsComponent} from './components/admin-statistics/admin-statistics.component';
 import {authInterceptorProviders} from '../interceptors/auth.interceptor';
 import {backendInterceptorProviders} from '../interceptors/backend.interceptor';
+import { CommentsComponent } from './components/comments/comments.component';
+import { LensesCommentsComponent } from './components/lenses-comments/lenses-comments.component';
+import { SolutionsCommentsComponent } from './components/solutions-comments/solutions-comments.component';
+import { CaresCommentsComponent } from './components/cares-comments/cares-comments.component';
+import { SingleCommentEditComponent } from './components/single-comment-edit/single-comment-edit.component';
 
 
 
@@ -43,7 +48,12 @@ import {backendInterceptorProviders} from '../interceptors/backend.interceptor';
     SingleOfferEditComponent,
     SingleLensEditComponent,
     SingleSolutionEditComponent,
-    SingleCareEditComponent
+    SingleCareEditComponent,
+    CommentsComponent,
+    LensesCommentsComponent,
+    SolutionsCommentsComponent,
+    CaresCommentsComponent,
+    SingleCommentEditComponent
   ],
   imports: [
     CommonModule,
